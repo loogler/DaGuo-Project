@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/topbar_myshuoshuo_bg" >
+
+        <ImageButton
+            android:id="@+id/friend_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/bt_back" />
+
+        <TextView
+            android:id="@+id/friend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="新版吐槽"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/friend_more"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/send_btn_shuoshuo"
+            android:text="发送"
+            android:gravity="center"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_rec" >
+
+        <EditText
+            android:focusable="true"
+            android:id="@+id/user_opinion_content_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="在此开始输入您的建议"
+            android:maxEms="3000" />
+        <requestFocus />
+
+        <TextView
+            android:layout_gravity="end|bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="3000字以内"
+            android:textColor="@color/gray" />
+
+    </FrameLayout>
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎您使用大果校园，如果您在使用过程中有任何问题，欢迎反馈给我们的团队，谢谢！"
+        android:textSize="12sp"
+        android:textColor="@color/text"
+        />
+
+</LinearLayout>

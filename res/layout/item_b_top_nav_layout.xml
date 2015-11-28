@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/lottery_list_selector_disabled_holo_light"
+     >
+    
+    <TextView 
+        android:drawableStart="@drawable/shop_bar"
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" 
+        android:gravity="center"
+        />
+    
+    
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+        android:contentDescription="@null"
+        android:visibility="visible" />
+
+</LinearLayout>

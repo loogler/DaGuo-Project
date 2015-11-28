@@ -1,0 +1,245 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!-- 校园课表主页部分首页样式 -->
+    <style name="tab_item_text_style">
+        <item name="android:textSize">28.0dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <!-- 校园课表备忘录记录点滴的样式 -->
+    <style name="btn_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_btn</item>
+    </style>
+    <!-- 添加备忘标题样式 -->
+    <style name="R_tittle_tv">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">2dip</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:shadowColor">@color/black</item>
+    </style>
+    <!-- 课表添加备忘的字体样式 -->
+    <style name="R_datebox_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    <!-- 课表添加备忘输入框样式 -->
+    <style name="R_edittext_et">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:hint">请在这里输入内容...</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:maxLength">300</item>
+        <item name="android:maxLines">8</item>
+        <item name="android:drawableBottom">@drawable/edittext_bottom</item>
+        <item name="android:background">@drawable/edittext_background_1</item>
+        <item name="android:paddingLeft">23dp</item>
+        <item name="android:paddingRight">23dp</item>
+        <item name="android:paddingTop">30dp</item>
+    </style>
+    <!-- 自定义的课表编辑界面 包括下面三个style -->
+    <style name="show_tv1">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:layout_marginLeft">1.5dp</item>
+    </style>
+
+    <style name="show_tv2">
+        <item name="android:textSize">25dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">1.5dp</item>
+    </style>
+
+    <style name="show_tv3">
+        <item name="android:textSize">18dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">1.5dp</item>
+    </style>
+    <!-- 课程表主页按钮样式 -->
+    <style name="btn_style_2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_btn_2</item>
+    </style>
+
+    <!-- 课表编辑界面的输入框样式 -->
+    <style name="scheduleInsert_tv1">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:layout_marginLeft">1.5dp</item>
+    </style>
+
+    <style name="scheduleInsert_et2">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@color/title</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">1.5dp</item>
+    </style>
+
+    <style name="scheduleInsert_et3">
+        <item name="android:textSize">13dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:background">@drawable/show_tv_background</item>
+        <item name="android:layout_margin">0.5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">1.5dp</item>
+    </style>
+
+    <!-- CustomProgressDialog 下面两个样式资源 -->
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="border_title">
+        <item name="android:background">#F0EFF0</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="button">
+        <item name="android:background">@color/green_home</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+    <!-- 用于拍照时的按钮样式 -->
+
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <!-- 以下3个 用于修改资料部分大段重复的relativitylayout布局 -->
+    <style name="userinfo_item_top">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@drawable/tabmyself_top</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">20dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="userinfo_item_middle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@drawable/tabmyself_middle</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">1dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="userinfo_item_bottom">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@drawable/tabmyself_bottom</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">1dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!-- list框架的样式 -->
+    <style name="customProgressBar" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:indeterminateDrawable">@drawable/custom_progress_bar</item>
+        <item name="android:layout_width">21dip</item>
+        <item name="android:layout_height">21dip</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <!-- 这是校园活动筛选的顶部dialog样式 -->
+    <style name="sc_huodong_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground"> @android:color/transparent </item>
+    </style>
+
+</resources>

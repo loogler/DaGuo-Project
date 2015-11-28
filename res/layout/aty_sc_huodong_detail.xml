@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 标题 -->
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@color/green_home" >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/rightarrow" />
+
+        <TextView
+            android:id="@+id/xuanze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="2dp"
+            android:text="活动详情"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_mail"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:paddingRight="10dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/school_main1_message" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="45dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_yuanjiao"
+            android:orientation="vertical"
+            android:padding="6dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="4dp" >
+
+                <TextView
+                    android:id="@+id/type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sc_huodong_round_icon_yel"
+                    android:gravity="center"
+                    android:text="赛事"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="南京明皇宫遗址遇百亿开发商"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/deep_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/btn_radio_holo_light1"
+                    android:padding="3dp"
+                    android:text="08:20 11:30 - 08:30"
+                    android:textColor="@color/gray" />
+
+                <TextView
+                    android:id="@+id/end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/btn_radio_holo_light1"
+                    android:padding="3dp"
+                    android:text="08:20 11:30 - 08:30"
+                    android:textColor="@color/gray" />
+
+                <TextView
+                    android:id="@+id/type_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/btn_radio_holo_light1"
+                    android:padding="3dp"
+                    android:text="在线提交作品" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="3dp" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:src="@drawable/btn_radio_holo_light1" />
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="6"
+                        android:text="一、主题释义：设计大奖赛在全国范围内的十年里举办多次，每次都很隆重，规模之大，实属少见，再加上高手云集，美女如云，技艺高超，这里将是你成就梦想的地方.一、主题释义：设计大奖赛在全国范围内的十年里举办多次，每次都很隆重，规模之大，实属少见，再加上高手云集，美女如云，技艺高超，这里将是你成就梦想的地方" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/welcome" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="全部评论" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_margin="2dp"
+                    android:background="@color/gray" />
+
+                <com.daguo.util.pulllistview.XListView_Scroll
+                    android:id="@+id/xlistview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000" >
+                </com.daguo.util.pulllistview.XListView_Scroll>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_whiteback_huodongbaoming"
+            android:drawableStart="@drawable/icon_fenxiang_sc_huodong"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="#f80" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="3"
+            android:background="@drawable/btn_yellowback_huodongbaoming"
+            android:gravity="center"
+            android:text="我要报名"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_whiteback_huodongbaoming"
+            android:drawableLeft="@drawable/icon_pinglun_sc_huodong"
+            android:gravity="center"
+            android:text="评论"
+            android:textColor="#f80" />
+    </LinearLayout>
+
+</RelativeLayout>

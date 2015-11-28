@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:background="@drawable/about_background"
+  
+  >
+ <TextView
+              android:id="@+id/schedule_insert_tv1"
+              android:text="修改课程"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:layout_marginTop="10dp"
+              style="@style/R_tittle_tv"
+              android:layout_weight="1"
+              
+   ></TextView>
+ <Spinner 
+        android:id="@+id/spinner1" 
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_below="@id/schedule_insert_tv1"
+        android:layout_width="150dp" 
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+      android:layout_weight="1"
+        ></Spinner>
+      
+<LinearLayout
+    android:layout_below="@id/spinner1"
+    android:layout_weight="25"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" 
+>
+ <ScrollView
+                       
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"   
+                        android:scrollbars="vertical"
+                        
+                        
+                        
+    >
+       <TableLayout
+  
+  android:layout_width="fill_parent" android:layout_height="wrap_content"
+
+  android:id="@+id/schedule_tl"
+  android:shrinkColumns="1"
+  android:stretchColumns="1"
+  android:paddingLeft="5dp"
+  android:paddingRight="5dp"
+ 
+  >
+     
+      <TableRow
+          
+         >
+          <TextView
+              android:id="@+id/scheduleInsert_tv1_1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_gravity="center"
+              android:text="1、2节"
+             
+              style="@style/scheduleInsert_tv1">
+          </TextView>
+          <LinearLayout
+          
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+              <EditText
+                  android:id="@+id/scheduleInsert_et1_2"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                 
+                  style="@style/scheduleInsert_et2">
+              </EditText>
+              <EditText
+                  android:id="@+id/scheduleInsert_et1_3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                 
+                  style="@style/scheduleInsert_et3">
+              </EditText>              
+          </LinearLayout>
+      </TableRow>
+      <TableRow
+         
+          >
+          <TextView
+              android:id="@+id/scheduleInsert_tv2_1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+             
+              android:text="3、4节"
+              style="@style/scheduleInsert_tv1">
+          </TextView>
+          <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+              <EditText
+                  android:id="@+id/scheduleInsert_et2_2"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et2">
+              </EditText>
+              <EditText
+                  android:id="@+id/scheduleInsert_et2_3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et3">
+              </EditText>              
+          </LinearLayout>
+      </TableRow>
+      <TableRow
+         
+         >
+          <TextView
+              android:id="@+id/scheduleInsert_tv3_1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_gravity="center"
+              android:text="5、6节"
+              style="@style/scheduleInsert_tv1">
+          </TextView>
+          <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+              <EditText
+                  android:id="@+id/scheduleInsert_et3_2"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                 
+                  style="@style/scheduleInsert_et2">
+              </EditText>
+              <EditText
+                  android:id="@+id/scheduleInsert_et3_3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et3">
+              </EditText>              
+          </LinearLayout>
+      </TableRow>
+      <TableRow
+         
+         >
+          <TextView
+              android:id="@+id/scheduleInsert_tv4_1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              
+              android:text="7、8节"
+              style="@style/scheduleInsert_tv1">
+          </TextView>
+          <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+              <EditText
+                  android:id="@+id/scheduleInsert_et4_2"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et2">
+              </EditText>
+              <EditText
+                  android:id="@+id/scheduleInsert_et4_3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et3">
+              </EditText>              
+          </LinearLayout>
+      </TableRow>
+      <TableRow
+         
+          >
+          <TextView
+              android:id="@+id/scheduleInsert_tv5_1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              
+              android:text="选修"
+              style="@style/scheduleInsert_tv1">
+          </TextView>
+          <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+              <EditText
+                  android:id="@+id/scheduleInsert_et5_2"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                 
+                  style="@style/scheduleInsert_et2">
+              </EditText>
+              <EditText
+                  android:id="@+id/scheduleInsert_et5_3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  
+                  style="@style/scheduleInsert_et3"
+                  
+                  >
+              </EditText>              
+          </LinearLayout>
+      </TableRow>
+
+     </TableLayout>
+   </ScrollView>
+</LinearLayout>
+<LinearLayout
+         
+          android:layout_weight="3"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true" 
+          android:orientation="horizontal"
+          android:gravity="center_horizontal"
+          android:layout_below="@id/schedule_tl"
+          >
+          <ImageButton
+              android:id="@+id/schedule_insert_bt1"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:src="@drawable/selector_btn_sumit"
+              android:background="@android:color/transparent"
+              android:layout_marginBottom="10dp"
+              >
+              </ImageButton>
+          <ImageButton
+              android:id="@+id/schedule_insert_bt2"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:src="@drawable/selector_btn_back"
+              android:background="@android:color/transparent"
+              android:layout_marginBottom="10dp"
+              >
+              </ImageButton>
+            
+          
+          </LinearLayout>
+  
+    
+   
+        
+   
+</LinearLayout>

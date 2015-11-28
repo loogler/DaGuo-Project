@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/remind_background"
+    android:orientation="vertical" >
+
+    <!--
+       <TextView
+              android:id="@+id/remind_tv1"
+              style="@style/R_datebox_tv"
+              android:paddingTop="10dp"
+             
+               >
+             
+              </TextView>
+    -->
+
+    <ListView
+        android:id="@+id/myListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:cacheColorHint="#00000000" >
+    </ListView>
+
+    <Button
+        android:id="@+id/app_remind_bt1"
+        style="@style/btn_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+    </Button>
+
+</RelativeLayout>

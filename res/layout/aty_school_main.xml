@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:background="@color/white" />
+        </LinearLayout>
+    </TabHost>
+
+    <Button
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#00ffffff"
+        android:drawableTop="@drawable/school_main_centertab"
+        android:gravity="center_horizontal"
+        android:onClick="openCameraActivity"
+        android:scaleType="fitCenter"
+        android:text="大果"
+        android:textColor="@color/deep_s_gray"
+        android:textSize="12sp" />
+
+</RelativeLayout>

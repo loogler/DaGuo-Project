@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00ffffff"
+    android:stretchColumns="1" >
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scrollbars="vertical" >
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="400dip"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:shrinkColumns="1"
+            android:stretchColumns="1" >
+
+            <TextView
+                android:id="@+id/show_tv0"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:text="星期五"
+                android:textColor="@color/title"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/show_tv1_1"
+                    style="@style/show_tv1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:text="1、2节" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/show_tv1_2"
+                        style="@style/show_tv2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="计算机" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/show_tv1_3"
+                        style="@style/show_tv3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="教四 403" >
+                    </TextView>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/show_tv2_1"
+                    style="@style/show_tv1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="3、4节" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/show_tv2_2"
+                        style="@style/show_tv2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="大英" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/show_tv2_3"
+                        style="@style/show_tv3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="教二 103" >
+                    </TextView>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/show_tv3_1"
+                    style="@style/show_tv1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:text="5、6节" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/show_tv3_2"
+                        style="@style/show_tv2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="计算机组成原理" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/show_tv3_3"
+                        style="@style/show_tv3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="教五 401" >
+                    </TextView>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/show_tv4_1"
+                    style="@style/show_tv1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="7、8节" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/show_tv4_2"
+                        style="@style/show_tv2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="English" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/show_tv4_3"
+                        style="@style/show_tv3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="教一 212" >
+                    </TextView>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/show_tv5_1"
+                    style="@style/show_tv1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="选修" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/show_tv5_2"
+                        style="@style/show_tv2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="大学生心理健康教育" >
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/show_tv5_3"
+                        style="@style/show_tv3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="教四 403" >
+                    </TextView>
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</TableLayout>

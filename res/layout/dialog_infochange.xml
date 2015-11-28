@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:padding="5dp"
+        android:background="@drawable/yuanjiao"
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/dia1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="请输入昵称："
+            android:textColor="@color/green_home"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/dia2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="在此输入"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/dia3"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/btn_yuanjiao"
+        android:padding="10dp"
+        android:text="提交" />
+
+</RelativeLayout>

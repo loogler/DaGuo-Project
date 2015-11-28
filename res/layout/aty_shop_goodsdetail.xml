@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/nickname_tv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/green_home"
+        android:gravity="center"
+        android:text="商品详情"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nickname_tv" >
+
+        <LinearLayout
+            android:paddingBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/goods_icon"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp" >
+
+                    <TextView
+                        android:id="@+id/goods_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="商品名："
+                        android:textColor="@color/green_home"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/goods_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="单价："
+                        android:textColor="@color/green_home"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/goods_score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="购买积分："
+                        android:textColor="@color/green_home"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <com.daguo.modem.photo.NoScrollGridView
+                            android:id="@+id/grid"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="auto_fit"
+                            android:stretchMode="columnWidth"
+                            android:verticalSpacing="1dp" >
+                        </com.daguo.modem.photo.NoScrollGridView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="宝贝详情"
+                android:textColor="@color/green_press"
+                android:textSize="20sp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/godds_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="详细介绍..."
+                android:textColor="@color/gray" />
+            <WebView 
+                 android:id="@+id/godds_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="详细介绍..."
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:background="@color/green_home"
+        android:id="@+id/frameLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/pay_btn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_yuanjiao"
+            android:padding="8dp"
+            android:text="结算"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+</RelativeLayout>

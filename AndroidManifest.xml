@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.daguo"
+    android:versionCode="1"
+    android:versionName="1.29" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 可选 -->
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name="com.daguo.ui.before.MyAppliation"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="大果校园"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="com.daguo.ui.before.MainLoadingAty"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- com.daguo.modem.photo 图片处理模块 -->
+        <activity android:name="com.daguo.modem.photo.ImagePagerActivity" >
+        </activity>
+        <!-- com.daguo.modem.schedule.学生课表模块 -->
+        <activity android:name="com.daguo.modem.schedule.Main_Aty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.RemindEditAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.RemindInsertAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.ScheduleInsertAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.ScheduleShowAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateRemindAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateScheduleAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateSettingAty" >
+        </activity>
+
+        <!-- com.daguo.modem.adress. 收货地 -->
+
+        <activity android:name="com.daguo.modem.choujiang.ChouJiangAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.choujiang.ChouJiangConsoleAty" >
+        </activity>
+
+        <!-- com.daguo.ui.before. 登录前相关的准备事项 -->
+
+        <activity android:name="com.daguo.ui.before.MainLoginAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainLoginAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainBeforeLoginActivity" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.UserAgreementAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainWelcomeAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.GuideViewDoor" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainRegisterAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainRegisterAty1" >
+        </activity>
+        <!-- com.daguo.ui.commercial.   商城部分界面 -->
+        <activity android:name="com.daguo.ui.commercial.Shop_GoodsDetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_OrderAty" >
+        </activity>
+
+        <!-- com.daguo.ui.main.  登录主页部分的界面 -->
+        <activity android:name="com.daguo.ui.main.MainActivity" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_1Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_2Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_3Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_4Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.WebView_CommenAty" >
+        </activity>
+        <!-- com.daguo.ui.operators. 运营商部分 -->
+        <activity android:name="com.daguo.ui.operators.BroadBandAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.MobileAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.OperatorAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.BroadBandOrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.MoblieOrderAty" >
+        </activity>
+
+        <!-- com.daguoschool.ui.school 校园部分 -->
+        <activity android:name="com.daguo.ui.school.School_MainAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main1Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main2Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main3Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main4Aty" >
+        </activity>
+        <!-- com.daguo.ui.school.huodong 校园活动新闻等部分功能 -->
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty" >
+        </activity>
+        <!-- com.daguoschool.ui.school.shuoshuo  校园的分支1  说说功能 -->
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_WriteAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1" >
+        </activity>
+        <!-- com.daguo.ui.school.xinwen. 学校活动的部分包括新闻之类的所有 -->
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWenAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_DetailAty" >
+        </activity>
+        <!-- com.daguo.ui.settings -->
+        <activity android:name="com.daguo.ui.settings.Setting_AboutAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_IntroduceAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_UserAgreementAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_UserOpinion" >
+        </activity>
+        <!-- com.daguo.ui.user.  个人中心部分 -->
+        <activity android:name="com.daguo.ui.user.UserInfo_ModifyAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyShuoShuoAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyHuoDongAty" >
+        </activity>
+
+        <!-- alipay 支付宝 -->
+
+        <activity android:name="com.daguo.util.alipay.PayDemoActivity" >
+        </activity>
+        <activity android:name="com.daguo.util.alipay.Pay_NumberAty" >
+        </activity>
+        <activity android:name="com.daguo.util.alipay.Pay_GoodsAty" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <!-- 短信流量包 -->
+       <!--  
+      
+        -->
+
+        <!-- 友盟push -->
+
+
+        <!-- 监听通知点击或者忽略处理的广播 -->
+        <!--
+<receiver
+    android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+    android:exported="false" >
+</receiver>
+
+监听开机运行、网络连接变化、卸载的广播
+<receiver
+    android:name="com.umeng.message.SystemReceiver"
+    android:process=":push" >
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+        <data android:scheme="package" />
+    </intent-filter>
+</receiver>
+
+监听消息到达的广播
+<receiver
+    android:name="com.umeng.message.MessageReceiver"
+    android:process=":push" >
+    <intent-filter>
+        <action android:name="org.agoo.android.intent.action.RECEIVE" />
+    </intent-filter>
+</receiver>
+
+监听宿主选举的广播
+<receiver
+    android:name="com.umeng.message.ElectionReceiver"
+    android:process=":push" >
+    <intent-filter>
+        <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
+        <category android:name="umeng" />
+    </intent-filter>
+</receiver>
+        -->
+
+
+ <!-- <activity
+            android:name="com.mopote.sdk.surface.FlowShopActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" >
+                </action>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.FlowMainActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.FlowOperatorSelectActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.FlowRankActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.ReviseActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.FlowRankDetailActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.mopote.sdk.surface.SettingActivity"
+            android:configChanges="locale|keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.alipay.android.app.sdk.WapPayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <service android:name="com.mopote.lib.statistics.StatisticsService" >
+            <intent-filter>
+                <action android:name="mopote_traffic_service" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.mopote.lib.statistics.BootReceiver" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.ANY_DATA_STATE" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
+                <action android:name="android.content.res.Configuration" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MEDIA_BAD_REMOVAL" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_SHARED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_CHECKING" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="com.android.systemplus.traffic" />
+                <action android:name="com.android.systemplus.start" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.mopote.lib.net.AlarmReceiver" />
+        <receiver android:name="com.mopote.fm.dao.push.PushReceiver" >
+            <intent-filter>
+                <action android:name="com.mopote.fm.push.receiver" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.mopote.fm.dao.revise.CalibrateCycleReceiver" >
+            <intent-filter>
+                <action android:name="com.mopote.fm.alarm.receiver" />
+            </intent-filter>
+        </receiver> 
+ -->
+        <!--
+【应用包名】字符串需要替换成本应用的应用包名
+<receiver
+    android:name="com.umeng.message.RegistrationReceiver"
+    android:exported="false" >
+    <intent-filter>
+        <action android:name="com.daguo.intent.action.COMMAND" />
+    </intent-filter>
+</receiver>
+<receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+
+
+Umeng的长连服务，用来建立推送的长连接的
+【应用包名】字符串需要替换成本应用的应用包名
+<service
+    android:name="com.umeng.message.UmengService"
+    android:label="PushService"
+    android:exported="true"
+    android:process=":push" >
+    <intent-filter>
+        <action android:name="com.daguo.intent.action.START" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.daguo.intent.action.COCKROACH" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="org.agoo.android.intent.action.PING_V4" />
+    <category android:name="umeng" />
+    </intent-filter>
+</service>
+
+Umeng的消息接收服务
+<service android:name="com.umeng.message.UmengIntentService" 
+    android:process=":push" />
+
+Umeng的消息路由服务
+<service 
+    android:name="com.umeng.message.UmengMessageIntentReceiverService"
+    android:process=":push" 
+    android:exported="true" >
+    <intent-filter>
+        <action android:name="org.android.agoo.client.MessageReceiverService" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="org.android.agoo.client.ElectionReceiverService" />
+    </intent-filter>
+</service>
+
+v2.4.1添加的Service，Umeng的消息接收后的处理服务
+<service android:name="com.umeng.message.UmengMessageCallbackHandlerService" 
+    android:exported="false">
+    <intent-filter>
+        <action android:name="com.umeng.messge.registercallback.action" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.umeng.message.unregistercallback.action"/>
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.umeng.message.message.handler.action"/>
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.umeng.message.autoupdate.handler.action"/>
+    </intent-filter>
+</service>
+
+V1.3.0添加的service，负责下载通知的资源
+<service android:name="com.umeng.message.UmengDownloadResourceService" />
+        -->
+        <!-- push service start -->
+        <!-- 用于接收系统消息以保证PushService正常运行 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <!-- Push服务接收客户端发送的各种请求 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
+        <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+        <!-- push结束 -->
+        <!-- 此处Receiver名字修改为当前包名路径 -->
+        <receiver android:name="com.daguo.ui.before.MyPushMessageReceiver" >
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <!-- 接收bind、setTags等method的返回结果 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <!-- 接收通知点击事件，和通知自定义内容 -->
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="api_key"
+            android:value="AdIscyAlmlAHQxB83IfNoFIl" />
+        <!-- push结束 -->
+
+    </application>
+
+</manifest>
