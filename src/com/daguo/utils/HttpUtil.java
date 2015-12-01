@@ -150,6 +150,11 @@ public class HttpUtil {
 			+ "article/queryArticleList?android=1&menu_id=db94a88d-5c78-448b-a3a7-4af1c3850571";
 
 	/**
+	 * 新闻 、社团、活动、专题 都是一个接口方法   参数menu_id可以从tbl_menu表查询， 参数page为当前页码，rows为当前显示数量
+	 */
+	public static final String QUERY_EVENT=URL
+		+ "article/queryArticleList?android=1";
+	/**
 	 * 活动查询
 	 */
 	public static final String QUERY_HUODONG = URL

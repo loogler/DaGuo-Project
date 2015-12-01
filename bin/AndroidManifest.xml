@@ -165,6 +165,13 @@
         </activity>
         <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty" >
         </activity>
+
+        <!-- com.daguo.ui.school.shetuan  校园社团部分 -->
+        <activity android:name="com.daguo.ui.school.shetuan.SC_SheTuanAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shetuan.SC_SheTuanDetailAty" >
+        </activity>
+
         <!-- com.daguoschool.ui.school.shuoshuo  校园的分支1  说说功能 -->
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty" >
         </activity>
@@ -181,6 +188,13 @@
         </activity>
         <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_DetailAty" >
         </activity>
+
+        <!-- com.daguo.ui.school.zhuanti.   校园专题部分 这部分也可能包含其他的活动 但是统一采用活动框架 -->
+        <activity android:name="com.daguo.ui.school.zhuanti.SC_ZhuanTiAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.zhuanti.SC_ZhuanTiDetailAty" >
+        </activity>
+
         <!-- com.daguo.ui.settings -->
         <activity android:name="com.daguo.ui.settings.Setting_AboutAty" >
         </activity>
@@ -215,9 +229,8 @@
         </activity>
 
         <!-- 短信流量包 -->
-       <!--  
-      
-        -->
+<!--   -->
+
 
         <!-- 友盟push -->
 
@@ -266,7 +279,8 @@
         -->
 
 
- <!-- <activity
+        <!--
+      <activity
             android:name="com.mopote.sdk.surface.FlowShopActivity"
             android:configChanges="locale|keyboard|keyboardHidden|orientation"
             android:launchMode="singleTask"
@@ -392,7 +406,7 @@
                 <action android:name="com.mopote.fm.alarm.receiver" />
             </intent-filter>
         </receiver> 
- -->
+        -->
         <!--
 【应用包名】字符串需要替换成本应用的应用包名
 <receiver

@@ -78,31 +78,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <RelativeLayout
-                android:id="@+id/topBanner_rl"
-                android:layout_width="match_parent"
-                android:layout_height="150dp" >
-
-                <com.daguo.util.base.ViewPager_3DBanner
-                    android:id="@+id/index_product_images_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#fff" />
-
-                <LinearLayout
-                    android:gravity="end"
-                    android:id="@+id/index_product_images_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/index_product_images_container"
-                    android:layout_alignParentRight="true"
-                    android:background="#00000000"
-                    android:orientation="horizontal" >
-                </LinearLayout>
-            </RelativeLayout>
-
-            <!-- 以上轮播广告    下面通知 -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,6 +102,31 @@
                     android:textColor="@color/red"
                     android:textSize="12sp" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/topBanner_rl"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" >
+
+                <com.daguo.util.base.ViewPager_3DBanner
+                    android:id="@+id/index_product_images_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff" />
+
+                <LinearLayout
+                    android:id="@+id/index_product_images_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/index_product_images_container"
+                    android:layout_alignParentRight="true"
+                    android:background="#00000000"
+                    android:gravity="end"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 以上轮播广告    下面通知 -->
 
             <View
                 android:layout_width="match_parent"
@@ -413,36 +413,48 @@
                     android:id="@+id/iv_pic1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/tabhome_pic1" />
+                    android:scaleType="fitCenter" />
 
                 <ImageView
                     android:id="@+id/iv_pic2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/tabhome_pic2" />
+                    android:scaleType="fitCenter" />
 
                 <ImageView
                     android:id="@+id/iv_pic3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/tabhome_pic3" />
+                    android:scaleType="fitCenter" />
             </LinearLayout>
 
             <!-- 上面是竖排广告，下面是活动 -->
 
+
+            <!--  -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="5dp" >
+                </ListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/iv_buttom1"

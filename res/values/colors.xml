@@ -12,6 +12,7 @@
     <color name="red_1">#ff0000</color>
     <color name="red_white">#FFE7BA</color>
     <color name="blue">#0000ff</color>
+    <color name="light_blue">#6593cb</color>
     <color name="purple">#CC3366</color>
     <color name="grey">#888</color>
     <color name="gray">#999</color>
@@ -24,5 +25,7 @@
     <color name="drakgrey">#88222222</color>
     <color name="transparent">#00000000</color>
     <color name="orange">#FF7F24</color>
+    
+
 
 </resources>
