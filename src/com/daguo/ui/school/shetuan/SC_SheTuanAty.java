@@ -199,6 +199,8 @@ public class SC_SheTuanAty extends Activity {
 			    String id = array.optJSONObject(i).getString("id");
 			    String img_src = array.optJSONObject(i).getString(
 				    "img_src");
+			    String img_path = array.optJSONObject(i).getString(
+				    "img_path");
 			    String menu_id = array.optJSONObject(i).getString(
 				    "menu_id");
 			    String sort = array.optJSONObject(i).getString(
@@ -215,6 +217,7 @@ public class SC_SheTuanAty extends Activity {
 			    list.setGood_count(good_count);
 			    list.setId(id);
 			    list.setImg_src(img_src);
+			    list.setImg_path(img_path);
 			    list.setMenu_id(menu_id);
 			    list.setSort(sort);
 			    list.setTitle(title);

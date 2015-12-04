@@ -39,21 +39,12 @@ import com.daguo.utils.PublicTools;
  */
 public class SC_SheTuanDetailAdapter extends BaseAdapter {
 
-    SC_SheTuan list;
     List<Evaluate_Ordinary> lists;
     Activity activity;
 
-    View view = null;
-    TextView title1_tv, title2_tv, feedbackCount_tv;
-    FrameLayout mFullscreenContainer;
-    FrameLayout mContentView;
-    View mCustomView = null;
-    WebView mWebView;
-
-    public SC_SheTuanDetailAdapter(Activity activity, SC_SheTuan list,
+    public SC_SheTuanDetailAdapter(Activity activity,
 	    List<Evaluate_Ordinary> lists) {
 	this.activity = activity;
-	this.list = list;
 	this.lists = lists;
     }
 
@@ -64,8 +55,8 @@ public class SC_SheTuanDetailAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-	
-	return lists.size() + 1;
+
+	return lists.size();
     }
 
     /*
@@ -75,8 +66,8 @@ public class SC_SheTuanDetailAdapter extends BaseAdapter {
      */
     @Override
     public Object getItem(int position) {
-	
-	return list ==null ?lists.get(position):lists.get(position+1);
+
+	return lists.get(position);
     }
 
     /*
@@ -98,162 +89,58 @@ public class SC_SheTuanDetailAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-	if (position == 0) {
-	    view = LayoutInflater.from(activity).inflate(
-		    R.layout.item_sc_shetuan_eva_adapter, null);
-	    title1_tv = (TextView) view.findViewById(R.id.title1_tv);
-	    title2_tv = (TextView) view.findViewById(R.id.title2_tv);
+	convertView = LayoutInflater.from(activity).inflate(
+		R.layout.adapter_eva_ordinary, null);
 
-	    feedbackCount_tv = (TextView) view
-		    .findViewById(R.id.feedbackCount_tv);
+	CircularImage head_circularimage = (CircularImage) convertView
+		.findViewById(R.id.head_circularimage);
+	TextView floor_tv = (TextView) convertView.findViewById(R.id.floor_tv);
+	TextView name_tv = (TextView) convertView.findViewById(R.id.name_tv);
+	TextView time_tv = (TextView) convertView.findViewById(R.id.time_tv);
+	ImageView sex_iv = (ImageView) convertView.findViewById(R.id.sex_iv);
+	TextView year_department_tv = (TextView) convertView
+		.findViewById(R.id.year_department_tv);
+	TextView content_tv = (TextView) convertView
+		.findViewById(R.id.content_tv);
 
-	    mFullscreenContainer = (FrameLayout) view
-		    .findViewById(R.id.fullscreen_custom_content);
-	    mContentView = (FrameLayout) view.findViewById(R.id.main_content);
-	    mWebView = (WebView) view.findViewById(R.id.webview_player);
+	String content = lists.get(position).getContent();
+	String headInfo = lists.get(position).getHead_info();
+	String p_name = lists.get(position).getP_name();
+	String create_time = lists.get(position).getCreate_time();
+	String sex = lists.get(position).getSex();
+	String pro_name = lists.get(position).getPro_name();
+	String start_year = lists.get(position).getStart_year();
 
-	    title1_tv.setText(list.getTitle());
-	    title2_tv.setText(list.getTitle2());
-	    feedbackCount_tv.setText("全部评论 " + list.getFeedback_count());
-	    initWebView();
-	    mWebView.loadDataWithBaseURL("null", list.getContent(),
-		    "text/html", "UTF-8", "");
-
-	} else {
-	    view = LayoutInflater.from(activity).inflate(
-		    R.layout.adapter_eva_ordinary, null);
-
-	    CircularImage head_circularimage = (CircularImage) view
-		    .findViewById(R.id.head_circularimage);
-	    TextView floor_tv = (TextView) view.findViewById(R.id.floor_tv);
-	    TextView name_tv = (TextView) view.findViewById(R.id.name_tv);
-	    TextView time_tv = (TextView) view.findViewById(R.id.time_tv);
-	    ImageView sex_iv = (ImageView) view.findViewById(R.id.sex_iv);
-	    TextView year_department_tv = (TextView) view
-		    .findViewById(R.id.year_department_tv);
-	    TextView content_tv = (TextView) view.findViewById(R.id.content_tv);
-
-	    FinalBitmap.create(activity).display(head_circularimage,
-		    HttpUtil.IMG_URL + lists.get(position).getHead_info());
-	    floor_tv.setText(position + " 楼");
-	    name_tv.setText(lists.get(position).getP_name());
-	    try {
-		time_tv.setText(PublicTools.DateFormat(lists.get(position)
-			.getCreate_time()));
-	    } catch (ParseException e) {
-		Log.e("社交评论", "时间差计算的格式出现问题");
-		e.printStackTrace();
-	    }
-	    if (lists.get(position).getSex().equals("0")) {
-		// nan
-		sex_iv.setImageResource(R.drawable.icon_sex_man);
-	    } else if (lists.get(position).getSex().equals("1")) {
-		// nv
-		sex_iv.setImageResource(R.drawable.icon_sex_woman);
-	    }
-
-	    year_department_tv.setText(lists.get(position).getStart_year()
-		    + "级 " + lists.get(position).getPro_name());
-	    content_tv.setText(lists.get(position).getContent());
-
-	}
-	return view;
-    }
-
-    private void initWebView() {
-	WebSettings settings = mWebView.getSettings();
-	settings.setJavaScriptEnabled(true);
-	settings.setJavaScriptCanOpenWindowsAutomatically(true);
-	settings.setPluginState(PluginState.ON);
-	// settings.setPluginsEnabled(true);
-	settings.setLoadWithOverviewMode(true);
-
-	settings.setJavaScriptCanOpenWindowsAutomatically(true);
-	settings.setAllowFileAccess(true);
-	settings.setDefaultTextEncodingName("UTF-8");
-	settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);// 适应屏幕
-	settings.setLoadWithOverviewMode(true);
-
-	mWebView.setWebChromeClient(new MyWebChromeClient());
-	mWebView.setWebViewClient(new MyWebViewClient());
-
-	mWebView.setVisibility(View.VISIBLE);
-
-	settings.setAppCacheEnabled(true);
-
-    }
-
-    class MyWebChromeClient extends WebChromeClient {
-
-	private CustomViewCallback mCustomViewCallback;
-	private int mOriginalOrientation = 1;
-
-	@Override
-	public void onShowCustomView(View view, CustomViewCallback callback) {
-	    onShowCustomView(view, mOriginalOrientation, callback);
-	    super.onShowCustomView(view, callback);
-
-	}
-
-	public void onShowCustomView(View view, int requestedOrientation,
-		WebChromeClient.CustomViewCallback callback) {
-	    if (mCustomView != null) {
-		callback.onCustomViewHidden();
-		return;
-	    }
-	    if (getPhoneAndroidSDK() >= 14) {
-		mFullscreenContainer.addView(view);
-		mCustomView = view;
-		mCustomViewCallback = callback;
-		mOriginalOrientation = activity.getRequestedOrientation();
-		mContentView.setVisibility(View.INVISIBLE);
-		mFullscreenContainer.setVisibility(View.VISIBLE);
-		mFullscreenContainer.bringToFront();
-
-		activity.setRequestedOrientation(mOriginalOrientation);
-	    }
-
-	}
-
-	public void onHideCustomView() {
-	    mContentView.setVisibility(View.VISIBLE);
-	    if (mCustomView == null) {
-		return;
-	    }
-	    mCustomView.setVisibility(View.GONE);
-	    mFullscreenContainer.removeView(mCustomView);
-	    mCustomView = null;
-	    mFullscreenContainer.setVisibility(View.GONE);
-	    try {
-		mCustomViewCallback.onCustomViewHidden();
-	    } catch (Exception e) {
-	    }
-	    // Show the content view.
-
-	    activity.setRequestedOrientation(mOriginalOrientation);
-	}
-
-    }
-
-    class MyWebViewClient extends WebViewClient {
-
-	@Override
-	public boolean shouldOverrideUrlLoading(WebView view, String url) {
-	    view.loadUrl(url);
-	    return super.shouldOverrideUrlLoading(view, url);
-	}
-
-    }
-
-    public static int getPhoneAndroidSDK() {
-	int version = 0;
+	FinalBitmap.create(activity).display(head_circularimage,
+		HttpUtil.IMG_URL + PublicTools.doWithNullData(headInfo));
+	floor_tv.setText(position + " 楼");
+	name_tv.setText(PublicTools.doWithNullData(p_name));
 	try {
-	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
-	} catch (NumberFormatException e) {
+	    time_tv.setText(PublicTools.DateFormat(PublicTools
+		    .doWithNullData(create_time)));
+	} catch (ParseException e) {
+	    Log.e("社交评论", "时间差计算的格式出现问题");
 	    e.printStackTrace();
 	}
-	return version;
+	if (PublicTools.doWithNullData(sex).equals("0")) {
+	    // nan
+	    sex_iv.setImageResource(R.drawable.icon_sex_man);
+	} else if (PublicTools.doWithNullData(sex).equals("1")) {
+	    // nv
+	    sex_iv.setImageResource(R.drawable.icon_sex_woman);
+	}
+	String ssString = "";
+	if (PublicTools.doWithNullData(start_year).equals("")) {
+	    ssString = "";
+	} else {
+	    ssString = PublicTools.doWithNullData(start_year) + "级";
+	}
 
+	year_department_tv.setText(ssString
+		+ PublicTools.doWithNullData(pro_name));
+	content_tv.setText(PublicTools.doWithNullData(content));
+
+	return convertView;
     }
 
 }

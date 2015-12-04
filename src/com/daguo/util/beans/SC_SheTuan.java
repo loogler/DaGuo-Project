@@ -15,11 +15,18 @@ public class SC_SheTuan {
     private String feedback_count;
     private String good_count;
     private String id;
+    /**
+     * 内容图片列表
+     */
     private String img_src;
     private String menu_id;
     private String sort;
     private String title;
     private String title2;
+    /**
+     * 列表展示图
+     */
+    private String img_path;//
 
     /**
      * @return the content
@@ -169,5 +176,19 @@ public class SC_SheTuan {
      */
     public void setTitle2(String title2) {
 	this.title2 = title2;
+    }
+
+    /**
+     * @return the img_path
+     */
+    public String getImg_path() {
+	return img_path;
+    }
+
+    /**
+     * @param img_path the img_path to set
+     */
+    public void setImg_path(String img_path) {
+	this.img_path = img_path;
     }
 }

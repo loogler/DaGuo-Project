@@ -99,9 +99,10 @@ public class SC_SheTuanAdapter extends BaseAdapter {
 	content_tv.setText(content);
 
 	String img_src = lists.get(position).getImg_src();
-	if (img_src != null && !img_src.equals("")) {
+	String img_path =lists.get(position).getImg_path();
+	if (img_path != null && !img_path.equals("")) {
 
-	    ImageLoader.getInstance().displayImage(HttpUtil.IMG_URL + img_src,
+	    ImageLoader.getInstance().displayImage(HttpUtil.IMG_URL + img_path,
 		    content_iv);
 	}
 	goodCount_tv

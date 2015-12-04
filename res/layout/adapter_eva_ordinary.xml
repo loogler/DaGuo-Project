@@ -8,14 +8,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
         android:orientation="vertical" >
 
         <com.daguo.util.base.CircularImage
             android:id="@+id/head_circularimage"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_margin="8dp"
             android:src="@drawable/user_logo" />
-        
+
         <TextView
             android:id="@+id/floor_tv"
             android:layout_width="wrap_content"
@@ -55,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="3 天前" />
+                android:text="3 天前"
+                android:textColor="@color/grey_2" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,7 +78,8 @@
                 android:id="@+id/year_department_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2009级 汉语本科" />
+                android:text="2009级 汉语本科"
+                android:textColor="@color/grey_2" />
         </LinearLayout>
 
         <TextView
@@ -84,7 +88,7 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="好多个个 覆盖大概大概大概换地方和东方红地方和地方好的 "
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:textSize="15sp" />
     </LinearLayout>
 

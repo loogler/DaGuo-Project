@@ -4,7 +4,9 @@
 package com.daguo.ui.school.shetuan;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,23 +19,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.libs.PullToRefreshLayout;
 import com.daguo.libs.PullToRefreshLayout.OnRefreshListener;
-import com.daguo.util.adapter.Eva_OrdinaryAdapter;
 import com.daguo.util.adapter.SC_SheTuanDetailAdapter;
 import com.daguo.util.beans.Evaluate_Ordinary;
 import com.daguo.util.beans.SC_SheTuan;
@@ -54,6 +64,8 @@ public class SC_SheTuanDetailAty extends Activity implements
     private final int MSG_APPLY_FAILED = 103;
     private final int MSG_APPLYED = 104;
     private final int MSG_UNAPPLY = 105;
+    private final int MSG_EVALUATE_SCU = 106;
+    private final int MSG_EVALUATE_FAIL = 107;
 
     /**
      * initViews
@@ -66,17 +78,33 @@ public class SC_SheTuanDetailAty extends Activity implements
     private ListView content_view;
 
     /**
+     * 评论弹出框
+     */
+    private PopupWindow editWindow;
+    private EditText replyEdit;
+    private Button sendBtn;
+    private InputMethodManager manager;
+
+    private String feedbackContent;
+
+    /**
      * data
      */
 
     private String sheTuanId;
     private SC_SheTuan sheTuanList = new SC_SheTuan();
+    // 头部显示该活动信息
+    private View contentView;
+    private TextView title1_tv, title2_tv, feedbackCount_tv;
+    private FrameLayout mFullscreenContainer;
+    private FrameLayout mContentView;
+    private View mCustomView = null;
+    private WebView mWebView;
 
     private List<Evaluate_Ordinary> evaLists = new ArrayList<Evaluate_Ordinary>();
     private SC_SheTuanDetailAdapter adapter = null;
 
     private String p_id;
-    private String feedbackContent;
 
     /**
      * tools
@@ -87,13 +115,15 @@ public class SC_SheTuanDetailAty extends Activity implements
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
 	    case MSG_CONTENT_DATA:
-		adapter.notifyDataSetChanged();
+		initContentView();
 		break;
 	    case MSG_EVALUATE_DATA:
 		if (evaLists != null) {
 		    evaLists.clear();
 		}
-		evaLists = (List<Evaluate_Ordinary>) msg.obj;
+		List<Evaluate_Ordinary> aaa = (List<Evaluate_Ordinary>) msg.obj;
+		evaLists.addAll(aaa);
+
 		adapter.notifyDataSetChanged();
 
 		break;
@@ -126,7 +156,19 @@ public class SC_SheTuanDetailAty extends Activity implements
 		apply_tv.setText("已报名");
 		apply_tv.setClickable(false);
 		break;
+	    case MSG_EVALUATE_SCU:
+		loadFeedbackData();
+		editWindow.dismiss();
+		feedbackContent = "";
+
+		break;
+
+	    case MSG_EVALUATE_FAIL:
+		Toast.makeText(SC_SheTuanDetailAty.this, "评论失败，请稍候再试",
+			Toast.LENGTH_LONG).show();
+		break;
 	    default:
+
 		break;
 	    }
 	};
@@ -156,7 +198,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 	checkApplyInfo();// 查看是否已经报名
 
 	adapter = new SC_SheTuanDetailAdapter(SC_SheTuanDetailAty.this,
-		sheTuanList, evaLists);
+		evaLists);
 	content_view.setAdapter(adapter);
 
     }
@@ -204,6 +246,133 @@ public class SC_SheTuanDetailAty extends Activity implements
     }
 
     /**
+     * 填充方式加载的 社团内容
+     */
+    private void initContentView() {
+	contentView = LayoutInflater.from(SC_SheTuanDetailAty.this).inflate(
+		R.layout.item_sc_shetuan_eva_adapter, null);
+	title1_tv = (TextView) contentView.findViewById(R.id.title1_tv);
+	title2_tv = (TextView) contentView.findViewById(R.id.title2_tv);
+
+	feedbackCount_tv = (TextView) contentView
+		.findViewById(R.id.feedbackCount_tv);
+
+	mFullscreenContainer = (FrameLayout) contentView
+		.findViewById(R.id.fullscreen_custom_content);
+	mContentView = (FrameLayout) contentView
+		.findViewById(R.id.main_content);
+	mWebView = (WebView) contentView.findViewById(R.id.webview_player);
+
+	title1_tv.setText(sheTuanList.getTitle());
+	title2_tv.setText(sheTuanList.getTitle2());
+	feedbackCount_tv.setText("全部评论 " + sheTuanList.getFeedback_count());
+	initWebView();
+	mWebView.loadDataWithBaseURL("null", sheTuanList.getContent(),
+		"text/html", "UTF-8", "");
+
+	content_view.addHeaderView(contentView);
+	// TODO 评论数 出错
+    }
+
+    private void initWebView() {
+	WebSettings settings = mWebView.getSettings();
+	settings.setJavaScriptEnabled(true);
+	settings.setJavaScriptCanOpenWindowsAutomatically(true);
+	settings.setPluginState(PluginState.ON);
+	// settings.setPluginsEnabled(true);
+	settings.setLoadWithOverviewMode(true);
+
+	settings.setJavaScriptCanOpenWindowsAutomatically(true);
+	settings.setAllowFileAccess(true);
+	settings.setDefaultTextEncodingName("UTF-8");
+	settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);// 适应屏幕
+	settings.setLoadWithOverviewMode(true);
+
+	mWebView.setWebChromeClient(new MyWebChromeClient());
+	mWebView.setWebViewClient(new MyWebViewClient());
+
+	mWebView.setVisibility(View.VISIBLE);
+
+	settings.setAppCacheEnabled(true);
+
+    }
+
+    class MyWebChromeClient extends WebChromeClient {
+
+	private CustomViewCallback mCustomViewCallback;
+	private int mOriginalOrientation = 1;
+
+	@Override
+	public void onShowCustomView(View view, CustomViewCallback callback) {
+	    onShowCustomView(view, mOriginalOrientation, callback);
+	    super.onShowCustomView(view, callback);
+
+	}
+
+	public void onShowCustomView(View view, int requestedOrientation,
+		WebChromeClient.CustomViewCallback callback) {
+	    if (mCustomView != null) {
+		callback.onCustomViewHidden();
+		return;
+	    }
+	    if (getPhoneAndroidSDK() >= 14) {
+		mFullscreenContainer.addView(view);
+		mCustomView = view;
+		mCustomViewCallback = callback;
+		mOriginalOrientation = getRequestedOrientation();
+		mContentView.setVisibility(View.INVISIBLE);
+		mFullscreenContainer.setVisibility(View.VISIBLE);
+		mFullscreenContainer.bringToFront();
+
+		setRequestedOrientation(mOriginalOrientation);
+	    }
+
+	}
+
+	public void onHideCustomView() {
+	    mContentView.setVisibility(View.VISIBLE);
+	    if (mCustomView == null) {
+		return;
+	    }
+	    mCustomView.setVisibility(View.GONE);
+	    mFullscreenContainer.removeView(mCustomView);
+	    mCustomView = null;
+	    mFullscreenContainer.setVisibility(View.GONE);
+	    try {
+		mCustomViewCallback.onCustomViewHidden();
+	    } catch (Exception e) {
+	    }
+	    // Show the content view.
+
+	    setRequestedOrientation(mOriginalOrientation);
+	}
+
+    }
+
+    class MyWebViewClient extends WebViewClient {
+
+	@Override
+	public boolean shouldOverrideUrlLoading(WebView view, String url) {
+	    view.loadUrl(url);
+	    return super.shouldOverrideUrlLoading(view, url);
+	}
+
+    }
+
+    public static int getPhoneAndroidSDK() {
+	int version = 0;
+	try {
+	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
+	} catch (NumberFormatException e) {
+	    e.printStackTrace();
+	}
+	return version;
+
+    }
+
+    /*********************************************************************************************************/
+
+    /**
      * 加载社团内容的数据
      */
     private void loadContentData() {
@@ -240,6 +409,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 				.getString("title");
 			String title2 = array.optJSONObject(0).getString(
 				"title2");
+		
 
 			sheTuanList.setContent(content);
 			sheTuanList.setCreate_time(create_time);
@@ -248,6 +418,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 			sheTuanList.setImg_src(img_src);
 			sheTuanList.setTitle(title);
 			sheTuanList.setTitle2(title2);
+			
 
 			msg = handler.obtainMessage(MSG_CONTENT_DATA);
 			msg.sendToTarget();
@@ -273,12 +444,12 @@ public class SC_SheTuanDetailAty extends Activity implements
      */
     private void loadFeedbackData() {
 	new Thread(
-
+		
 	new Runnable() {
 	    public void run() {
 		String url = HttpUtil.QUERY_EVENT_DETAIL
-			+ "&menu_id=d6c986c5-8e52-485e-9a6e-d5d98480564e&page=1&a_id="
-			+ sheTuanId + "&rows=" + pageIndex;
+			+ "&menu_id=d6c986c5-8e52-485e-9a6e-d5d98480564e&a_id="
+			+ sheTuanId + "&rows=10&page=" + pageIndex;
 		String res = null;
 		try {
 		    res = HttpUtil.getRequest(url);
@@ -313,7 +484,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 			    bcd.setHead_info(head_info);
 			    bcd.setP_id(p_id);
 			    bcd.setP_name(p_name);
-			    bcd.setContent(start_year);
+			    bcd.setStart_year(start_year);
 			    bcd.setSex(sex);
 			    bcd.setPro_name(pro_name);
 
@@ -373,6 +544,19 @@ public class SC_SheTuanDetailAty extends Activity implements
 	    break;
 
 	case R.id.evaluate_tv:
+	    showDialog();
+
+	    break;
+	case R.id.send_msg:
+	    feedbackContent = replyEdit.getText().toString().trim();
+	    if (feedbackContent != null && !"".equals(feedbackContent)
+		    && !"null".equals(feedbackContent)) {
+		evaluateSheTuan();
+	    } else {
+		Toast.makeText(SC_SheTuanDetailAty.this, "评价内容为空",
+			Toast.LENGTH_LONG).show();
+
+	    }
 
 	    break;
 
@@ -389,8 +573,9 @@ public class SC_SheTuanDetailAty extends Activity implements
 	new Thread(new Runnable() {
 	    public void run() {
 
-		String url = HttpUtil.QUERY_EVENT_APPLY + "&table_name=0&source_id="
-			+ sheTuanId + "&p_id=" + p_id + "&page=1&rows=1";
+		String url = HttpUtil.QUERY_EVENT_APPLY
+			+ "&table_name=0&source_id=" + sheTuanId + "&p_id="
+			+ p_id + "&page=1&rows=1";
 		try {
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
@@ -422,8 +607,9 @@ public class SC_SheTuanDetailAty extends Activity implements
 
 	new Thread(new Runnable() {
 	    public void run() {
-		String url = HttpUtil.SUBMIT_EVENT_APPLY + "&table_name=0&type=0&p_id="
-			+ p_id + "&source_id=" + sheTuanId;
+		String url = HttpUtil.SUBMIT_EVENT_APPLY
+			+ "&table_name=0&type=0&p_id=" + p_id + "&source_id="
+			+ sheTuanId;
 		try {
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
@@ -458,18 +644,27 @@ public class SC_SheTuanDetailAty extends Activity implements
 
 	new Runnable() {
 	    public void run() {
-		String url = HttpUtil.SUBMIT_EVENT_FEEDBACK + "&content="
-			+ feedbackContent + "&a_id=" + p_id + "&p_id="
-			+ sheTuanId;
+		String url = HttpUtil.SUBMIT_EVENT_FEEDBACK + "&table_name=0";
+		// 此处接口必须写成post请求模式 否则提交时会出现乱码
 		try {
-		    String res=HttpUtil.getRequest(url);
-		    JSONObject js =new JSONObject(res);
-		    
+		    Map<String, String> map = new HashMap<String, String>();
+
+		    map.put("content", feedbackContent);
+		    map.put("a_id", sheTuanId);
+		    map.put("p_id", p_id);
+		    String res = HttpUtil.postRequest(url, map);
+
+		    JSONObject js = new JSONObject(res);
+
 		    if ("1".equals(js.getString("result"))) {
-			//评论成功
-		    }else {
-			//评论失败
-			//TODO  社团接口有待更改   
+			// 评论成功
+
+			msg = handler.obtainMessage(MSG_EVALUATE_SCU);
+			msg.sendToTarget();
+		    } else {
+			// 评论失败
+			msg = handler.obtainMessage(MSG_EVALUATE_FAIL);
+			msg.sendToTarget();
 		    }
 		} catch (JSONException exception) {
 		    Log.e("校园社团评论", "获取社团信息json异常");
@@ -485,7 +680,55 @@ public class SC_SheTuanDetailAty extends Activity implements
      * 给出用户输入框，用于评论
      */
     private void showDialog() {
-	
+	initPopupWindow();
+	showDiscuss();
+    }
+
+    /**
+     * 初始化评论弹出框
+     * 
+     */
+    private void initPopupWindow() {
+	View editView = getLayoutInflater().inflate(
+		R.layout.item_popup_editinput, null);
+	editWindow = new PopupWindow(editView, LayoutParams.MATCH_PARENT,
+		LayoutParams.WRAP_CONTENT, true);
+	editWindow.setBackgroundDrawable(getResources().getDrawable(
+		R.color.white));
+	editWindow.setOutsideTouchable(true);
+	replyEdit = (EditText) editView.findViewById(R.id.reply);
+	sendBtn = (Button) editView.findViewById(R.id.send_msg);
+	sendBtn.setOnClickListener(SC_SheTuanDetailAty.this);
+    }
+
+    /**
+     * 显示回复评论框
+     * 
+     * @param reply
+     */
+    private void showDiscuss() {
+	replyEdit.setFocusable(true);
+	replyEdit.requestFocus();
+
+	// 设置焦点，不然无法弹出输入法
+	editWindow.setFocusable(true);
+
+	// 以下两句不能颠倒
+	editWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+	editWindow
+		.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+	editWindow.showAtLocation(refresh_view, Gravity.BOTTOM, 0, 0);
+
+	// 显示键盘
+	manager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+	manager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+	editWindow.setOnDismissListener(new OnDismissListener() {
+	    @Override
+	    public void onDismiss() {
+		manager.toggleSoftInput(0, InputMethodManager.RESULT_SHOWN);
+	    }
+	});
+
     }
 
     /************************ 刷新事件 ************************************************/

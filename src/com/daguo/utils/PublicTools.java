@@ -82,13 +82,16 @@ public class PublicTools {
 	}
 	return content.substring(0, length) + "...";
     }
-/**
- * 用于计算时间差的工具类  xx秒前  xx分钟前 xx天前。。。。 
- * @param time 插入时间 ，时间格式必须为标准的  yyyy-MM-dd HH:m:s 格式 否则会出错
- * @return  时间差
- * @throws ParseException
- * 
- */
+
+    /**
+     * 用于计算时间差的工具类 xx秒前 xx分钟前 xx天前。。。。
+     * 
+     * @param time
+     *            插入时间 ，时间格式必须为标准的 yyyy-MM-dd HH:m:s 格式 否则会出错
+     * @return 时间差
+     * @throws ParseException
+     * 
+     */
     public static String DateFormat(String time) throws ParseException {
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");
 	Date date = format.parse(time);
@@ -143,6 +146,21 @@ public class PublicTools {
 
     private static long toYears(long date) {
 	return toMonths(date) / 365L;
+    }
+
+    /**
+     * @param res 资源
+     * @return 处理后的字符串 
+     * 
+     * 处理数据 禁止加载空值为null 如果确实为null 则转化为“” 空字符串
+     */
+    public static String doWithNullData(String res) {
+	if (res != null && !"".equals(res) && !"null".equals(res)
+		&& !"[]".equals(res)) {
+	    return res;
+	}else {
+	    return "";
+	}
     }
 
 }

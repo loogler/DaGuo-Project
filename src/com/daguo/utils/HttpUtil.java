@@ -43,7 +43,7 @@ public class HttpUtil {
      * 
      */
     /**
-     * 服务器  备用 192.168.0.31
+     * 服务器  备用 192.168.0.31 KSOFFICE   // 192.168.0.146 ksoffice
      */
     public static final String URL = "http://115.29.224.248:8080/XYYYT/service/";
     /**
