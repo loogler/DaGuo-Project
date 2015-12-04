@@ -8,11 +8,10 @@
     android:orientation="horizontal" >
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/img_iv"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/tabhome_bottom_2" />
+        android:scaleType="fitXY" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
         android:layout_marginTop="8dp" >
 
         <TextView
-            android:id="@+id/tv1"
+            android:id="@+id/title1_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -33,15 +32,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_alignBottom="@id/tv1"
+            android:layout_alignBottom="@id/title1_tv"
             android:background="@color/lightgrey" />
 
         <TextView
-            android:id="@+id/tv2"
+            android:maxLines="4"
+            android:id="@+id/title2_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv1"
+            android:layout_below="@+id/title1_tv"
             android:layout_marginLeft="3dp"
             android:paddingLeft="2dp"
             android:text="副标题"
@@ -49,6 +49,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/feedback_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

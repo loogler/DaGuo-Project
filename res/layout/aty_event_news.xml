@@ -4,82 +4,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:background="@drawable/topbar_myshuoshuo_bg" >
-
-        <ImageView
-            android:id="@+id/friend_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/bt_back" />
-
-        <TextView
-            android:id="@+id/friend_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="校园新闻"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/friend_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/add_friend"
-            android:visibility="gone" />
-    </RelativeLayout>
+    <include layout="@layout/item_commentitleview" />
 
     <RelativeLayout
+        android:id="@+id/topBanner_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="150dp" >
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <com.daguo.util.base.ViewPager_3DBanner
+            android:id="@+id/index_product_images_container"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="match_parent"
+            android:background="#fff" />
 
         <LinearLayout
+            android:id="@+id/index_product_images_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/viewpager"
-            android:background="#33000000"
-            android:orientation="vertical"
-            android:padding="5dp" >
-
-            <TextView
-                android:id="@+id/tv_bannertext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="5dp"
-                android:text="我是第一个广告语"
-                android:textColor="@android:color/white" />
-
-            <LinearLayout
-                android:id="@+id/points"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal" >
-            </LinearLayout>
+            android:layout_alignBottom="@id/index_product_images_container"
+            android:layout_alignParentRight="true"
+            android:background="#00000000"
+            android:gravity="end"
+            android:orientation="horizontal" >
         </LinearLayout>
     </RelativeLayout>
 
-    <com.daguo.util.pulllistview.XListView
-        android:id="@+id/xListView"
+    <com.daguo.libs.PullToRefreshLayout
+        android:id="@+id/refresh_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </com.daguo.util.pulllistview.XListView>
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+        <!-- 支持所有实现Pullable接口的View -->
+
+        <com.daguo.libs.PullableListView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp" />
+
+        <include layout="@layout/load_more" />
+    </com.daguo.libs.PullToRefreshLayout>
 
 </LinearLayout>

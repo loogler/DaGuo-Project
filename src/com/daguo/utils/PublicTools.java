@@ -3,6 +3,9 @@
  */
 package com.daguo.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,6 +81,68 @@ public class PublicTools {
 	    return content;
 	}
 	return content.substring(0, length) + "...";
+    }
+/**
+ * 用于计算时间差的工具类  xx秒前  xx分钟前 xx天前。。。。 
+ * @param time 插入时间 ，时间格式必须为标准的  yyyy-MM-dd HH:m:s 格式 否则会出错
+ * @return  时间差
+ * @throws ParseException
+ * 
+ */
+    public static String DateFormat(String time) throws ParseException {
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");
+	Date date = format.parse(time);
+	long delta = new Date().getTime() - date.getTime();
+	if (delta < 1L * 60000L) {
+	    long seconds = toSeconds(delta);
+	    return (seconds <= 0 ? 1 : seconds) + "秒前";
+	}
+	if (delta < 45L * 60000L) {
+	    long minutes = toMinutes(delta);
+	    return (minutes <= 0 ? 1 : minutes) + "分钟前";
+	}
+	if (delta < 24L * 3600000L) {
+	    long hours = toHours(delta);
+	    return (hours <= 0 ? 1 : hours) + "小时前";
+	}
+	if (delta < 48L * 3600000L) {
+	    return "昨天";
+	}
+	if (delta < 30L * 86400000L) {
+	    long days = toDays(delta);
+	    return (days <= 0 ? 1 : days) + "天前";
+	}
+	if (delta < 12L * 4L * 604800000L) {
+	    long months = toMonths(delta);
+	    return (months <= 0 ? 1 : months) + "月前";
+	} else {
+	    long years = toYears(delta);
+	    return (years <= 0 ? 1 : years) + "年前";
+	}
+    }
+
+    private static long toSeconds(long date) {
+	return date / 1000L;
+    }
+
+    private static long toMinutes(long date) {
+	return toSeconds(date) / 60L;
+    }
+
+    private static long toHours(long date) {
+	return toMinutes(date) / 60L;
+    }
+
+    private static long toDays(long date) {
+	return toHours(date) / 24L;
+    }
+
+    private static long toMonths(long date) {
+	return toDays(date) / 30L;
+    }
+
+    private static long toYears(long date) {
+	return toMonths(date) / 365L;
     }
 
 }

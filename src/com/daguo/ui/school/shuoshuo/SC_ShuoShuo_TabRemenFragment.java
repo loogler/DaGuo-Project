@@ -25,8 +25,6 @@ import com.daguo.util.base.AutoListView;
 import com.daguo.util.base.AutoListView.OnLoadListener;
 import com.daguo.util.base.AutoListView.OnRefreshListener;
 import com.daguo.util.beans.ShuoShuoContent;
-import com.daguo.util.pulllistview.XListView;
-import com.daguo.util.pulllistview.XListView.IXListViewListener;
 import com.daguo.utils.HttpUtil;
 
 /**
@@ -58,6 +56,15 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment implements
 	 * 
 	 */
 	Message msg;
+	
+	@Override
+	    public void setUserVisibleHint(boolean isVisibleToUser) {
+                    //判断Fragment中的ListView时候存在，判断该Fragment时候已经正在前台显示  通过这两个判断，就可以知道什么时候去加载数据了
+			if (isVisibleToUser && isVisible() && autoListView.getVisibility() != View.VISIBLE) {
+//	            initData(); //加载数据的方法
+	        }
+	        super.setUserVisibleHint(isVisibleToUser);
+	    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

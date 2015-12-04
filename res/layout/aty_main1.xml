@@ -102,7 +102,7 @@
                     android:textColor="@color/red"
                     android:textSize="12sp" />
             </LinearLayout>
-
+<!-- 以上为滚动通知   以下为3d轮播 -->
             <RelativeLayout
                 android:id="@+id/topBanner_rl"
                 android:layout_width="match_parent"

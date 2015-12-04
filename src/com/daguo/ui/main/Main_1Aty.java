@@ -575,7 +575,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    intent.putExtra("id", sourceId);
 	    startActivity(intent);
 	} else if (type.equals("5")) {// 跳转商品
-	    // TODO 跳转商品详情 需要具体商品详情页
+	    // TODO 跳转商品详情 需要具体商品详情页   通知商城详情页接收商品信息
 	    Intent intent = new Intent(Main_1Aty.this,
 		    Shop_GoodsDetailAty.class);
 	    intent.putExtra("id", sourceId);
@@ -592,7 +592,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
      * @version 创建时间：2015-11-27 下午4:33:26
      * @function ：跳转适配器
      */
-    public class MyAdapter extends PagerAdapter {
+    private class MyAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
