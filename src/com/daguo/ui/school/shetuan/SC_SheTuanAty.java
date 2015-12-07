@@ -28,9 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
-import com.daguo.libs.PullToRefreshLayout;
-import com.daguo.libs.PullToRefreshLayout.OnRefreshListener;
-import com.daguo.libs.SC_SheTuanAdapter;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.libs.pulltorefresh.SC_SheTuanAdapter;
+import com.daguo.libs.staggeredgridview.StaggeredGridView;
+import com.daguo.libs.staggeredgridview.StaggeredGridView.OnLoadmoreListener;
 import com.daguo.util.beans.AddBanner;
 import com.daguo.util.beans.SC_SheTuan;
 import com.daguo.utils.GetScreenRecUtil;
@@ -50,8 +52,9 @@ public class SC_SheTuanAty extends Activity {
     /**
      * initViews
      */
-    private GridView gridView;
+    // private GridView gridView;
     private ImageView add_iv;
+    private StaggeredGridView gridView;
 
     /**
      * data
@@ -147,26 +150,53 @@ public class SC_SheTuanAty extends Activity {
      * 
      */
     private void initViews() {
-	gridView = (GridView) findViewById(R.id.content_view);
+	gridView = (StaggeredGridView) findViewById(R.id.staggeredGridView);
 	add_iv = (ImageView) findViewById(R.id.add_iv);
-	((PullToRefreshLayout) findViewById(R.id.refresh_view))
-		.setOnRefreshListener(new MyListener());
+	// ((PullToRefreshLayout) findViewById(R.id.refresh_view))
+	// .setOnRefreshListener(new MyListener());
+
+	int margin = getResources().getDimensionPixelSize(R.dimen.stgv_margin);
+	gridView.setItemMargin(margin);
+	gridView.setPadding(margin, 0, margin, 0);
+
 	adapter = new SC_SheTuanAdapter(SC_SheTuanAty.this, lists);
 	gridView.setAdapter(adapter);
-	gridView.setOnItemClickListener(new OnItemClickListener() {
+	// gridView.setOnItemClickListener(new OnItemClickListener() {
+	//
+	// @Override
+	// public void onItemClick(AdapterView<?> arg0, View v, int p,
+	// long arg3) {
+	// // Toast.makeText(SC_SheTuanAty.this, "dianji " + p,
+	// // Toast.LENGTH_SHORT).show();
+	//
+	// Intent intent = new Intent(SC_SheTuanAty.this,
+	// SC_SheTuanDetailAty.class);
+	// intent.putExtra("id", lists.get(p).getId());
+	// startActivity(intent);
+	// }
+	// });
+	gridView.setOnLoadmoreListener(new OnLoadmoreListener() {
 
 	    @Override
-	    public void onItemClick(AdapterView<?> arg0, View v, int p,
-		    long arg3) {
-		// Toast.makeText(SC_SheTuanAty.this, "dianji " + p,
-		// Toast.LENGTH_SHORT).show();
-
-		Intent intent = new Intent(SC_SheTuanAty.this,
-			SC_SheTuanDetailAty.class);
-		intent.putExtra("id", lists.get(p).getId());
-		startActivity(intent);
+	    public void onLoadmore() {
+		pageIndex++;
+		loadData();
 	    }
 	});
+
+	
+//	gridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
+//
+//	    @Override
+//	    public void onItemClick(StaggeredGridView parent, View view,
+//		    int position, long id) {
+//
+//		Intent intent = new Intent(SC_SheTuanAty.this,
+//			SC_SheTuanDetailAty.class);
+//		intent.putExtra("id", lists.get(position).getId());
+//		startActivity(intent);
+//	    }
+//	});
 
     }
 

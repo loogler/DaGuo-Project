@@ -42,8 +42,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
-import com.daguo.libs.PullToRefreshLayout;
-import com.daguo.libs.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.util.adapter.SC_SheTuanDetailAdapter;
 import com.daguo.util.beans.Evaluate_Ordinary;
 import com.daguo.util.beans.SC_SheTuan;

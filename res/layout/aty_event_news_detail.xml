@@ -3,49 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:id="@+id/title"
+    <include layout="@layout/item_commentitleview" />
+
+    <requestFocus />
+
+    <com.daguo.libs.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/refresh_view"
         android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:background="@color/green_home" >
+        android:layout_height="match_parent"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="40dp" >
 
-        <ImageButton
-            android:id="@+id/friend_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/bt_back" />
+        <include layout="@layout/refresh_head" />
+        <!-- 支持所有实现Pullable接口的View -->
 
-        <TextView
-            android:id="@+id/friend_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="校园新闻"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <com.daguo.libs.pulltorefresh.PullableListView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp" />
 
-        <ImageButton
-            android:id="@+id/friend_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/add_friend"
-            android:visibility="gone" />
-    </RelativeLayout>
+        <include layout="@layout/load_more" />
+    </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:gravity="center_vertical"
         android:background="@drawable/bg_rec"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <EditText
@@ -68,71 +60,5 @@
             android:textColor="#f80"
             android:textSize="16sp" />
     </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-        android:layout_marginBottom="45dp" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/title"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg"
-                android:gravity="center_horizontal"
-                android:paddingBottom="15dp"
-                android:text=""
-                android:textSize="16sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <FrameLayout
-                    android:id="@+id/fullscreen_custom_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-
-                <FrameLayout
-                    android:id="@+id/main_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <WebView
-                        android:id="@+id/webview_player"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scrollbars="none" />
-                </FrameLayout>
-            </FrameLayout>
-            
-            <com.daguo.util.pulllistview.XListView 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/xlistview"
-                
-                ></com.daguo.util.pulllistview.XListView>
-        </LinearLayout>
-    </ScrollView>
 
 </RelativeLayout>

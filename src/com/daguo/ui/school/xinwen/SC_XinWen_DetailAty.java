@@ -20,9 +20,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.daguo.R;
+import com.daguo.util.adapter.Eva_OrdinaryAdapter;
+import com.daguo.util.beans.Evaluate_Ordinary;
 import com.daguo.util.beans.News;
 import com.daguo.utils.HttpUtil;
 
@@ -36,7 +40,26 @@ public class SC_XinWen_DetailAty extends Activity {
     private View mCustomView = null;
     private WebView mWebView;
     private ImageButton friend_back;
+    
+    // /////////////////////////////////
+    /**
+     * initViews
+     */
+    //新闻 
+    private News content_news;
+    
+    
+    
+    
+    //评论
+    private ListView content_view;
+    private List<Evaluate_Ordinary> lists =new ArrayList<Evaluate_Ordinary>();
+    private Eva_OrdinaryAdapter adapter  ;
+    
+    
+    
 
+    // ////////////////////////////////
     Handler handler = new Handler() {
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
@@ -73,6 +96,94 @@ public class SC_XinWen_DetailAty extends Activity {
 
     }
 
+    private void initViews() {
+	content_view = (ListView) findViewById(R.id.content_view);
+
+    }
+
+    private void initHeadViews() {
+
+	TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	TextView title_tv = (TextView) findViewById(R.id.title_tv);
+	TextView function_tv = (TextView) findViewById(R.id.function_tv);
+	ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+
+	back_tView.setOnClickListener(new View.OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		finish();
+	    }
+	});
+	title_tv.setText("校园新鲜事");
+	function_tv.setVisibility(View.GONE);
+	remind_iv.setVisibility(View.GONE);
+
+    }
+
+    /**
+     * 这是在获得数据以后进行填充的，后面数据不会变动 所以写一起了
+     */
+    private void initContentViews() {
+	// TODO
+    }
+
+    // ////////////////////////////////////////////
+    /**
+     * 加载新闻内容的方法
+     */
+
+    private void loadData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		List<News> infos = new ArrayList<News>();
+
+		try {
+		    String url = HttpUtil.QUERY_EVENT
+			    + "&menu_id=db94a88d-5c78-448b-a3a7-4af1c3850571&rows=1&page=1&id="
+			    + id;
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject js = new JSONObject(res);
+		    int aaa = js.getInt("total");
+		    if (aaa != 0) {
+			JSONArray array = js.getJSONArray("rows");
+
+			content = array.optJSONObject(0).getString("content");
+			img_path = array.optJSONObject(0).getString("img_path");
+			img_src = array.optJSONObject(0).getString("img_src");
+			menu_id = array.optJSONObject(0).getString("menu_id");
+			title = array.optJSONObject(0).getString("title");
+			title2 = array.optJSONObject(0).getString("title2");
+			if (img_src != null && !img_src.equals("")
+				&& !img_src.equals("null")) {
+
+			    String[] imgs = img_src.split(",");
+			    for (int j = 0; j < imgs.length; j++) {
+				content = content.replaceAll(imgs[j],
+					"http://115.29.224.248:8080" + imgs[j]);
+
+			    }
+
+			}
+			
+			
+			msg = handler.obtainMessage(0);
+			msg.sendToTarget();
+
+		    } else {
+			// 空的数据
+		
+		    }
+
+		} catch (Exception e) {
+		}
+
+	    }
+	}).start();
+    }
+
+    /*************************************************************************************/
+
     /**
      * 初始化控件
      */
@@ -82,14 +193,6 @@ public class SC_XinWen_DetailAty extends Activity {
 	mWebView = (WebView) findViewById(R.id.webview_player);
 	mFullscreenContainer = (FrameLayout) findViewById(R.id.fullscreen_custom_content);
 	mContentView = (FrameLayout) findViewById(R.id.main_content);
-	friend_back = (ImageButton) findViewById(R.id.friend_back);
-	friend_back.setOnClickListener(new View.OnClickListener() {
-
-	    @Override
-	    public void onClick(View arg0) {
-		finish();
-	    }
-	});
 
     }
 
@@ -201,54 +304,4 @@ public class SC_XinWen_DetailAty extends Activity {
 	mWebView.onResume();
     }
 
-    /**
-     * 填充数据
-     */
-    private void loadData() {
-	new Thread(new Runnable() {
-	    public void run() {
-		List<News> infos = new ArrayList<News>();
-
-		try {
-		    String url = HttpUtil.QUERY_EVENT
-			    + "&menu_id=db94a88d-5c78-448b-a3a7-4af1c3850571&rows=1&page=1&id="
-			    + id;
-		    String res = HttpUtil.getRequest(url);
-		    JSONObject js = new JSONObject(res);
-		    int aaa = js.getInt("total");
-		    if (aaa != 0) {
-			JSONArray array = js.getJSONArray("rows");
-
-			content = array.optJSONObject(0).getString("content");
-			img_path = array.optJSONObject(0).getString("img_path");
-			img_src = array.optJSONObject(0).getString("img_src");
-			menu_id = array.optJSONObject(0).getString("menu_id");
-			title = array.optJSONObject(0).getString("title");
-			title2 = array.optJSONObject(0).getString("title2");
-			if (img_src != null && !img_src.equals("")
-				&& !img_src.equals("null")) {
-
-			    String[] imgs = img_src.split(",");
-			    for (int j = 0; j < imgs.length; j++) {
-				content = content.replaceAll(imgs[j],
-					"http://115.29.224.248:8080" + imgs[j]);
-
-			    }
-
-			}
-			msg = handler.obtainMessage(0);
-			msg.sendToTarget();
-
-		    } else {
-			// 空的数据
-			msg = handler.obtainMessage(1);
-			msg.sendToTarget();
-		    }
-
-		} catch (Exception e) {
-		}
-
-	    }
-	}).start();
-    }
 }

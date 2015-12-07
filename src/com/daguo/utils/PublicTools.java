@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -149,18 +150,29 @@ public class PublicTools {
     }
 
     /**
-     * @param res 资源
-     * @return 处理后的字符串 
+     * @param res
+     *            资源
+     * @return 处理后的字符串
      * 
-     * 处理数据 禁止加载空值为null 如果确实为null 则转化为“” 空字符串
+     *         处理数据 禁止加载空值为null 如果确实为null 则转化为“” 空字符串
      */
     public static String doWithNullData(String res) {
 	if (res != null && !"".equals(res) && !"null".equals(res)
 		&& !"[]".equals(res)) {
 	    return res;
-	}else {
+	} else {
 	    return "";
 	}
+    }
+
+    /**
+     * 判断手机是否有SD卡。
+     * 
+     * @return 有SD卡返回true，没有返回false。
+     */
+    public static boolean hasSDCard() {
+	return Environment.MEDIA_MOUNTED.equals(Environment
+		.getExternalStorageState());
     }
 
 }

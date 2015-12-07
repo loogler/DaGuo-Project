@@ -34,8 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
-import com.daguo.libs.PullToRefreshLayout;
-import com.daguo.libs.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.util.adapter.NewsAdapter;
 import com.daguo.util.base.FrameLayout_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner;
