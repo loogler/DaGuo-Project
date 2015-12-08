@@ -1,9 +1,12 @@
 package com.daguo.ui.school.xinwen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -11,6 +14,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -18,60 +23,86 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daguo.R;
-import com.daguo.util.adapter.Eva_OrdinaryAdapter;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
+import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.util.adapter.SC_SheTuanDetailAdapter;
 import com.daguo.util.beans.Evaluate_Ordinary;
 import com.daguo.util.beans.News;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 public class SC_XinWen_DetailAty extends Activity {
-    Message msg;
-    String id, content, img_path, img_src, menu_id, title, title2;
+    private final int MSG_NEWS_CONTENT = 100;
+    private final int MSG_EVALUATE_DATA = 101;
+    private final int MSG_EVALUATE_SCU = 102;
+    private final int MSG_EVALUATE_FAIL = 103;
 
-    private TextView tv1, tv2;
-    private FrameLayout mFullscreenContainer;
-    private FrameLayout mContentView;
-    private View mCustomView = null;
-    private WebView mWebView;
-    private ImageButton friend_back;
-    
+    Message msg;
+    String id, p_id;
+    private int pageIndex = 1;
+    private String feedbackContent;
+
     // /////////////////////////////////
     /**
      * initViews
      */
-    //新闻 
-    private News content_news;
-    
-    
-    
-    
-    //评论
+    // 操作按钮
+    private Button send_msg;
+    private EditText reply;
+
+    // 新闻
+
+    private View headView;
+    private TextView tv1, tv2, time_tv, feedbackCount_tv;
+    private FrameLayout mFullscreenContainer;
+    private FrameLayout mContentView;
+    private View mCustomView = null;
+    private WebView mWebView;
+
+    private News content_news = new News();
+
+    // 评论
     private ListView content_view;
-    private List<Evaluate_Ordinary> lists =new ArrayList<Evaluate_Ordinary>();
-    private Eva_OrdinaryAdapter adapter  ;
-    
-    
-    
+    private List<Evaluate_Ordinary> evaLists = new ArrayList<Evaluate_Ordinary>();
+    private SC_SheTuanDetailAdapter adapter;
 
     // ////////////////////////////////
     Handler handler = new Handler() {
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
-	    case 0:
-		tv1.setText(title);
-		tv2.setText(title2);
-		mWebView.loadDataWithBaseURL("null", content, "text/html",
-			"UTF-8", "");
+	    case MSG_NEWS_CONTENT:
+		initContentViews();
 
 		break;
-	    case 1:
+	    case MSG_EVALUATE_DATA:
+		if (evaLists.size() > 0) {
+		    evaLists.clear();
+		}
+		List<Evaluate_Ordinary> aaEvaluate_Ordinaries = (List<Evaluate_Ordinary>) msg.obj;
+		evaLists.addAll(aaEvaluate_Ordinaries);
+		adapter.notifyDataSetChanged();
 
+		break;
+
+	    case MSG_EVALUATE_FAIL:
+		Toast.makeText(SC_XinWen_DetailAty.this, "提交失败，请重试",
+			Toast.LENGTH_LONG).show();
+		break;
+
+	    case MSG_EVALUATE_SCU:
+		reply.setText("");
+		feedbackContent="";
+		pageIndex = 1;
+		initFeedbackData();
 		break;
 
 	    default:
@@ -87,17 +118,40 @@ public class SC_XinWen_DetailAty extends Activity {
 	setContentView(R.layout.aty_event_news_detail);
 	Intent intent = getIntent();
 	id = intent.getStringExtra("id");
-	if (getPhoneAndroidSDK() >= 14) {// 4.0 需打开硬件加速
+	p_id = getSharedPreferences("userinfo", Activity.MODE_WORLD_READABLE)
+		.getString("id", "");
+	if (id == null || p_id.equals("")) {
+	    finish();// 禁止空参进入该界面
+	}
+	if (PublicTools.getPhoneAndroidSDK() >= 14) {// 4.0 需打开硬件加速
 	    getWindow().setFlags(0x1000000, 0x1000000);
 	}
-	init();
-	loadData();
-	initWebView();
+
+	initHeadViews();// 标题栏
+	initViews();// view组件
+	initContentData();
+	initFeedbackData();
+	adapter = new SC_SheTuanDetailAdapter(SC_XinWen_DetailAty.this,
+		evaLists);
+	content_view.setAdapter(adapter);
 
     }
 
     private void initViews() {
 	content_view = (ListView) findViewById(R.id.content_view);
+	PullToRefreshLayout fresh = (PullToRefreshLayout) findViewById(R.id.refresh_view);
+	fresh.setOnRefreshListener(new MyRefreshListenner());
+	reply = (EditText) findViewById(R.id.reply);
+	send_msg = (Button) findViewById(R.id.send_msg);
+
+	send_msg.setOnClickListener(new View.OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		sendFeedback();
+		
+	    }
+	});
 
     }
 
@@ -125,18 +179,42 @@ public class SC_XinWen_DetailAty extends Activity {
      * 这是在获得数据以后进行填充的，后面数据不会变动 所以写一起了
      */
     private void initContentViews() {
-	// TODO
+	headView = LayoutInflater.from(SC_XinWen_DetailAty.this).inflate(
+		R.layout.item_sc_xinwen_eva_adapter, null);
+
+	tv1 = (TextView) headView.findViewById(R.id.tv1);
+	tv2 = (TextView) headView.findViewById(R.id.tv2);
+	feedbackCount_tv = (TextView) headView
+		.findViewById(R.id.feedbackCount_tv);
+	time_tv = (TextView) headView.findViewById(R.id.time_tv);
+	mWebView = (WebView) headView.findViewById(R.id.webview_player);
+	mFullscreenContainer = (FrameLayout) headView
+		.findViewById(R.id.fullscreen_custom_content);
+	mContentView = (FrameLayout) headView.findViewById(R.id.main_content);
+
+	tv1.setText(PublicTools.doWithNullData(content_news.getTitle()));
+	tv2.setText(PublicTools.doWithNullData(content_news.getTitle2()));
+	time_tv.setText(PublicTools.doWithNullData(content_news
+		.getCreate_time()));
+	feedbackCount_tv.setText("全部评论 ("
+		+ PublicTools.doWithNullData(content_news.getFeedbackCount())
+		+ ")");
+	initWebView();
+	mWebView.loadDataWithBaseURL("null",
+		PublicTools.doWithNullData(content_news.getContent()),
+		"text/html", "UTF-8", "");
+
+	content_view.addHeaderView(headView);
+
     }
 
-    // ////////////////////////////////////////////
     /**
-     * 加载新闻内容的方法
+     * 获取新闻内容
      */
+    private void initContentData() {
 
-    private void loadData() {
 	new Thread(new Runnable() {
 	    public void run() {
-		List<News> infos = new ArrayList<News>();
 
 		try {
 		    String url = HttpUtil.QUERY_EVENT
@@ -148,12 +226,24 @@ public class SC_XinWen_DetailAty extends Activity {
 		    if (aaa != 0) {
 			JSONArray array = js.getJSONArray("rows");
 
-			content = array.optJSONObject(0).getString("content");
-			img_path = array.optJSONObject(0).getString("img_path");
-			img_src = array.optJSONObject(0).getString("img_src");
-			menu_id = array.optJSONObject(0).getString("menu_id");
-			title = array.optJSONObject(0).getString("title");
-			title2 = array.optJSONObject(0).getString("title2");
+			String content = array.optJSONObject(0).getString(
+				"content");
+			String create_time = array.optJSONObject(0).getString(
+				"create_time");
+			String img_path = array.optJSONObject(0).getString(
+				"img_path");
+			String img_src = array.optJSONObject(0).getString(
+				"img_src");
+			String menu_id = array.optJSONObject(0).getString(
+				"menu_id");
+			String title = array.optJSONObject(0)
+				.getString("title");
+			String title2 = array.optJSONObject(0).getString(
+				"title2");
+			String feedback_count = array.optJSONObject(0)
+				.getString("feedback_count");
+			String good_count = array.optJSONObject(0).getString(
+				"good_count");
 			if (img_src != null && !img_src.equals("")
 				&& !img_src.equals("null")) {
 
@@ -161,18 +251,25 @@ public class SC_XinWen_DetailAty extends Activity {
 			    for (int j = 0; j < imgs.length; j++) {
 				content = content.replaceAll(imgs[j],
 					"http://115.29.224.248:8080" + imgs[j]);
-
 			    }
 
 			}
-			
-			
-			msg = handler.obtainMessage(0);
+
+			content_news.setCreate_time(create_time);
+			content_news.setContent(content);
+			content_news.setFeedbackCount(feedback_count);
+			content_news.setGoodCount(good_count);
+			content_news.setImg_path(img_path);
+			content_news.setTitle(title);
+			content_news.setTitle2(title2);
+
+			msg = handler.obtainMessage(MSG_NEWS_CONTENT);
 			msg.sendToTarget();
 
 		    } else {
 			// 空的数据
-		
+			Log.e("新闻内容为空", "新闻详情内容为空");
+
 		    }
 
 		} catch (Exception e) {
@@ -180,6 +277,137 @@ public class SC_XinWen_DetailAty extends Activity {
 
 	    }
 	}).start();
+
+    }
+
+    /**
+     * 初始化评论数据
+     */
+    private void initFeedbackData() {
+
+	new Thread(
+
+	new Runnable() {
+	    public void run() {
+		String url = HttpUtil.QUERY_EVENT_DETAIL
+			+ "&menu_id=db94a88d-5c78-448b-a3a7-4af1c3850571&a_id="
+			+ id + "&rows=10&page=" + pageIndex;
+		String res = null;
+		try {
+		    res = HttpUtil.getRequest(url);
+		    JSONObject js = new JSONObject(res);
+		    int total = js.getInt("total");
+		    if (total > 0) {
+			JSONArray array = js.getJSONArray("rows");
+			List<Evaluate_Ordinary> abc = new ArrayList<Evaluate_Ordinary>();
+			Evaluate_Ordinary bcd = null;
+			for (int i = 0; i < array.length(); i++) {
+			    bcd = new Evaluate_Ordinary();
+
+			    String content = array.optJSONObject(i).getString(
+				    "content");
+			    String create_time = array.optJSONObject(i)
+				    .getString("create_time");
+			    String p_id = array.optJSONObject(i).getString(
+				    "p_id");
+			    String p_name = array.optJSONObject(i).getString(
+				    "p_name");
+			    String head_info = array.optJSONObject(i)
+				    .getString("head_info");
+			    String start_year = array.optJSONObject(i)
+				    .getString("start_year");
+			    String sex = array.optJSONObject(i)
+				    .getString("sex");
+			    String pro_name = array.optJSONObject(i).getString(
+				    "pro_name");
+
+			    bcd.setContent(content);
+			    bcd.setCreate_time(create_time);
+			    bcd.setHead_info(head_info);
+			    bcd.setP_id(p_id);
+			    bcd.setP_name(p_name);
+			    bcd.setStart_year(start_year);
+			    bcd.setSex(sex);
+			    bcd.setPro_name(pro_name);
+
+			    abc.add(bcd);
+			}
+			msg = handler.obtainMessage(MSG_EVALUATE_DATA);
+			msg.obj = abc;
+			msg.sendToTarget();
+		    } else {
+			// 无数据或者出错了
+		    }
+
+		} catch (JSONException exception) {
+		    Log.e("校园新闻", "获取新闻信息json异常");
+		}
+
+		catch (Exception e) {
+		    Log.e("校园新闻", "获取新闻信息异常");
+		    e.printStackTrace();
+		}
+
+	    }
+	}).start();
+
+    }
+
+    /**
+     * 发送评论操作
+     */
+    private void sendFeedback() {
+	feedbackContent = reply.getText().toString().trim();
+	if (feedbackContent != null && !"".equals(feedbackContent)
+		&& !"null".equals(feedbackContent)) {
+	    evaluateSheTuan();
+	} else {
+	    Toast.makeText(SC_XinWen_DetailAty.this, "评价内容为空",
+		    Toast.LENGTH_LONG).show();
+
+	}
+    }
+
+    /**
+     * 评论线程
+     */
+    private void evaluateSheTuan() {
+
+	new Thread(
+
+	new Runnable() {
+	    public void run() {
+		String url = HttpUtil.SUBMIT_EVENT_FEEDBACK + "&table_name=0";
+		// 此处接口必须写成post请求模式 否则提交时会出现乱码
+		try {
+		    Map<String, String> map = new HashMap<String, String>();
+
+		    map.put("content", feedbackContent);
+		    map.put("a_id", id);
+		    map.put("p_id", p_id);
+		    String res = HttpUtil.postRequest(url, map);
+
+		    JSONObject js = new JSONObject(res);
+
+		    if ("1".equals(js.getString("result"))) {
+			// 评论成功
+
+			msg = handler.obtainMessage(MSG_EVALUATE_SCU);
+			msg.sendToTarget();
+		    } else {
+			// 评论失败
+			msg = handler.obtainMessage(MSG_EVALUATE_FAIL);
+			msg.sendToTarget();
+		    }
+		} catch (JSONException exception) {
+		    Log.e("校园社团评论", "获取社团信息json异常");
+		} catch (Exception e) {
+		    Log.e("校园社团评论", "获取社团信息异常");
+		    e.printStackTrace();
+		}
+	    }
+	}).start();
+
     }
 
     /*************************************************************************************/
@@ -187,14 +415,6 @@ public class SC_XinWen_DetailAty extends Activity {
     /**
      * 初始化控件
      */
-    private void init() {
-	tv1 = (TextView) findViewById(R.id.tv1);
-	tv2 = (TextView) findViewById(R.id.tv2);
-	mWebView = (WebView) findViewById(R.id.webview_player);
-	mFullscreenContainer = (FrameLayout) findViewById(R.id.fullscreen_custom_content);
-	mContentView = (FrameLayout) findViewById(R.id.main_content);
-
-    }
 
     private void initWebView() {
 	WebSettings settings = mWebView.getSettings();
@@ -237,7 +457,7 @@ public class SC_XinWen_DetailAty extends Activity {
 		callback.onCustomViewHidden();
 		return;
 	    }
-	    if (getPhoneAndroidSDK() >= 14) {
+	    if (PublicTools.getPhoneAndroidSDK() >= 14) {
 		mFullscreenContainer.addView(view);
 		mCustomView = view;
 		mCustomViewCallback = callback;
@@ -281,27 +501,67 @@ public class SC_XinWen_DetailAty extends Activity {
 
     }
 
-    public static int getPhoneAndroidSDK() {
-	int version = 0;
-	try {
-	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
-	} catch (NumberFormatException e) {
-	    e.printStackTrace();
-	}
-	return version;
-
-    }
-
     @Override
     public void onPause() {// 继承自Activity
 	super.onPause();
-	mWebView.onPause();
+	if (mWebView != null) {
+	    mWebView.onPause();
+
+	}
     }
 
     @Override
     public void onResume() {// 继承自Activity
 	super.onResume();
-	mWebView.onResume();
+	if (mWebView != null) {
+
+	    mWebView.onResume();
+	}
+    }
+/**
+ * 
+* @author : BugsRabbit 
+* @email 395360255@qq.com
+* @version 创建时间：2015-12-8 下午2:43:27
+* @function ：刷新控件的刷新事件
+ */
+    class MyRefreshListenner implements OnRefreshListener {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener
+	 * #onRefresh(com.daguo.libs.pulltorefresh.PullToRefreshLayout)
+	 */
+	@Override
+	public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+	    pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener
+	 * #onLoadMore(com.daguo.libs.pulltorefresh.PullToRefreshLayout)
+	 */
+	@Override
+	public void onLoadMore(final PullToRefreshLayout pullToRefreshLayout) {
+	    pageIndex++;
+	    initFeedbackData();
+	    // 下拉刷新操作 仅仅为了实现好看，觉得努力加载中的样子
+	    new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+		    // 千万别忘了告诉控件刷新完毕了哦！
+
+		    pullToRefreshLayout
+			    .refreshFinish(PullToRefreshLayout.SUCCEED);
+		}
+	    }.sendEmptyMessageDelayed(0, 3000);
+	}
+
     }
 
 }

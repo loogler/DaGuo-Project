@@ -271,7 +271,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 		"text/html", "UTF-8", "");
 
 	content_view.addHeaderView(contentView);
-	// TODO 评论数 出错
+
     }
 
     private void initWebView() {
@@ -409,8 +409,17 @@ public class SC_SheTuanDetailAty extends Activity implements
 				.getString("title");
 			String title2 = array.optJSONObject(0).getString(
 				"title2");
-		
 
+			if (img_src != null && !img_src.equals("")
+				&& !img_src.equals("null")) {
+
+			    String[] imgs = img_src.split(",");
+			    for (int j = 0; j < imgs.length; j++) {
+				content = content.replaceAll(imgs[j],
+					"http://115.29.224.248:8080" + imgs[j]);
+			    }
+
+			}
 			sheTuanList.setContent(content);
 			sheTuanList.setCreate_time(create_time);
 			sheTuanList.setFeedback_count(feedback_count);
@@ -418,7 +427,6 @@ public class SC_SheTuanDetailAty extends Activity implements
 			sheTuanList.setImg_src(img_src);
 			sheTuanList.setTitle(title);
 			sheTuanList.setTitle2(title2);
-			
 
 			msg = handler.obtainMessage(MSG_CONTENT_DATA);
 			msg.sendToTarget();
@@ -444,7 +452,7 @@ public class SC_SheTuanDetailAty extends Activity implements
      */
     private void loadFeedbackData() {
 	new Thread(
-		
+
 	new Runnable() {
 	    public void run() {
 		String url = HttpUtil.QUERY_EVENT_DETAIL

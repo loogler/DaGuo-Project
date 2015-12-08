@@ -38,8 +38,8 @@ import com.daguo.modem.schedule.Main_Aty;
 import com.daguo.ui.commercial.Shop_GoodsDetailAty;
 import com.daguo.ui.operators.OperatorAty;
 import com.daguo.ui.school.School_MainAty;
-import com.daguo.ui.school.huodong.SC_HuoDongAty;
-import com.daguo.ui.school.huodong.SC_HuoDong_DetailAty;
+import com.daguo.ui.school.huodong.SC_HuoDongAty1;
+import com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1;
 import com.daguo.ui.school.shetuan.SC_SheTuanAty;
 import com.daguo.ui.school.shetuan.SC_SheTuanDetailAty;
 import com.daguo.ui.school.xinwen.SC_XinWenAty;
@@ -520,7 +520,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    menuId = lists.get(position).getMenu_id();
 	    if (menuId.equals("b3b7866c-3bf9-48a7-8caa-effa1fb86782")) {
 		// 校园活动
-		Intent intent = new Intent(Main_1Aty.this, SC_HuoDongAty.class);
+		Intent intent = new Intent(Main_1Aty.this, SC_HuoDongAty1.class);
 		startActivity(intent);
 
 	    } else if (menuId.equals("7176add9-6d46-4c97-8983-362848304388")) {
@@ -545,7 +545,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    if (menuId.equals("b3b7866c-3bf9-48a7-8caa-effa1fb86782")) {
 		// 校园活动
 		Intent intent = new Intent(Main_1Aty.this,
-			SC_HuoDong_DetailAty.class);
+			SC_HuoDong_DetailAty1.class);
 		intent.putExtra("id", sourceId);
 		startActivity(intent);
 

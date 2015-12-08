@@ -175,4 +175,19 @@ public class PublicTools {
 		.getExternalStorageState());
     }
 
+    /**
+     * 
+     * 通过获取sdk号  来处理不同版本号之间的兼容问题
+     * @return int类型的sdk版本号 
+     */
+    public static int getPhoneAndroidSDK() {
+   	int version = 0;
+   	try {
+   	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
+   	} catch (NumberFormatException e) {
+   	    e.printStackTrace();
+   	}
+   	return version;
+
+       }
 }

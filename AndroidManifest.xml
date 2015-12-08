@@ -163,7 +163,11 @@
         <!-- com.daguo.ui.school.huodong 校园活动新闻等部分功能 -->
         <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty" >
         </activity>
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty1" >
+        </activity>
         <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1" >
         </activity>
 
         <!-- com.daguo.ui.school.shetuan  校园社团部分 -->

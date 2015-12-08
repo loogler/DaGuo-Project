@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
-import com.daguo.ui.school.huodong.SC_HuoDongAty;
+import com.daguo.ui.school.huodong.SC_HuoDongAty1;
 import com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1;
 import com.daguo.ui.school.xinwen.SC_XinWenAty;
 
@@ -122,7 +122,7 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 			break;
 		case R.id.iv_huodong:
 			// 校园活动
-			Intent intent3 = new Intent(getBaseContext(), SC_HuoDongAty.class);
+			Intent intent3 = new Intent(getBaseContext(), SC_HuoDongAty1.class);
 			startActivity(intent3);
 			break;
 		case R.id.iv_back:

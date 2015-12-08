@@ -12,6 +12,7 @@ public class News {
     private String img_src;
     private String feedbackCount;
     private String goodCount;
+    private String create_time ;
 
     public String getSchool_id() {
 	return school_id;
@@ -113,6 +114,20 @@ public class News {
      */
     public void setGoodCount(String goodCount) {
 	this.goodCount = goodCount;
+    }
+
+    /**
+     * @return the create_time
+     */
+    public String getCreate_time() {
+	return create_time;
+    }
+
+    /**
+     * @param create_time the create_time to set
+     */
+    public void setCreate_time(String create_time) {
+	this.create_time = create_time;
     }
 
 }
