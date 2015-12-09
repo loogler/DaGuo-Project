@@ -628,9 +628,9 @@ public class Main_1Aty extends Activity implements OnClickListener {
 
 			@Override
 			public void onClick(View arg0) {
-			    Toast.makeText(Main_1Aty.this,
-				    "dianji +" + position, Toast.LENGTH_SHORT)
-				    .show();
+//			    Toast.makeText(Main_1Aty.this,
+//				    "dianji +" + position, Toast.LENGTH_SHORT)
+//				    .show();
 			    onclicks(position, topBannerLists);
 			}
 		    });

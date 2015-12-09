@@ -129,7 +129,7 @@
         </activity>
         <activity android:name="com.daguo.ui.main.Main_1Aty" >
         </activity>
-        <activity android:name="com.daguo.ui.main.Main_2Aty" >
+        <activity android:name="com.daguo.ui.main.Main_2Aty1" >
         </activity>
         <activity android:name="com.daguo.ui.main.Main_3Aty" >
         </activity>
@@ -160,12 +160,8 @@
         </activity>
         <activity android:name="com.daguo.ui.school.School_Main4Aty" >
         </activity>
-        <!-- com.daguo.ui.school.huodong 校园活动新闻等部分功能 -->
-        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty" >
-        </activity>
+        <!-- com.daguo.ui.school.huodong 校园活动 部分功能 -->
         <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty1" >
-        </activity>
-        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty" >
         </activity>
         <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1" >
         </activity>
@@ -233,7 +229,7 @@
         </activity>
 
         <!-- 短信流量包 -->
-<!--   -->
+        <!--  -->
 
 
         <!-- 友盟push -->
