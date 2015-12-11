@@ -89,6 +89,7 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 			holdler.type.setText(info.getType_name());
 			holdler.zan.setText("赞(" + info.getGood_count() + ")");
 			holdler.schoolName.setText(info.getSchool_name());
+			
 			if (info.getP_sex().equals("0")) {
 				holdler.sex_iv.setVisibility(view.VISIBLE);
 				holdler.sex_iv.setImageResource(R.drawable.icon_sex_man);
@@ -115,14 +116,14 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 						gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
-				grid.setLayoutParams(params);
-				grid.setColumnWidth(itemWidth);
+				holdler.grid.setLayoutParams(params);
+				holdler.grid.setColumnWidth(itemWidth);
 
-				grid.setHorizontalSpacing(5);
-				grid.setStretchMode(GridView.NO_STRETCH);
-				grid.setVerticalScrollBarEnabled(true);
-				grid.setNumColumns(size);
-				grid.setAdapter(new MyGridAdapter(imgUrl, context));
+				holdler.grid.setHorizontalSpacing(5);
+				holdler.grid.setStretchMode(GridView.NO_STRETCH);
+				holdler.grid.setVerticalScrollBarEnabled(true);
+				holdler.grid.setNumColumns(size);
+				holdler.grid.setAdapter(new MyGridAdapter(imgUrl, context));
 			}
 			if (!isEmpty(info.getP_photo())) {
 

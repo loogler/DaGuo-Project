@@ -6,6 +6,7 @@ package com.daguo.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -190,4 +191,26 @@ public class PublicTools {
    	return version;
 
        }
+    /**
+     *  将List<String> 数组转化为String
+     * @param stringList List<String> 数组
+     * @return 以逗号分隔开的String
+     */
+    public static String listToString(List<String> stringList){
+        if (stringList==null) {
+            return null;
+        }
+        StringBuilder result=new StringBuilder();
+        boolean flag=false;
+        for (String string : stringList) {
+            if (flag) {
+                result.append(",");
+            }else {
+                flag=true;
+            }
+            result.append(string);
+        }
+        return result.toString();
+    }
+
 }

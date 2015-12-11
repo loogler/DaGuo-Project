@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.daguo.R;
+import com.daguo.modem.writeshuoshuo.ui.SC_ShuoShuo_WriteAty;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
 import com.daguo.util.adapter.SC_ShuoShuoAdapter;
 import com.daguo.util.base.AutoListView;

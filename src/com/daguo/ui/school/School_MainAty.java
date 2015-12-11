@@ -15,8 +15,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.daguo.R;
+import com.daguo.modem.writeshuoshuo.ui.SC_ShuoShuo_WriteAty;
 import com.daguo.ui.main.MainActivity;
-import com.daguo.ui.school.shuoshuo.SC_ShuoShuo_WriteAty;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
 
 /**
