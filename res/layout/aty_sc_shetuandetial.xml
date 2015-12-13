@@ -30,10 +30,10 @@
     </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
 
     <LinearLayout
-        android:background="@color/grey_1"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/grey_1"
         android:orientation="horizontal" >
 
         <LinearLayout

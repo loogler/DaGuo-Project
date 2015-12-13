@@ -1,5 +1,7 @@
 package com.daguo.util.beans;
 
+import java.util.List;
+
 /**
  * 说说的实体类，记录主页说说要显示的内容 详细的不算
  * 
@@ -18,7 +20,7 @@ public class ShuoShuoContent {
 	private String p_name;// 发帖人，省去查询的请求
 	private String p_photo;// 头像信息
 	private String p_sex;//性别
-	private String signs ;//点赞人的头像列表
+	private List<HeadInfo> signs ;//点赞人的头像列表
 	private String school_id ;//学校id
 	private String school_name ;//学校名称
 	private String tableName ;
@@ -117,13 +119,7 @@ public class ShuoShuoContent {
 		this.p_photo = p_photo;
 	}
 
-	public String getSigns() {
-		return signs;
-	}
 
-	public void setSigns(String signs) {
-		this.signs = signs;
-	}
 
 	public String getP_sex() {
 		return p_sex;
@@ -164,6 +160,22 @@ public class ShuoShuoContent {
 	public void setF_id(String f_id) {
 		this.f_id = f_id;
 	}
+
+	/**
+	 * @return the signs
+	 */
+	public List<HeadInfo> getSigns() {
+	    return signs;
+	}
+
+	/**
+	 * @param signs the signs to set
+	 */
+	public void setSigns(List<HeadInfo> signs) {
+	    this.signs = signs;
+	}
+
+
 
 	
 

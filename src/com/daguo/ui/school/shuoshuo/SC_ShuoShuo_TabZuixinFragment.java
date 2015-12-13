@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,11 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.util.adapter.SC_ShuoShuoAdapter;
+import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.utils.HttpUtil;
 
@@ -34,8 +39,11 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
     /**
      * 说说内容data
      */
-    List<ShuoShuoContent> contentLists = new ArrayList<ShuoShuoContent>();
-    ShuoShuoContent contentList = null;
+    private List<ShuoShuoContent> contentLists = new ArrayList<ShuoShuoContent>();
+    private ShuoShuoContent contentList = null;
+    private List<HeadInfo> headInfos;
+    // shuoshuo
+    private SC_ShuoShuoAdapter adapter = null;
 
     /**
      * 通用data
@@ -43,6 +51,7 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
      */
     private String p_id;
     private int pageIndex = 1;// 加载页码
+    private String url;
 
     /**
      * tools
@@ -52,7 +61,13 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
 	    case MSG_CONTENT:
-		// TODO
+
+		if (contentLists != null) {
+		    contentLists.clear();
+		}
+		List<ShuoShuoContent> aaContents = (List<ShuoShuoContent>) msg.obj;
+		contentLists.addAll(aaContents);
+		adapter.notifyDataSetChanged();
 
 		break;
 
@@ -66,8 +81,10 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 
-	String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page=" + pageIndex;
+	url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page=" + pageIndex;
 	loadData(url);
+	adapter = new SC_ShuoShuoAdapter(getActivity(), contentLists);
+	content_view.setAdapter(adapter);
 
     }
 
@@ -81,6 +98,16 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	content_view = (ListView) view.findViewById(R.id.content_view);
 
 	refresh_view.setOnRefreshListener(new MyRefreshListener());
+	content_view.setOnItemClickListener(new OnItemClickListener() {
+
+	    @Override
+	    public void onItemClick(AdapterView<?> arg0, View v, int p,
+		    long arg3) {
+		Intent intent =new Intent(getActivity(),SC_ShuoShuo_EvaluationAty.class);
+		intent.putExtra("id", contentLists.get(p).getId());
+		getActivity().startActivity(intent);
+	    }
+	});
 
 	return view;
     }
@@ -130,17 +157,30 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 				    .getString("school_name");
 			    String head_info = arr.optJSONObject(i).getString(
 				    "head_info");
-			    String signs = arr.optJSONObject(i).getString(
-				    "signs");
+
 			    String tableName = arr.optJSONObject(i).getString(
 				    "tableName");
-			    // * 对sign字段进行处理 由于其值为所有用户信息 这里只需头像信息，以及个人id
-			    // JSONArray arrays
-			    // =arr.optJSONObject(i).getJSONArray("signs");
-			    // for (int j = 0; j < arrays.length(); j++) {
-			    // String f_head
-			    // =arrays.optJSONObject(j).getString("");
-			    // }
+
+			    JSONArray sign = arr.optJSONObject(i).getJSONArray(
+				    "signs");
+			    headInfos = new ArrayList<HeadInfo>();
+			    if (sign.length() > 0) {
+				for (int j = 0; j < sign.length(); j++) {
+				    HeadInfo headInfo = new HeadInfo();
+				    String idString = sign.optJSONObject(j)
+					    .getString("id");
+				    String p_head_info = sign.optJSONObject(j)
+					    .getString("p_head_info");
+				    headInfo.setId(idString);
+				    headInfo.setP_head_info(p_head_info);
+
+				    headInfos.add(headInfo);
+
+				}
+			    } else {
+				// 无人点赞
+			    }
+
 			    contentList.setId(id);
 			    contentList.setCreatTime(create_time);
 			    contentList.setImg_path(img_path);
@@ -153,7 +193,7 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 			    contentList.setP_id(p_id);
 			    contentList.setP_name(p_name);
 			    contentList.setSchool_name(school_name);
-			    contentList.setSigns(signs);
+			    contentList.setSigns(headInfos);
 			    contentList.setP_photo(head_info);
 			    contentList.setTableName(tableName);
 			    contentList.setP_sex(p_sex);
@@ -193,7 +233,8 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 		@Override
 		public void handleMessage(Message msg) {
 		    // 千万别忘了告诉控件刷新完毕了哦！
-		    // TODO
+		    pageIndex++;
+		    loadData(url);
 		    pullToRefreshLayout
 			    .refreshFinish(PullToRefreshLayout.SUCCEED);
 		}
@@ -213,7 +254,8 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	    new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-		    // TODO
+		    pageIndex = 1;
+		    loadData(url);
 		    // 千万别忘了告诉控件加载完毕了哦！
 		    pullToRefreshLayout
 			    .loadmoreFinish(PullToRefreshLayout.SUCCEED);

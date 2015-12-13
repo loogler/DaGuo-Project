@@ -144,7 +144,7 @@ public class Shop_GoodsDetailAty extends Activity {
 		grid.setStretchMode(GridView.NO_STRETCH);
 		grid.setVerticalScrollBarEnabled(true);
 		grid.setNumColumns(size);
-		grid.setAdapter(new MyGridAdapter(imageUrl, Shop_GoodsDetailAty.this));
+		grid.setAdapter(new MyGridAdapter(imageUrl, Shop_GoodsDetailAty.this,2));
 		grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override

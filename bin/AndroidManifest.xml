@@ -193,6 +193,8 @@
         </activity>
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty" >
         </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty1" >
+        </activity>
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1" >
         </activity>
         <!-- com.daguo.ui.school.xinwen. 学校活动的部分包括新闻之类的所有 -->

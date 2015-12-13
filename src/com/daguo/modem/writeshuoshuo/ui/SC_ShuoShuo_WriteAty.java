@@ -2,8 +2,6 @@ package com.daguo.modem.writeshuoshuo.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +11,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -229,7 +226,6 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		content = PublicTools.doWithNullData(con);
 		upLoadPhoto(HttpUtil.IMG_URL_SUB);
 
-	
 	    }
 	});
 
@@ -404,7 +400,7 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 	    return convertView;
 	}
 
-	public class ViewHolder {
+	private class ViewHolder {
 	    public ImageView image;
 	}
 

@@ -178,39 +178,43 @@ public class PublicTools {
 
     /**
      * 
-     * 通过获取sdk号  来处理不同版本号之间的兼容问题
-     * @return int类型的sdk版本号 
+     * 通过获取sdk号 来处理不同版本号之间的兼容问题
+     * 
+     * @return int类型的sdk版本号
      */
     public static int getPhoneAndroidSDK() {
-   	int version = 0;
-   	try {
-   	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
-   	} catch (NumberFormatException e) {
-   	    e.printStackTrace();
-   	}
-   	return version;
+	int version = 0;
+	try {
+	    version = Integer.valueOf(android.os.Build.VERSION.SDK);
+	} catch (NumberFormatException e) {
+	    e.printStackTrace();
+	}
+	return version;
 
-       }
+    }
+
     /**
-     *  将List<String> 数组转化为String
-     * @param stringList List<String> 数组
+     * 将List<String> 数组转化为String
+     * 
+     * @param stringList
+     *            List<String> 数组
      * @return 以逗号分隔开的String
      */
-    public static String listToString(List<String> stringList){
-        if (stringList==null) {
-            return null;
-        }
-        StringBuilder result=new StringBuilder();
-        boolean flag=false;
-        for (String string : stringList) {
-            if (flag) {
-                result.append(",");
-            }else {
-                flag=true;
-            }
-            result.append(string);
-        }
-        return result.toString();
+    public static String listToString(List<String> stringList) {
+	if (stringList == null) {
+	    return null;
+	}
+	StringBuilder result = new StringBuilder();
+	boolean flag = false;
+	for (String string : stringList) {
+	    if (flag) {
+		result.append(",");
+	    } else {
+		flag = true;
+	    }
+	    result.append(string);
+	}
+	return result.toString();
     }
 
 }

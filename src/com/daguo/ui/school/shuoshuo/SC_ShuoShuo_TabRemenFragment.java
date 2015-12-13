@@ -188,7 +188,7 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment implements
 							list.setP_id(p_id);
 							list.setP_name(p_name);
 							list.setSchool_name(school_name);
-							list.setSigns(signs);
+//							list.setSigns(signs);
 							list.setP_photo(head_info);
 							list.setTableName(tableName);
 							list.setP_sex(p_sex);

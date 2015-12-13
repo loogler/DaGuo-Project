@@ -2,284 +2,314 @@ package com.daguo.util.adapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.modem.photo.MyGridAdapter;
 import com.daguo.modem.photo.NoScrollGridView;
-import com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty;
 import com.daguo.util.base.CircularImage;
+import com.daguo.util.base.MyGridView;
+import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 public class SC_ShuoShuoAdapter extends BaseAdapter {
-	@SuppressLint("SimpleDateFormat")
-	private Context context;
-	private List<ShuoShuoContent> infos;
-	private ShuoShuoContent info;
-	private NoScrollGridView grid;// 照片相册gridView=(NoScrollGridView)
-	LayoutInflater inflater;
-	@SuppressLint("SimpleDateFormat")
-	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private FinalBitmap finalBit;
-	String[] urls;
-	String[] imgUrl;
+    @SuppressLint("SimpleDateFormat")
+    private Context context;
+    private List<ShuoShuoContent> infos;
+    private ShuoShuoContent info;
 
-	public SC_ShuoShuoAdapter(Context context, List<ShuoShuoContent> infos) {
-		this.context = context;
-		this.infos = infos;
-		inflater = LayoutInflater.from(context);
-		finalBit = FinalBitmap.create(context);
+    LayoutInflater inflater;
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public SC_ShuoShuoAdapter(Context context, List<ShuoShuoContent> infos) {
+	this.context = context;
+	this.infos = infos;
+	inflater = LayoutInflater.from(context);
+
+    }
+
+    @Override
+    public int getCount() {
+	return infos == null ? 0 : infos.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+	return infos == null ? null : infos.get(position);
+    }
+
+    @Override
+    public long getItemId(int arg0) {
+	return arg0;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.widget.Adapter#getView(int, android.view.View,
+     * android.view.ViewGroup)
+     */
+    @Override
+    public View getView(int position, View view, ViewGroup arg2) {
+	ViewHoldler viewHoldler = null;
+	if (view == null) {
+	    view = inflater.inflate(R.layout.item_sc_shuoshuoadapter, null);
+	    viewHoldler = getHolder(view);
+	    view.setTag(viewHoldler);
+	} else {
+	    viewHoldler = (ViewHoldler) view.getTag();
 	}
 
-	@Override
-	public int getCount() {
-		return infos == null ? 0 : infos.size();
+	if (infos != null) {
+	    bindData(viewHoldler, position);
+	}
+	return view;
+    }
+
+    // ////************************************************//////
+
+    private void bindData(ViewHoldler viewHoldler, final int position) {
+	if (infos.get(position) == null) {
+	    return;
+	}
+	if (infos.get(position).getContent().isEmpty()) {
+	    viewHoldler.content.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.content.setVisibility(View.VISIBLE);
+	    viewHoldler.content.setText(infos.get(position).getContent());
 	}
 
-	@Override
-	public Object getItem(int position) {
-		return infos == null ? null : infos.get(position);
+	if (infos.get(position).getCreatTime().isEmpty()) {
+	    viewHoldler.time.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.time.setVisibility(View.VISIBLE);
+	    try {
+		viewHoldler.time.setText(PublicTools.DateFormat(infos.get(
+			position).getCreatTime()));
+	    } catch (ParseException e) {
+		Log.e("说说列表适配", "dateformate出错");
+		e.printStackTrace();
+	    }
+	}
+	if (infos.get(position).getFeedback_count().isEmpty()) {
+	    viewHoldler.pinglun.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.pinglun.setVisibility(View.VISIBLE);
+	    viewHoldler.pinglun
+		    .setText(infos.get(position).getFeedback_count());
 	}
 
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
-
+	if (infos.get(position).getGood_count().isEmpty()) {
+	    viewHoldler.zan.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.zan.setVisibility(View.VISIBLE);
+	    viewHoldler.zan.setText(infos.get(position).getGood_count());
 	}
 
-	@SuppressWarnings("static-access")
-	@Override
-	public View getView(final int position, View view, ViewGroup parent) {
-		ViewHoldler holdler = null;
-		// if (view == null) {
-		view = inflater.inflate(R.layout.item_sc_shuoshuoadapter, null);
-		holdler = getHolder(view);
-		view.setTag(holdler);
+	if (infos.get(position).getImg_path().isEmpty()) {
+	    viewHoldler.img_content.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.img_content.setVisibility(View.VISIBLE);
+	    // data 处理
+	    String urls = infos.get(position).getImg_path();
+	    // ArrayList urlLists = new ArrayList(urls.split(","));
 
-		// } else {
-		// holdler = (ViewHoldler) view.getTag();
-		// 视图复用实在不知道大牛们怎么写的 我一写就异常 为什么
-
-		// }
-
-		if (infos != null) {
-
-			info = infos.get(position);
-			holdler.content.setText(info.getContent());
-			holdler.name.setText(info.getP_name());
-			holdler.pinglun.setText("评论(" + info.getFeedback_count() + ")");
-			holdler.time.setText(handTime(info.getCreatTime()));
-			holdler.type.setText(info.getType_name());
-			holdler.zan.setText("赞(" + info.getGood_count() + ")");
-			holdler.schoolName.setText(info.getSchool_name());
-			
-			if (info.getP_sex().equals("0")) {
-				holdler.sex_iv.setVisibility(view.VISIBLE);
-				holdler.sex_iv.setImageResource(R.drawable.icon_sex_man);
-			} else if (info.getP_sex().equals("1")) {
-				holdler.sex_iv.setVisibility(view.VISIBLE);
-				holdler.sex_iv.setImageResource(R.drawable.icon_sex_woman);
-			} else {
-				// 性别不明
-				holdler.sex_iv.setVisibility(view.GONE);
-			}
-			
-			if (!isEmpty(info.getSigns())) {
-				imgUrl = info.getSigns().split(",");
-				int size = imgUrl.length;
-
-				int length = 100;
-
-				DisplayMetrics dm = new DisplayMetrics();
-				((Activity) context).getWindowManager().getDefaultDisplay()
-						.getMetrics(dm);
-				float density = dm.density;
-				int gridviewWidth = (int) (size * (length + 4) * density);
-				int itemWidth = (int) (length * density);
-
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-						gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
-				holdler.grid.setLayoutParams(params);
-				holdler.grid.setColumnWidth(itemWidth);
-
-				holdler.grid.setHorizontalSpacing(5);
-				holdler.grid.setStretchMode(GridView.NO_STRETCH);
-				holdler.grid.setVerticalScrollBarEnabled(true);
-				holdler.grid.setNumColumns(size);
-				holdler.grid.setAdapter(new MyGridAdapter(imgUrl, context));
-			}
-			if (!isEmpty(info.getP_photo())) {
-
-				finalBit.display(holdler.photo,
-						HttpUtil.IMG_URL + info.getP_photo());
-			} else {
-				holdler.photo.setImageResource(R.drawable.user_logo);
-			}
-			if (!isEmpty(info.getImg_path())) {
-
-				// ImageLoader.getInstance().displayImage(
-				// HttpUtil.IMG_URL + info.getImg_path(),
-				// holdler.img_content);
-				finalBit.display(holdler.img_content,
-						HttpUtil.IMG_URL + info.getImg_path());
-
-			} else {
-				holdler.img_content.setVisibility(View.GONE);
-			}
-
-		} else {
-			// no !
-		}
-
-		view.setOnClickListener(new View.OnClickListener() {
+	    final String[] urlStrings = urls.split(",");
+	    viewHoldler.img_content.setAdapter(new MyGridAdapter(urlStrings,
+		    context, 2));
+	    viewHoldler.img_content
+		    .setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
-				//
-				Intent intent = new Intent(context,
-						SC_ShuoShuo_EvaluationAty.class);
-				String id = infos.get(position).getId();
-				intent.putExtra("id", id);
-				intent.putExtra("good_count", infos.get(position)
-						.getGood_count());
-				intent.putExtra("feedback_count", infos.get(position)
-						.getFeedback_count());
-				intent.putExtra("content", infos.get(position).getContent());
-				intent.putExtra("time", infos.get(position).getCreatTime());
-				intent.putExtra("img_path", infos.get(position).getImg_path());
-				intent.putExtra("p_name", infos.get(position).getP_name());
-				intent.putExtra("p_avator", infos.get(position).getP_photo());
-				intent.putExtra("sex", infos.get(position).getP_sex());
-				intent.putExtra("school_name", infos.get(position).getSchool_name());
-				intent.putExtra("type", infos.get(position).getType_name());
-				context.startActivity(intent);
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+				int p, long arg3) {
+			    imageBrower(p, urlStrings);
 			}
-		});
-		holdler.img_content.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				String[] urls = new String[] { infos.get(position)
-						.getImg_path() };
-
-				imageBrower(0, urls);
-			}
-		});
-		return view;
+		    });
 	}
 
-	class ViewHoldler {
-		CircularImage photo;
-		TextView name;
-		ImageView sex_iv;
-		TextView schoolName;
-		TextView content;
-		TextView time;
-		TextView type ;
-		TextView zan;
-		TextView pinglun;
-		// ImageButton caozuo;
-		ImageView img_content;
-		NoScrollGridView grid;
+	if (infos.get(position).getP_name().isEmpty()) {
+	    viewHoldler.name_tv.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.name_tv.setVisibility(View.VISIBLE);
+	    viewHoldler.name_tv.setText(infos.get(position).getP_name());
+	}
+	if (infos.get(position).getP_photo().isEmpty()) {
+	    viewHoldler.photo.setImageResource(R.drawable.user_logo);
+	} else {
+	    viewHoldler.photo.setVisibility(View.VISIBLE);
+	    // viewHoldler.photo.setText(infos.get(position).getP_photo());
+	    FinalBitmap.create(context).display(viewHoldler.photo,
+		    HttpUtil.IMG_URL + infos.get(position).getP_photo());
 
 	}
 
-	ViewHoldler getHolder(View view) {
-		ViewHoldler holdler = new ViewHoldler();
-		holdler.content = (TextView) view.findViewById(R.id.content_text);
-		holdler.name = (TextView) view.findViewById(R.id.name);
-		holdler.sex_iv = (ImageView) view.findViewById(R.id.sex_iv);
-		holdler.photo = (CircularImage) view.findViewById(R.id.photo);
-		holdler.pinglun = (TextView) view.findViewById(R.id.fenxiang);
-		holdler.time = (TextView) view.findViewById(R.id.date);
-		holdler.type=(TextView) view.findViewById(R.id.type);
-		holdler.zan = (TextView) view.findViewById(R.id.shoucang);
-		holdler.schoolName = (TextView) view.findViewById(R.id.schoolname);
-		// holdler.caozuo = (ImageButton) view.findViewById(R.id.reply_content);
-		holdler.img_content = (ImageView) view.findViewById(R.id.image_content);
-		holdler.grid = (NoScrollGridView) view.findViewById(R.id.grid);
-		return holdler;
+	if (infos.get(position).getP_sex().isEmpty()) {
+	    viewHoldler.sex_iv.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.sex_iv.setVisibility(View.VISIBLE);
+	    // viewHoldler.content.setText(infos.get(position).getContent());
+	    if ("1".equals(infos.get(position).getP_sex())) {
+		// 女
+		viewHoldler.sex_iv.setImageResource(R.drawable.icon_sex_woman);
+	    } else if ("0".equals(infos.get(position).getP_sex())) {
+		// 男
+		viewHoldler.sex_iv.setImageResource(R.drawable.icon_sex_man);
+
+	    } else {
+		// 性别不明
+		viewHoldler.sex_iv.setVisibility(View.GONE);
+	    }
 	}
 
-	/**
-	 * 处理时间
-	 * 
-	 * @param string
-	 * @return
-	 */
-	private String handTime(String time) {
-		if (time == null || "".equals(time.trim())) {
-			return "";
+	if (infos.get(position).getSchool_name().isEmpty()) {
+	    viewHoldler.schoolName.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.schoolName.setVisibility(View.VISIBLE);
+	    viewHoldler.schoolName
+		    .setText(infos.get(position).getSchool_name());
+	}
+
+	if (infos.get(position).getSigns() == null
+		|| infos.get(position).getSigns().isEmpty()) {
+	    viewHoldler.grid.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.grid.setVisibility(View.VISIBLE);
+	    List<HeadInfo> headInfos = infos.get(position).getSigns();
+	    List<String> headInfoLists = new ArrayList<String>();
+	    for (int i = 0; i < headInfos.size(); i++) {
+		String p_head_info = headInfos.get(i).getP_head_info();
+		headInfoLists.add(p_head_info);
+	    }
+	    String[] str = (String[]) headInfoLists
+		    .toArray(new String[headInfoLists.size()]);
+	    viewHoldler.grid.setAdapter(new MyGridAdapter(str, context, 1));
+	    viewHoldler.grid.setOnItemClickListener(new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View v, int p,
+			long arg3) {
+		    // Toast.makeText(context, "点击头像" + p + "当前说说" + position,
+		    // Toast.LENGTH_SHORT).show();
+		    // Intent intent = new Intent();
+		    // TODO 说说列表 跳转个人信息
 		}
-		try {
-			Date date = format.parse(time);
-			long tm = System.currentTimeMillis();// 当前时间戳
-			long tm2 = date.getTime();// 发表动态的时间戳
-			long d = (tm - tm2) / 1000;// 时间差距 单位秒
-			if ((d / (60 * 60 * 24)) > 0) {
-				return d / (60 * 60 * 24) + "天前";
-			} else if ((d / (60 * 60)) > 0) {
-				return d / (60 * 60) + "小时前";
-			} else if ((d / 60) > 0) {
-				return d / 60 + "分钟前";
-			} else {
-				// return d + "秒前";
-				return "刚刚";
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/**
-	 * 判断指定的字符串是否是 正确的（不为“”、null 、“null”）
-	 * 
-	 * @param str
-	 * @return
-	 */
-	private boolean isEmpty(String str) {
-		if (str != null && !str.equals("") && !str.equals("null")
-				&& !str.equals("[]")) {
-			return false;
-		} else {
-			return true;
-		}
+	    });
 
 	}
 
-	/**
-	 * 
-	 * @param position
-	 * @param urls
-	 */
-	private void imageBrower(int position, String[] urls) {
-		Intent intent = new Intent(context,
-				com.daguo.modem.photo.ImagePagerActivity.class);
-		// 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
-		intent.putExtra(
-				com.daguo.modem.photo.ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
-		intent.putExtra(
-				com.daguo.modem.photo.ImagePagerActivity.EXTRA_IMAGE_INDEX,
-				position);
-		context.startActivity(intent);
+	if (infos.get(position).getType().isEmpty()) {
+	    viewHoldler.type.setVisibility(View.GONE);
+	} else {
+	    viewHoldler.type.setVisibility(View.VISIBLE);
+	    viewHoldler.type.setText(infos.get(position).getType());
 	}
+
+    }
+
+    class ViewHoldler {
+	CircularImage photo;
+	TextView name_tv;
+	ImageView sex_iv;
+	TextView schoolName;
+	TextView content;
+	TextView time;
+	TextView type;
+	TextView zan;
+	TextView pinglun;
+	// ImageButton caozuo;
+	MyGridView img_content;
+	NoScrollGridView grid;
+
+    }
+
+    ViewHoldler getHolder(View view) {
+	ViewHoldler holdler = new ViewHoldler();
+	holdler.content = (TextView) view.findViewById(R.id.content_text);
+	holdler.name_tv = (TextView) view.findViewById(R.id.name_tv);
+	holdler.sex_iv = (ImageView) view.findViewById(R.id.sex_iv);
+	holdler.photo = (CircularImage) view.findViewById(R.id.photo);
+	holdler.pinglun = (TextView) view.findViewById(R.id.fenxiang);
+	holdler.time = (TextView) view.findViewById(R.id.date);
+	holdler.type = (TextView) view.findViewById(R.id.type);
+	holdler.zan = (TextView) view.findViewById(R.id.shoucang);
+	holdler.schoolName = (TextView) view.findViewById(R.id.schoolname);
+	// holdler.caozuo = (ImageButton) view.findViewById(R.id.reply_content);
+	holdler.img_content = (MyGridView) view
+		.findViewById(R.id.image_content);
+	holdler.grid = (NoScrollGridView) view.findViewById(R.id.grid);
+	return holdler;
+    }
+
+    /**
+     * 处理时间
+     * 
+     * @param string
+     * @return
+     */
+    private String handTime(String time) {
+	if (time == null || "".equals(time.trim())) {
+	    return "";
+	}
+	try {
+	    Date date = format.parse(time);
+	    long tm = System.currentTimeMillis();// 当前时间戳
+	    long tm2 = date.getTime();// 发表动态的时间戳
+	    long d = (tm - tm2) / 1000;// 时间差距 单位秒
+	    if ((d / (60 * 60 * 24)) > 0) {
+		return d / (60 * 60 * 24) + "天前";
+	    } else if ((d / (60 * 60)) > 0) {
+		return d / (60 * 60) + "小时前";
+	    } else if ((d / 60) > 0) {
+		return d / 60 + "分钟前";
+	    } else {
+		// return d + "秒前";
+		return "刚刚";
+	    }
+	} catch (ParseException e) {
+	    e.printStackTrace();
+	}
+	return null;
+    }
+
+    /**
+     * 
+     * @param position
+     * @param urls
+     */
+    private void imageBrower(int position, String[] urls) {
+	Intent intent = new Intent(context,
+		com.daguo.modem.photo.ImagePagerActivity.class);
+	// 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
+	intent.putExtra(
+		com.daguo.modem.photo.ImagePagerActivity.EXTRA_IMAGE_URLS, urls);
+	intent.putExtra(
+		com.daguo.modem.photo.ImagePagerActivity.EXTRA_IMAGE_INDEX,
+		position);
+	context.startActivity(intent);
+    }
 
 }
