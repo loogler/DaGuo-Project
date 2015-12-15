@@ -246,7 +246,7 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 
     }
 
-    ViewHoldler getHolder(View view) {
+    private ViewHoldler getHolder(View view) {
 	ViewHoldler holdler = new ViewHoldler();
 	holdler.content = (TextView) view.findViewById(R.id.content_text);
 	holdler.name_tv = (TextView) view.findViewById(R.id.name_tv);

@@ -1,48 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:staggered="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <LinearLayout 
-        
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
         android:background="@color/green_home"
-        >
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" >
+
         <EditText
+            android:id="@+id/search_edt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:padding="5dp"
-            android:hint=" :请输入商品关键字"
-            android:textSize="13sp"
             android:background="@drawable/shape_radius_rec_whitebg"
             android:drawableLeft="@drawable/icon_search"
-            />
-        
+            android:hint=" :请输入商品关键字"
+            android:padding="5dp"
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <com.daguo.libs.pulltorefresh.PullToRefreshLayout
-        android:id="@+id/refresh_view"
+    <com.daguo.libs.staggeredgridview.StaggeredGridView
+        android:id="@+id/staggeredGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="45dp" >
-
-        <include layout="@layout/refresh_head" />
-        <!-- 支持所有实现Pullable接口的View -->
-
-        <com.daguo.libs.pulltorefresh.PullableListView
-            android:id="@+id/content_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp" />
-
-        <include layout="@layout/load_more" />
-    </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
+        android:layout_marginTop="45dp"
+        staggered:drawSelectorOnTop="true"
+        staggered:numColumns="2" >
+    </com.daguo.libs.staggeredgridview.StaggeredGridView>
 
 </RelativeLayout>

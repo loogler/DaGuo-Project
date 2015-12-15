@@ -23,7 +23,6 @@ import com.alipay.sdk.app.PayTask;
 import com.daguo.R;
 import com.daguo.modem.choujiang.ChouJiangAty;
 import com.daguo.ui.commercial.Shop_OrderAty;
-import com.daguo.util.base.Fragment_Mall_Item;
 import com.daguo.utils.HttpUtil;
 
 public class Pay_GoodsAty extends Activity {
@@ -97,7 +96,7 @@ public class Pay_GoodsAty extends Activity {
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("pay_status", "1");
 				map.put("pay_num", pay_num);
-				map.put("id", Shop_OrderAty.orderId);
+//				map.put("id", Shop_OrderAty.orderId);
 				String reString = HttpUtil.postRequest(url, map);
 				if (reString != null && !reString.equals("")) {
 					// 更改成功
@@ -113,10 +112,13 @@ public class Pay_GoodsAty extends Activity {
 	 * 
 	 */
 	public void pay(View v) {
-		String name = Fragment_Mall_Item.goodsName;
-		String price =Fragment_Mall_Item.goodsPrice;
-		String detail = Fragment_Mall_Item.goodsDesc;
-		String orderInfo = getOrderInfo(name, detail, price);
+//		String name = Fragment_Mall_Item.goodsName;
+//		String price =Fragment_Mall_Item.goodsPrice;
+//		String detail = Fragment_Mall_Item.goodsDesc;
+		
+		//TODO 这里暂时这样修改 后期支付界面会重新定义
+//		String orderInfo = getOrderInfo(name, detail, price);
+	    String orderInfo ="";
 		String sign = sign(orderInfo);
 		try {
 			// 仅需对sign 做URL编码

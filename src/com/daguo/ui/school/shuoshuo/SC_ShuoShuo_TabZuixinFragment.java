@@ -28,7 +28,7 @@ import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.utils.HttpUtil;
 
-@SuppressLint("InflateParams")
+@SuppressLint({ "InflateParams", "HandlerLeak" })
 public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
     private final int MSG_CONTENT = 100;
 
@@ -49,22 +49,19 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
      * 通用data
      * 
      */
-    private String p_id;
+
     private int pageIndex = 1;// 加载页码
-    private String url;
 
     /**
      * tools
      */
     private Message msg;
     private Handler handler = new Handler() {
+	@SuppressWarnings("unchecked")
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
 	    case MSG_CONTENT:
 
-		if (contentLists != null) {
-		    contentLists.clear();
-		}
 		List<ShuoShuoContent> aaContents = (List<ShuoShuoContent>) msg.obj;
 		contentLists.addAll(aaContents);
 		adapter.notifyDataSetChanged();
@@ -81,8 +78,7 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 
-	url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page=" + pageIndex;
-	loadData(url);
+	loadData();
 	adapter = new SC_ShuoShuoAdapter(getActivity(), contentLists);
 	content_view.setAdapter(adapter);
 
@@ -103,7 +99,8 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	    @Override
 	    public void onItemClick(AdapterView<?> arg0, View v, int p,
 		    long arg3) {
-		Intent intent =new Intent(getActivity(),SC_ShuoShuo_EvaluationAty.class);
+		Intent intent = new Intent(getActivity(),
+			SC_ShuoShuo_EvaluationAty1.class);
 		intent.putExtra("id", contentLists.get(p).getId());
 		getActivity().startActivity(intent);
 	    }
@@ -118,10 +115,12 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
      * @param url
      *            传入加载url
      */
-    private void loadData(final String url) {
+    private void loadData() {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
+		    String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page="
+			    + pageIndex;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
 
@@ -226,6 +225,7 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	 * com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener
 	 * #onRefresh(com.daguo.libs.pulltorefresh.PullToRefreshLayout)
 	 */
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
 	    // 下拉刷新操作
@@ -233,8 +233,8 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 		@Override
 		public void handleMessage(Message msg) {
 		    // 千万别忘了告诉控件刷新完毕了哦！
-		    pageIndex++;
-		    loadData(url);
+		    pageIndex = 1;
+		    loadData();
 		    pullToRefreshLayout
 			    .refreshFinish(PullToRefreshLayout.SUCCEED);
 		}
@@ -249,13 +249,14 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 	 * com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener
 	 * #onLoadMore(com.daguo.libs.pulltorefresh.PullToRefreshLayout)
 	 */
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onLoadMore(final PullToRefreshLayout pullToRefreshLayout) {
 	    new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-		    pageIndex = 1;
-		    loadData(url);
+		    pageIndex++;
+		    loadData();
 		    // 千万别忘了告诉控件加载完毕了哦！
 		    pullToRefreshLayout
 			    .loadmoreFinish(PullToRefreshLayout.SUCCEED);

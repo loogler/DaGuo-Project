@@ -55,12 +55,13 @@
         </LinearLayout>
 
         <TextView
-            android:padding="5dp"
+            android:id="@+id/chat_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawableTop="@drawable/icon_chat"
+            android:padding="5dp"
             android:text="去聊天"
             android:textColor="@color/grey_2" />
     </RelativeLayout>
@@ -93,7 +94,7 @@
 
         <com.daguo.util.base.MyGridView
             android:id="@+id/content_grid"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:clickable="true"
@@ -182,36 +183,82 @@
             android:layout_marginRight="15dp"
             android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/share_tv"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/icon_share"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="分享" />
+                android:orientation="vertical"
+                android:padding="5dp" >
 
-            <TextView
-                android:id="@+id/good_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/icon_pinglun_sc_huodong"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="点赞" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_share" />
 
-            <TextView
-                android:id="@+id/feedback_tv"
+                <TextView
+                    android:id="@+id/share_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="分享" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/icon_pinglun_sc_huodong"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="评论" />
+                android:orientation="vertical"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:id="@+id/good_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/sc_shuoshuo_zan" />
+
+                <TextView
+                    android:id="@+id/good_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="点赞" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_pinglun_sc_huodong" />
+
+                <TextView
+                    android:id="@+id/feedback_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="评论" />
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/goodCount_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_1"
+            android:padding="10dp"
+            android:text="全部评论(10)" />
     </LinearLayout>
 
 </RelativeLayout>

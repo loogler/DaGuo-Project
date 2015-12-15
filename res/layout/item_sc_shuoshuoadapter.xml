@@ -83,7 +83,7 @@
 
         <com.daguo.util.base.MyGridView
             android:id="@+id/image_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:clickable="true"

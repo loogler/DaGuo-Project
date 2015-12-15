@@ -315,7 +315,7 @@ public class SC_ShuoShuoAty extends Activity implements OnRefreshListener,
 		// 栏目头占据一行，position-1
 		position = position - 1;
 		Intent intent = new Intent(SC_ShuoShuoAty.this,
-				SC_ShuoShuo_EvaluationAty.class);
+				SC_ShuoShuo_EvaluationAty1.class);
 
 		String id = lists.get(position).getId();
 		intent.putExtra("id", id);

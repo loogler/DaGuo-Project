@@ -43,7 +43,7 @@ public class HttpUtil {
      * 
      */
     /**
-     * 服务器  备用 192.168.0.31 KSOFFICE   // 192.168.0.146 ksoffice
+     * 服务器 备用 192.168.0.31 KSOFFICE // 192.168.0.146 ksoffice
      */
     public static final String URL = "http://115.29.224.248:8080/XYYYT/service/";
     /**
@@ -129,12 +129,14 @@ public class HttpUtil {
      */
     public static final String SUBMIT_GOODS_DETAIL = URL
 	    + "goodsDetail/saveOrUpdate?android=1";
+    
     /**
-     * 查询商品列表 需要传入参数page /id用于区分大类
+     * 查询商品列表 需要传入参数&page= 页码   &rows=每页显示数量 / &type_id=用于区分大类  
+     * type_id=a6ad60a7-a587-4216-b83d-54094b05af5b 推荐商品
      */
 
     public static final String QUERY_GOODSLIST = URL
-	    + "goods/queryGoodsList?android=1&rows=50";
+	    + "goods/queryGoodsList?android=1";
     /****** 领奖 活动************************split line *****************************************************/
     /**
      * 领奖
@@ -171,14 +173,20 @@ public class HttpUtil {
 
     /**
      * 新闻社团活动的||报名||接口 &table_name业务表（tbl_topic:说说，0：活动
-     *）&source_id业务ID&type类型（0：报名 1：点赞）&p_id报名，点赞人l
+     * ）&source_id业务ID&type类型（0：报名 1：点赞）&p_id报名，点赞人l
      */
     public static final String SUBMIT_EVENT_APPLY = URL
 	    + "sign/saveOrUpdate?android=1";
+    /**
+     * 取消点赞 操作 报名不可取消   &table_name业务表（tbl_topic:说说，0：活动
+     * ）&source_id业务ID&type类型（0：报名 1：点赞）&p_id报名，点赞人l
+     */
+    public static final String SUBMIT_EVENT_CANCEL = URL
+	    + "sign/delete?android=1";
 
     /**
-     * ||查询||新闻活动社团是否已在报名列表中 &table_name业务表（tbl_topic:说说，0：活动
-     *）&source_id业务ID&type类型（0：报名 1：点赞）&p_id报名，点赞人l
+     * ||查询||新闻活动社团是否已在报名列表中 &table_name业务表（tbl_topic:说说，0：活动 ）&source_id业务ID
+     * &type类型（0：报名 1：点赞）&p_id报名，点赞人l
      */
     public static final String QUERY_EVENT_APPLY = URL
 	    + "sign/querySignList?android=1";
@@ -201,7 +209,13 @@ public class HttpUtil {
     public static final String QUERY_SHUOSHUO = URL
 	    + "topic/queryTopicList?android=1";
     /**
-     * 说说评论的查询 需要传入id参数 以及page rows参数
+     * 熱門說說。。。。。。
+     */
+    public static final String QUERY_SHUOSHUO_REMEN = URL
+	    + "topic/queryHotTopicList?android=1";
+    
+    /**
+     * 说说评论的查询 需要传入t_id参数 以及page rows参数
      */
     public static final String QUERY_SHUOSHUO_EVA = URL
 	    + "topicFeedback/queryTopicFeedbackList?android=1";

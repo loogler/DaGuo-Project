@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
 							listViews.set(
 									1,
 									getView("B", new Intent(MainActivity.this,
-											Main_2Aty.class)));
+											Main_2Aty1.class)));
 							mpAdapter.notifyDataSetChanged();
 							viewPage.setCurrentItem(1);
 
@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
 		mpAdapter = new MyPagerAdapter(listViews);
 		intent = new Intent(MainActivity.this, Main_1Aty.class);
 		listViews.add(getView("A", intent));
-		intent = new Intent(MainActivity.this, Main_2Aty.class);
+		intent = new Intent(MainActivity.this, Main_2Aty1.class);
 		listViews.add(getView("B", intent));
 		intent = new Intent(MainActivity.this, Main_3Aty.class);
 		listViews.add(getView("C", intent));
@@ -358,7 +358,7 @@ public class MainActivity extends Activity {
 				listViews.set(
 						1,
 						getView("B", new Intent(MainActivity.this,
-								Main_2Aty.class)));
+								Main_2Aty1.class)));
 				mpAdapter.notifyDataSetChanged();
 				break;
 			case 2:

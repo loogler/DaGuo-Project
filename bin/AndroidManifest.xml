@@ -135,6 +135,8 @@
         </activity>
         <activity android:name="com.daguo.ui.commercial.Shop_OrderAty" >
         </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_SearchAty" >
+        </activity>
 
         <!-- com.daguo.ui.main.  登录主页部分的界面 -->
         <activity android:name="com.daguo.ui.main.MainActivity" >

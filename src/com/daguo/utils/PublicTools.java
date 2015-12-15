@@ -10,9 +10,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -215,6 +219,42 @@ public class PublicTools {
 	    result.append(string);
 	}
 	return result.toString();
+    }
+
+    /**
+     * 获取屏幕宽度
+     * 
+     * @param context
+     *            上下文
+     * @return 宽度
+     */
+    public static int getWindowWidth(Context context) {
+	// 获取屏幕宽度
+	WindowManager wm = (WindowManager) (context
+		.getSystemService(Context.WINDOW_SERVICE));
+	DisplayMetrics dm = new DisplayMetrics();
+	wm.getDefaultDisplay().getMetrics(dm);
+	int mScreenWidth = dm.widthPixels;
+	Log.i("屏幕宽度", mScreenWidth + "");
+	return mScreenWidth;
+    }
+
+    /**
+     * 获取屏幕高度
+     * 
+     * @param context
+     *            上下文参数
+     * @return 高度
+     */
+    public static int getWindowHeigh(Context context) {
+	// 获取屏幕高度
+	WindowManager wm = (WindowManager) (context
+		.getSystemService(Context.WINDOW_SERVICE));
+	DisplayMetrics dm = new DisplayMetrics();
+	wm.getDefaultDisplay().getMetrics(dm);
+	int mScreenHeigh = dm.heightPixels;
+	Log.i("屏幕高度", mScreenHeigh + "");
+	return mScreenHeigh;
     }
 
 }
