@@ -3,6 +3,7 @@
  */
 package com.daguo.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +19,11 @@ import com.daguo.R;
  * @version 创建时间：2015-11-27 下午4:46:31
  * @function ：
  */
+@SuppressLint("SetJavaScriptEnabled")
 public class WebView_CommenAty extends Activity {
-    
+
     WebView webView;
+
     /*
      * (non-Javadoc)
      * 
@@ -30,31 +33,27 @@ public class WebView_CommenAty extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-	WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏加载
+		WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏加载
 	setContentView(R.layout.aty_webview_commen);
-	
-	String URL=null;
-	Intent intent  =getIntent();
-	URL=intent.getStringExtra("URL");
-	
-	 webView = (WebView) this.findViewById(R.id.webView); 
 
-	        /**
+	Intent intent = getIntent();
+	String url = intent.getStringExtra("url");
 
-	         * 调用loadUrl()方法进行加载内容
+	webView = (WebView) findViewById(R.id.webView);
 
-	         */ 
+	/**
+	 * 
+	 * 调用loadUrl()方法进行加载内容
+	 */
 
-	 	Log.d("通用webView", URL);
-	        webView.loadUrl(URL); 
-	        
+	 Log.d("通用webView", url);
+	webView.loadUrl("https://"+url);
 
-	        /**
+	/**
+	 * 
+	 * 设置WebView的属性，此时可以去执行JavaScript脚本
+	 */
 
-	         * 设置WebView的属性，此时可以去执行JavaScript脚本
-
-	         */ 
-
-	        webView.getSettings().setJavaScriptEnabled(true); 
+	webView.getSettings().setJavaScriptEnabled(true);
     }
 }

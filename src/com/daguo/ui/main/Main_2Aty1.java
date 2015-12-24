@@ -3,8 +3,13 @@
  */
 package com.daguo.ui.main;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import net.tsz.afinal.FinalBitmap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,21 +32,27 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.libs.staggeredgridview.StaggeredGridView;
-import com.daguo.libs.staggeredgridview.StaggeredGridView.OnItemClickListener;
 import com.daguo.libs.staggeredgridview.StaggeredGridView.OnLoadmoreListener;
 import com.daguo.ui.commercial.Shop_SearchAty;
 import com.daguo.util.adapter.Main_2Adapter;
+import com.daguo.util.adapter.Main_2_GoodTypeAdapter;
+import com.daguo.util.base.CustomDigitalClock;
+import com.daguo.util.base.CustomDigitalClock.ClockListener;
 import com.daguo.util.base.FrameLayout_3DBanner;
+import com.daguo.util.base.GoodTypeItem;
 import com.daguo.util.base.ViewPager_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner.TransitionEffect;
 import com.daguo.util.beans.AddBanner;
@@ -56,11 +67,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @version 创建时间：2015-12-8 下午4:08:37
  * @function ：大果主页-2 商城页
  */
-@SuppressLint("ClickableViewAccessibility")
+@SuppressLint({ "ClickableViewAccessibility", "SimpleDateFormat" })
 public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
-	OnItemClickListener, OnLoadmoreListener {
+	com.daguo.libs.staggeredgridview.StaggeredGridView.OnItemClickListener,
+	OnLoadmoreListener, android.widget.AdapterView.OnItemClickListener {
     private final int MSG_GOOD_ITEM = 100;
     private final int MSG_TOPBANNERLISTS = 101;
+    private final int MSG_GOOD_TYPE = 109;
+    private final int MSG_MIAOSHA_DATA_SUC = 199;
+    private final int MSG_MIAOSHA_DATA_FAIL = 299;
 
     /**
      * @see initViews
@@ -86,11 +101,26 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
     // private List<String> mImageUrls = new ArrayList<String>();
     private LinearLayout mIndicator = null;
     private final int MSG_CHANGE_PHOTO = 1;
-    /** 图片自动切换时间 */
+    // 图片自动切换时间
     private final int PHOTO_CHANGE_TIME = 5000;
 
+    // 轮播广告
     private List<AddBanner> topBannerLists = new ArrayList<AddBanner>();
     private MyAdapter BannerAdapter;
+
+    // 商品分类
+    private GridView goodstype_grid;
+    private List<GoodTypeItem> goodTypeLists = new ArrayList<GoodTypeItem>();
+    private Main_2_GoodTypeAdapter typeAdapter;
+
+    // 秒杀 商品
+    private Shop_GoodsItem miaoshaGoodsItem = new Shop_GoodsItem();
+    private TextView miaoshaName_tv, miaoshaPrice_tv, miaoshaInfo_tv;
+    private ImageView miaosha_iv;
+    private LinearLayout miaosha_ll;
+    private CustomDigitalClock digitalClock;
+    //
+    private boolean isMiaoSHaTime = false;
 
     /**
      * @see Data
@@ -141,6 +171,24 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 		setViewpager();
 		break;
 
+	    case MSG_GOOD_TYPE:
+		typeAdapter.notifyDataSetChanged();
+
+		break;
+	    case MSG_MIAOSHA_DATA_SUC:
+		miaosha_ll.setVisibility(View.VISIBLE);
+		FinalBitmap.create(Main_2Aty1.this).display(miaosha_iv,
+			HttpUtil.IMG_URL + miaoshaGoodsItem.getThumb_path());
+		miaoshaName_tv.setText(miaoshaGoodsItem.getName());
+		miaoshaPrice_tv.setText("￥" + miaoshaGoodsItem.getPrice());
+		setRemainTime();
+
+		break;
+
+	    case MSG_MIAOSHA_DATA_FAIL:
+		miaosha_ll.setVisibility(View.GONE);
+
+		break;
 	    default:
 		break;
 	    }
@@ -158,10 +206,16 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	setContentView(R.layout.aty_main2_1);
 	imageLoader = ImageLoader.getInstance();
 	initViews();
+	loadAddData();
 	loadGoodItems();
+	loadTypeData();
+	loadMiaoShaData();
 
 	adapter = new Main_2Adapter(this, goodsItemLists);
 	staggeredGridView.setAdapter(adapter);
+
+	typeAdapter = new Main_2_GoodTypeAdapter(this, goodTypeLists);
+	goodstype_grid.setAdapter(typeAdapter);
 
     }
 
@@ -200,9 +254,39 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 		GetScreenRecUtil.getWindowWidth(Main_2Aty1.this),
 		GetScreenRecUtil.getWindowWidth(Main_2Aty1.this) / 2);
 	topBanner_rl.setLayoutParams(params);
+
+	// /////
+	goodstype_grid = (GridView) topView.findViewById(R.id.goodstype_grid);
+
+	goodstype_grid.setOnItemClickListener(this);
+	// //
+
+	miaosha_iv = (ImageView) topView.findViewById(R.id.miaosha_iv);
+	miaoshaName_tv = (TextView) topView.findViewById(R.id.miaoshaName_tv);
+	miaoshaPrice_tv = (TextView) topView.findViewById(R.id.miaoshaPrice_tv);
+	miaoshaInfo_tv = (TextView) topView.findViewById(R.id.miaoshaInfo_tv);
+	digitalClock=(CustomDigitalClock) topView.findViewById(R.id.remainTime);
+
+	miaosha_ll = (LinearLayout) topView.findViewById(R.id.miaosha_ll);
+	miaosha_ll.setOnClickListener(new View.OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		if (isMiaoSHaTime) {
+
+		    Intent intent = new Intent();
+		    // TODO 跳转商品详情
+		} else {
+		    Toast.makeText(Main_2Aty1.this, "不在秒杀时间内",
+			    Toast.LENGTH_SHORT).show();
+		}
+	    }
+	});
+
+	//
+
 	staggeredGridView.setHeaderView(topView);
 
-	loadAddData();
     }
 
     /************************ set Data *****************************************************************/
@@ -270,7 +354,6 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	    }
 	});
 
-	
     }
 
     /************************ get Data *****************************************************************/
@@ -282,7 +365,7 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	    public void run() {
 		try {
 		    // &type_id=a6ad60a7-a587-4216-b83d-54094b05af5b
-		    String url = HttpUtil.QUERY_GOODSLIST + "&rows=20&page="
+		    String url = HttpUtil.QUERY_GOODSLIST + "&type_id=a6ad60a7-a587-4216-b83d-54094b05af5b&rows=20&page="
 			    + pageIndex;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
@@ -323,6 +406,9 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 
     }
 
+    /**
+     * 加载广告栏
+     */
     private void loadAddData() {
 	new Thread(new Runnable() {
 	    public void run() {
@@ -380,6 +466,111 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 
     }
 
+    /**
+     * 加载商品分类
+     */
+    private void loadTypeData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_GOOD_TYPE + "&page=1&rows=9";
+		    ;
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject jsonObject = new JSONObject(res);
+		    if (jsonObject.getInt("total") != 9) {
+			// 栏目不等于9个 会出现异常布局
+			Log.e("商品类型", "商品分类查询数量不为9个，导致布局异常");
+		    } else if (jsonObject.getInt("total") > 0) {
+			// 栏目有数据
+			GoodTypeItem goodTypeItem;
+			JSONArray array = jsonObject.getJSONArray("rows");
+			for (int i = 0; i < array.length(); i++) {
+			    String type_name = array.optJSONObject(i)
+				    .getString("type_name");
+			    String type_id = array.optJSONObject(i).getString(
+				    "type_id");
+			    String img_path = array.optJSONObject(i).getString(
+				    "img_path");
+
+			    goodTypeItem = new GoodTypeItem();
+			    goodTypeItem.setImg_path(img_path);
+			    goodTypeItem.setType_id(type_id);
+			    goodTypeItem.setType_name(type_name);
+
+			    goodTypeLists.add(goodTypeItem);
+
+			}
+			goodTypeItem = new GoodTypeItem();
+			goodTypeItem.setImg_path("1");
+			goodTypeItem.setType_id("");
+			goodTypeItem.setType_name("更多分类");
+
+			goodTypeLists.add(goodTypeItem);
+
+			msg = handler.obtainMessage(MSG_GOOD_TYPE);
+			msg.sendToTarget();
+
+		    } else {
+			Log.e("商品类型", "商品分类查询时返回数据为0或者其他，请检查上传分类表");
+
+		    }
+
+		} catch (JSONException e) {
+		    e.printStackTrace();
+		    Log.e("主页获取分类信息", "获取分类json异常");
+		} catch (Exception e) {
+		    Log.e("主页获取分类信息", "获取分类异常");
+		    e.printStackTrace();
+		}
+	    }
+	}).start();
+    }
+
+    private void loadMiaoShaData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_GOODSLIST
+			    + "&page=1&rows=1&type_id=567603cf-a5dd-4cc8-afd3-4f7c961fbf9c";
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject jsonObject = new JSONObject(res);
+
+		    if (jsonObject.getInt("total") > 0) {
+			JSONArray array = jsonObject.getJSONArray("rows");
+			String end_time = array.optJSONObject(0).getString(
+				"end_time");
+			String id = array.optJSONObject(0).getString("id");
+			String name = array.optJSONObject(0).getString("name");
+			String price = array.optJSONObject(0)
+				.getString("price");
+			String start_time = array.optJSONObject(0).getString(
+				"start_time");
+			String thumb_path = array.optJSONObject(0).getString(
+				"thumb_path");
+
+			miaoshaGoodsItem.setEnd_time(end_time);
+			miaoshaGoodsItem.setId(id);
+			miaoshaGoodsItem.setName(name);
+			miaoshaGoodsItem.setPrice(price);
+			miaoshaGoodsItem.setStart_time(start_time);
+			miaoshaGoodsItem.setThumb_path(thumb_path);
+
+			msg = handler.obtainMessage(MSG_MIAOSHA_DATA_SUC);
+			msg.sendToTarget();
+
+		    } else {
+			// 没有秒杀商品
+			msg = handler.obtainMessage(MSG_MIAOSHA_DATA_FAIL);
+		    }
+
+		} catch (JSONException e) {
+
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
+    }
+
     /********************** implement ****************************************************************************/
 
     /*
@@ -422,6 +613,7 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
      */
     @Override
     public void onLoadmore() {
+
 	new Handler().postDelayed(new Runnable() {
 	    public void run() {
 		pageIndex++;
@@ -430,7 +622,123 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	}, 2000);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+     * .AdapterView, android.view.View, int, long)
+     */
+    @Override
+    public void onItemClick(AdapterView<?> arg0, View v, int p, long arg3) {
+	Intent intent = new Intent(Main_2Aty1.this, Shop_SearchAty.class);
+	intent.putExtra("type_id", goodTypeLists.get(p).getType_id());
+	startActivity(intent);
+
+    }
+
     /**************************** tools ************************************/
+
+    // public class DateFormate {
+    // public long formatDate(String dateStr){
+    // java.sql.Date d=null;
+    // try{
+    // SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    // d=(java.sql.Date) Date(sf.parse(dateStr));
+    // }
+    // catch(Exception e){
+    //
+    // }
+    // return d.getTime();
+    // }
+    //
+    // private Date Date(java.util.Date date) {
+    // Date dateTime;
+    // dateTime =new java.sql.Date(date.getTime());
+    // return dateTime;
+    // }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+    private void setRemainTime() {
+	long currentTime = System.currentTimeMillis();
+	long miaoshaTime_start = 0;
+	long miaoshaTime_end = 0;
+
+	try {
+	    Date dateStart = sdf.parse(miaoshaGoodsItem.getStart_time()
+		    .toString());
+	    Date dateEnd = sdf.parse(miaoshaGoodsItem.getEnd_time().toString());
+	    miaoshaTime_start = dateStart.getTime();
+	    miaoshaTime_end = dateEnd.getTime();
+
+	} catch (ParseException e) {
+	    e.printStackTrace();
+	}
+
+	if (currentTime > miaoshaTime_end) {
+	    // 当前时间比结束时间大 说明已结束
+	    isMiaoSHaTime = false;
+	    digitalClock.setEndTime(0);
+	    miaoshaInfo_tv.setText("已结束");
+
+	} else if (currentTime < miaoshaTime_start) {
+	    // 当前时间比开始时间小 说明未开始
+	    isMiaoSHaTime = false;
+	    digitalClock.setEndTime(miaoshaTime_start);
+	    miaoshaInfo_tv.setText("秒杀即将开始");
+	    digitalClock.setClockListener(new ClockListener() {
+
+		@Override
+		public void timeEnd() {
+		    isMiaoSHaTime = true;
+		    Toast.makeText(Main_2Aty1.this, "秒杀尚未开始",
+			    Toast.LENGTH_SHORT).show();
+		    miaoshaInfo_tv.setText("限时秒杀");
+
+		}
+
+		@Override
+		public void remainFiveMinutes() {
+
+		}
+	    });
+
+	} else if (miaoshaTime_end > currentTime
+		&& currentTime > miaoshaTime_start) {
+	    // 刚好在秒杀范围时间内
+	    isMiaoSHaTime = true;
+
+	    // String t = sdf.format(new Date(miaoshaTime_end - currentTime));
+	    //
+	    // digitalClock.setText(t);
+	    digitalClock.setEndTime(miaoshaTime_end);
+	    digitalClock.setClockListener(new ClockListener() {
+
+		@Override
+		public void timeEnd() {
+		    isMiaoSHaTime = false;
+		    Toast.makeText(Main_2Aty1.this, "本次秒杀结束",
+			    Toast.LENGTH_SHORT).show();
+		    miaoshaInfo_tv.setText("已结束");
+		    digitalClock.setEndTime(0);
+		}
+
+		@Override
+		public void remainFiveMinutes() {
+
+		}
+	    });
+	} else {
+	    // 时间算错了 或是异常
+	    isMiaoSHaTime = false;
+	    miaosha_ll.setVisibility(View.GONE);
+	    Log.e("商品秒杀", "秒杀时间计算出错啦");
+	}
+
+    }
+
+    // ////////////////////////////
     private void onclicks() {
 
     }

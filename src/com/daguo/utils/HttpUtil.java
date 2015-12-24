@@ -62,6 +62,10 @@ public class HttpUtil {
     public static final String UPDATE = URL
 	    + "version/queryNewVersion?android=1";
     /**
+     * push 接口 这里默认只推送一条
+     */
+    public static String PUSH =URL+"msgPush/queryMsgPushList?android=1&page=1&rows=1";
+    /**
      * 下载接口
      */
     public static final String DOWNLOAD = "http://115.29.224.248:8080/DGXYDL/download/DaGuo.apk";
@@ -130,6 +134,12 @@ public class HttpUtil {
     public static final String SUBMIT_GOODS_DETAIL = URL
 	    + "goodsDetail/saveOrUpdate?android=1";
     
+    
+    /**
+     * 查询商品分类表，这里的分类是中部有图标的分类，可以后台变动的 ，所有的分类不是这个接口
+     */
+    public static final String QUERY_GOOD_TYPE =URL +"goodType/queryGoodTypeList?android=1";
+    
     /**
      * 查询商品列表 需要传入参数&page= 页码   &rows=每页显示数量 / &type_id=用于区分大类  
      * type_id=a6ad60a7-a587-4216-b83d-54094b05af5b 推荐商品
@@ -137,6 +147,7 @@ public class HttpUtil {
 
     public static final String QUERY_GOODSLIST = URL
 	    + "goods/queryGoodsList?android=1";
+    
     /****** 领奖 活动************************split line *****************************************************/
     /**
      * 领奖

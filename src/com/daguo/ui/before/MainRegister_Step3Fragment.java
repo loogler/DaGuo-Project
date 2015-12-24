@@ -283,6 +283,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 		map.put("tel", telNumber);
 		map.put("school_id", schoolId);
 		map.put("pro_name", department);
+		map.put("school_name", schoolName);
 
 		try {
 		    String res = HttpUtil.postRequest(url, map);

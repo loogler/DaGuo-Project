@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.util.adapter.Main_2Adapter;
 import com.daguo.util.adapter.SC_ShuoShuoAdapter;
 import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
@@ -49,7 +50,7 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
     private List<HeadInfo> headInfos;
     // shuoshuo
     private SC_ShuoShuoAdapter adapter = null;
-
+  
     /**
      * 通用data
      * 

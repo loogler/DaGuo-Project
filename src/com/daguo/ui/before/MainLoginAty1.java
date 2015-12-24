@@ -427,9 +427,13 @@ public class MainLoginAty1 extends Activity {
      */
     @Override
     protected void onDestroy() {
-	timerThread.interrupt();
-	infoCheckThread.interrupt();
-	submitThread.interrupt();
+	if (timerThread != null && infoCheckThread != null
+		&& submitThread != null) {
+
+	    timerThread.interrupt();
+	    infoCheckThread.interrupt();
+	    submitThread.interrupt();
+	}
 	super.onDestroy();
     }
 

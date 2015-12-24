@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.daguo.R;
+import com.daguo.service.PushService;
 import com.daguo.ui.main.MainActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -33,6 +34,7 @@ public class MainLoadingAty extends Activity {
 		setContentView(R.layout.aty_mainloading);
 		MobclickAgent.setSessionContinueMillis(30000);
 		UmengUpdateAgent.setDefault();
+		this.startService(new Intent(this,PushService.class));
 
 		// 获取本地数据
 		SharedPreferences sPreferences = getSharedPreferences("setting",
