@@ -226,7 +226,7 @@ public class LuckyPanView extends SurfaceView implements Callback, Runnable {
 					// 绘制文本
 					drawText(tmpAngle, sweepAngle, mStrs[i]);
 					// 绘制Icon
-					drawIcon(tmpAngle, i);
+//					drawIcon(tmpAngle, i);
 
 					tmpAngle += sweepAngle;
 				}

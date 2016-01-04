@@ -30,6 +30,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
@@ -80,7 +81,7 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
     /**
      * @see initViews
      */
-    private EditText search_edt;
+    private TextView search_edt;
     private StaggeredGridView staggeredGridView;
 
     // top Views
@@ -217,16 +218,25 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	typeAdapter = new Main_2_GoodTypeAdapter(this, goodTypeLists);
 	goodstype_grid.setAdapter(typeAdapter);
 
+	search_edt.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		Intent intent = new Intent(Main_2Aty1.this,
+			Shop_SearchAty.class);
+		startActivity(intent);
+	    }
+	});
+
     }
 
     /**
      * 
      */
     private void initViews() {
-	search_edt = (EditText) findViewById(R.id.search_edt);
+	search_edt = (TextView) findViewById(R.id.search_tv);
 	staggeredGridView = (StaggeredGridView) findViewById(R.id.staggeredGridView);
 
-	search_edt.setOnFocusChangeListener(this);
 	staggeredGridView.setOnItemClickListener(this);
 	staggeredGridView.setOnLoadmoreListener(this);
 
@@ -265,7 +275,8 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	miaoshaName_tv = (TextView) topView.findViewById(R.id.miaoshaName_tv);
 	miaoshaPrice_tv = (TextView) topView.findViewById(R.id.miaoshaPrice_tv);
 	miaoshaInfo_tv = (TextView) topView.findViewById(R.id.miaoshaInfo_tv);
-	digitalClock=(CustomDigitalClock) topView.findViewById(R.id.remainTime);
+	digitalClock = (CustomDigitalClock) topView
+		.findViewById(R.id.remainTime);
 
 	miaosha_ll = (LinearLayout) topView.findViewById(R.id.miaosha_ll);
 	miaosha_ll.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +376,8 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	    public void run() {
 		try {
 		    // &type_id=a6ad60a7-a587-4216-b83d-54094b05af5b
-		    String url = HttpUtil.QUERY_GOODSLIST + "&type_id=a6ad60a7-a587-4216-b83d-54094b05af5b&rows=20&page="
+		    String url = HttpUtil.QUERY_GOODSLIST
+			    + "&type_id=a6ad60a7-a587-4216-b83d-54094b05af5b&rows=20&page="
 			    + pageIndex;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
@@ -582,11 +594,6 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
      */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-	if (hasFocus) {
-	    Intent intent = new Intent(Main_2Aty1.this, Shop_SearchAty.class);
-	    startActivity(intent);
-
-	}
 
     }
 

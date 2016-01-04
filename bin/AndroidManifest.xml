@@ -135,6 +135,15 @@
         </activity>
         <activity android:name="com.daguo.ui.commercial.Shop_SearchAty" >
         </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_Order_AddressAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_CartAty" >
+        </activity>
+        <!-- com.daguo.ui.commercial.cent. 积分商城界面 -->
+        <activity android:name="com.daguo.ui.commercial.cent.CentAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.cent.Cent_DetailAty" >
+        </activity>
 
         <!-- com.daguo.ui.main.  登录主页部分的界面 -->
         <activity android:name="com.daguo.ui.main.MainActivity" >
@@ -151,16 +160,31 @@
         </activity>
         <activity android:name="com.daguo.ui.main.WebView_CommenAty" >
         </activity>
-        <!-- com.daguo.ui.operators. 运营商部分 -->
-        <activity android:name="com.daguo.ui.operators.BroadBandAty" >
+        
+        <!--com.daguo.ui.message. 消息通知类界面 -->
+        <activity android:name="com.daguo.ui.message.MessageAty" >
         </activity>
-        <activity android:name="com.daguo.ui.operators.MobileAty" >
+        
+        
+        
+        <!-- com.daguo.ui.operators. 运营商部分 -->
+        <activity android:name="com.daguo.ui.operators.Oper_BroadBandAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_MobileAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.OperatorAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.BroadBandOrderAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.MoblieOrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_FStepAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_SStepAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_Mobile_OrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_OrderAty" >
         </activity>
 
         <!-- com.daguoschool.ui.school 校园部分 -->
@@ -559,7 +583,8 @@ V1.3.0添加的service，负责下载通知的资源
             android:value="AdIscyAlmlAHQxB83IfNoFIl" />
         <!-- push结束 -->
 
-        <service android:name="com.daguo.service.PushService"
+        <service
+            android:name="com.daguo.service.PushService"
             android:enabled="true" >
         </service>
     </application>

@@ -31,14 +31,15 @@ public class ChouJiangAty extends Activity {
     int cent;
     int newCent;
     CustomProgressDialog dia;
-    String pid, orderInfoId;
+    String pid, orderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_choujiang);
+	MyAppliation.getInstance().addActivity(this);
 	Intent intent = getIntent();
-	orderInfoId = intent.getStringExtra("orderInfoId");
+	orderId = intent.getStringExtra("orderId");
 
 	MyAppliation.getInstance().addActivity(this);
 	SharedPreferences sp = getSharedPreferences("userinfo",
@@ -101,10 +102,11 @@ public class ChouJiangAty extends Activity {
 			    // dialog.dismiss();
 			    // // 结束当前activity
 			    cent = Integer.parseInt(LuckyPanView.console);
-			    new Get_Cent().start();
+			    // new Get_Cent().start();
 			    Intent intent = new Intent(ChouJiangAty.this,
 				    ChouJiangConsoleAty.class);
 			    intent.putExtra("cent", cent);
+			    intent.putExtra("orderId", orderId);
 			    startActivity(intent);
 			    //
 			    // }
@@ -122,84 +124,85 @@ public class ChouJiangAty extends Activity {
      * 
      * @author Bugs_Rabbit 時間： 2015-8-9 下午2:44:01
      */
-    class Get_Cent extends Thread {
-	@Override
-	public void run() {
-	    super.run();
-	    runOnUiThread(new Runnable() {
-		public void run() {
-		    dia = CustomProgressDialog.createDialog(ChouJiangAty.this,
-			    "正在生成订单,请稍等");
-		    dia.show();
-		}
-	    });
+//    class Get_Cent extends Thread {
+//	@Override
+//	public void run() {
+//	    super.run();
+//	    runOnUiThread(new Runnable() {
+//		public void run() {
+//		    dia = CustomProgressDialog.createDialog(ChouJiangAty.this,
+//			    "正在生成订单,请稍等");
+//		    dia.show();
+//		}
+//	    });
+//
+//	    try {
+//		String urlString = HttpUtil.QUERY_USERINFO;
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("id", pid);
+//		// 积分 处理
+//		String res = HttpUtil.postRequest(urlString, map);
+//		if (res != null && !res.equals("")) {
+//		    Log.i("获取个人积分", "=======成功");
+//
+//		    JSONObject jsonObject = new JSONObject(res);
+//		    JSONArray array = jsonObject.getJSONArray("rows");
+//
+//		    String score = array.optJSONObject(0).getString("score");
+//		    int oldCent = 0;
+//		    if (!score.equals("") && score != null && score != "null") {
+//
+//			oldCent = Integer.parseInt(score);
+//			newCent = oldCent + cent;
+//		    } else {
+//			oldCent = 0;
+//			newCent = cent;
+//		    }
+//
+//		    // 修改个人积分信息
+//		    String url = HttpUtil.SUBMIT_USERINFO;
+//		    Map<String, String> map1 = new HashMap<String, String>();
+//
+//		    map1.put("score", "" + newCent);
+//		    map1.put("id", pid);
+//		    String res1 = HttpUtil.postRequest(url, map1);
+//		    if (res1 == null) {
+//			// 提交失败失败
+//			Log.e("积分信息", "=======提交失败");
+//		    }
+//		    // 修改 订单状态信息
+//		    String urlString2 = HttpUtil.SUBMIT_ORDER_PUB;
+//		    Map<String, String> map2 = new HashMap<String, String>();
+//		    map2.put("id", orderId);
+//		    map2.put("win", "1");
+//		    map2.put("score", "" + cent);
+//		    String resString2 = HttpUtil.postRequest(urlString2, map2);
+//		    if (resString2 != null && !resString2.equals("")) {
+//			Log.i("修改订单状态", "======成功");
+//			runOnUiThread(new Runnable() {
+//			    public void run() {
+//				Toast.makeText(ChouJiangAty.this, "恭喜  购买成功！",
+//					Toast.LENGTH_LONG).show();
+//			    }
+//			});
+//		    } else {
+//			Log.e("修改订单状态", "======失败");
+//
+//		    }
+//		    // JSONObject jsonObject2= new JSONObject(resString2);
+//		    // dia.dismiss();
+//
+//		} else {
+//		    Log.i("获取个人积分", "=======失败");
+//		}
+//	    } catch (Exception e) {
+//		e.printStackTrace();
+//	    }
+//
+//	}
+//
+//    }
 
-	    try {
-		String urlString = HttpUtil.QUERY_USERINFO;
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", pid);
-		// 积分 处理
-		String res = HttpUtil.postRequest(urlString, map);
-		if (res != null && !res.equals("")) {
-		    Log.i("获取个人积分", "=======成功");
-
-		    JSONObject jsonObject = new JSONObject(res);
-		    JSONArray array = jsonObject.getJSONArray("rows");
-
-		    String score = array.optJSONObject(0).getString("score");
-		    int oldCent = 0;
-		    if (!score.equals("") && score != null && score != "null") {
-
-			oldCent = Integer.parseInt(score);
-			newCent = oldCent + cent;
-		    } else {
-			oldCent = 0;
-			newCent = cent;
-		    }
-
-		    // 修改个人积分信息
-		    String url = HttpUtil.SUBMIT_USERINFO;
-		    Map<String, String> map1 = new HashMap<String, String>();
-
-		    map1.put("score", "" + newCent);
-		    map1.put("id", pid);
-		    String res1 = HttpUtil.postRequest(url, map1);
-		    if (res1 == null) {
-			// 提交失败失败
-			Log.e("积分信息", "=======提交失败");
-		    }
-		    // 修改 订单状态信息
-		    String urlString2 = HttpUtil.SUBMIT_ORDER_PUB;
-		    Map<String, String> map2 = new HashMap<String, String>();
-		    map2.put("id", orderInfoId);
-		    map2.put("win", "1");
-		    map2.put("score", "" + cent);
-		    String resString2 = HttpUtil.postRequest(urlString2, map2);
-		    if (resString2 != null && !resString2.equals("")) {
-			Log.i("修改订单状态", "======成功");
-			runOnUiThread(new Runnable() {
-			    public void run() {
-				Toast.makeText(ChouJiangAty.this, "恭喜  购买成功！",
-					Toast.LENGTH_LONG).show();
-			    }
-			});
-		    } else {
-			Log.e("修改订单状态", "======失败");
-
-		    }
-		    // JSONObject jsonObject2= new JSONObject(resString2);
-		    // dia.dismiss();
-
-		} else {
-		    Log.i("获取个人积分", "=======失败");
-		}
-	    } catch (Exception e) {
-		e.printStackTrace();
-	    }
-
-	}
-
-    }
     //
     // @Override
     // public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -210,5 +213,16 @@ public class ChouJiangAty extends Activity {
     //
     // return true;
     // }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onDestroy()
+     */
+    @Override
+    protected void onDestroy() {
+	super.onDestroy();
+	System.gc();
+    }
 
 }

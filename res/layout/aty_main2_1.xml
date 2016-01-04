@@ -12,14 +12,15 @@
         android:focusableInTouchMode="true"
         android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/search_edt"
+        <TextView
+            android:id="@+id/search_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@drawable/shape_radius_rec_whitebg"
             android:drawableLeft="@drawable/icon_search"
-            android:hint=" :请输入商品关键字"
+            android:gravity="center_vertical"
+            android:hint=": 请输入商品关键字"
             android:padding="5dp"
             android:textSize="13sp" />
     </LinearLayout>

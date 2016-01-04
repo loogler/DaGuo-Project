@@ -455,8 +455,7 @@ public class UserInfo_ModifyAty1 extends Activity implements OnClickListener {
 			// 指定调用相机拍照后照片的储存路径
 			tempFile = new File(Environment.getExternalStorageDirectory(),
 					getPhotoFileName(2));
-			takeintent
-					.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+			takeintent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
 			startActivityForResult(takeintent, PHOTO_REQUEST_TAKEPHOTO);
 			break;
 		case R.id.btn_pick_photo:

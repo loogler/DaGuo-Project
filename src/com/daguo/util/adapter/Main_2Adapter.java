@@ -3,26 +3,24 @@
  */
 package com.daguo.util.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
-
-import com.daguo.R;
-import com.daguo.R.layout;
-import com.daguo.util.beans.Shop_GoodsItem;
-import com.daguo.utils.HttpUtil;
-import com.daguo.utils.PublicTools;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.daguo.R;
+import com.daguo.ui.commercial.Shop_GoodsDetailAty;
+import com.daguo.util.beans.Shop_GoodsItem;
+import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 /**
  * @author : BugsRabbit
@@ -30,6 +28,7 @@ import android.widget.TextView;
  * @version 创建时间：2015-12-14 下午1:52:29
  * @function ： 商品优惠推荐列表适配 位于主页第二页
  */
+@SuppressLint("InflateParams")
 public class Main_2Adapter extends BaseAdapter {
 
     Activity activity;
@@ -87,7 +86,7 @@ public class Main_2Adapter extends BaseAdapter {
      * android.view.ViewGroup)
      */
     @Override
-    public View getView(int p, View v, ViewGroup arg2) {
+    public View getView(final int p, View v, ViewGroup arg2) {
 	ViewHolder viewHolder = null;
 	if (v == null) {
 	    v = inflater.inflate(R.layout.adapter_main_2, null);
@@ -106,7 +105,10 @@ public class Main_2Adapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View arg0) {
-		// TODO
+		Intent intent = new Intent(activity, Shop_GoodsDetailAty.class);
+		intent.putExtra("id", goodsItemLists.get(p).getId());
+		activity.startActivity(intent);
+
 	    }
 	});
 	return v;

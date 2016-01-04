@@ -1,5 +1,7 @@
 package com.daguo.ui.before;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -54,7 +56,7 @@ public class MainBeforeLoginActivity extends Activity implements
 	view = findViewById(R.id.view);
 	setViewHeight(view);
 	setBack();
-	
+
 	register_btn.setOnClickListener(this);
 	login_btn.setOnClickListener(this);
     }
@@ -65,17 +67,34 @@ public class MainBeforeLoginActivity extends Activity implements
     private void setViewHeight(View view) {
 	int height = GetScreenRecUtil
 		.getWindowHeigh(MainBeforeLoginActivity.this);
-	int width =GetScreenRecUtil.getWindowWidth(this);
-	view.setLayoutParams(new LinearLayout.LayoutParams(width, height/2));
+	int width = GetScreenRecUtil.getWindowWidth(this);
+	view.setLayoutParams(new LinearLayout.LayoutParams(width, height / 2));
     }
 
     /**
      * 设置背景图，减少内存开支
      */
     private void setBack() {
+
+	// BitmapFactory.Options opt = new BitmapFactory.Options();
+	//
+	// opt.inPreferredConfig = Bitmap.Config.RGB_565;
+	//
+	// opt.inPurgeable = true;
+	//
+	// opt.inInputShareable = true;
+	//
+	// //获取资源图片
+	//
+	// InputStream is = getResources().;
+	//
+	// BitmapFactory.decodeStream(is,null,opt);
+
 	Bitmap bm = BitmapFactory.decodeResource(getResources(),
 		R.drawable.bg_beforelogin);
+
 	BitmapDrawable bd = new BitmapDrawable(bm);
+
 	ll.setBackground(bd);
     }
 

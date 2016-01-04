@@ -36,6 +36,7 @@ import com.daguo.ui.school.xinwen.SC_XinWen_DetailAty;
 import com.daguo.util.beans.PushMessage;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.NetCheckUtil;
+import com.daguo.utils.PublicTools;
 
 /**
  * @author : BugsRabbit
@@ -48,6 +49,7 @@ import com.daguo.utils.NetCheckUtil;
 public class PushService extends Service {
     PushMessage pushMessage = new PushMessage();
     String idddd = "";
+    String contentTitle;
 
     Message msg;
     @SuppressLint("HandlerLeak")
@@ -58,9 +60,15 @@ public class PushService extends Service {
 
 		break;
 	    case 1:
-		if (pushMessage.getId().equals(idddd)) {
+		if (idddd.equals(pushMessage.getId())) {
 		    // 同一条push信息
 		} else {
+		    String a= pushMessage.getSource_title();
+		    if (PublicTools.doWithNullData(a).isEmpty()) {
+			contentTitle="新的大果通知消息";
+		    }else {
+			contentTitle=a;
+		    }
 		    setNotification();
 		    idddd = pushMessage.getId();
 		}
@@ -122,7 +130,7 @@ public class PushService extends Service {
 		    this);
 	    mBuilder.setContentTitle("大果校园")
 		    // 设置通知栏标题
-		    .setContentText(pushMessage.getSource_title())
+		    .setContentText(contentTitle)
 		    // 设置通知栏显示内容</span>
 		    .setContentIntent(
 			    getDefalutIntent(Notification.FLAG_AUTO_CANCEL)) // 设置通知栏点击意图

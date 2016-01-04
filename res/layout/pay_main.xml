@@ -54,11 +54,36 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="商品单价:"
+                    android:textColor="#777777"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="1.0"
+                    android:textColor="#333333"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
                     android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="商品备注： "
+                    android:text="商品数量： "
                     android:textColor="#777777"
                     tools:ignore="HardcodedText" />
 
@@ -84,12 +109,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="商品价格:"
+                    android:text="商品总价:"
                     android:textColor="#777777"
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/product_price"
+                    android:id="@+id/product_priceTotal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"

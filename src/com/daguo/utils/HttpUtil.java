@@ -64,7 +64,8 @@ public class HttpUtil {
     /**
      * push 接口 这里默认只推送一条
      */
-    public static String PUSH =URL+"msgPush/queryMsgPushList?android=1&page=1&rows=1";
+    public static String PUSH = URL
+	    + "msgPush/queryMsgPushList?android=1&page=1&rows=1";
     /**
      * 下载接口
      */
@@ -98,10 +99,16 @@ public class HttpUtil {
 
     /****** 订单 **************** split line *******************************************/
     /**
-     * 主表订单，所有订单共有接口
+     * 商品主表订单，所有订单共有接口 pay_type= 50ba2daa-2d35-4c8e-a032-edcc89ad45c1 支付宝id
      */
     public static final String SUBMIT_ORDER_PUB = URL
 	    + "order/saveOrUpdate?android=1";
+    /**
+     * 商品订单详细
+     */
+    public static final String SUBMIT_GOODS_DETAIL = URL
+	    + "goodsDetail/saveOrUpdate?android=1";
+
     /**
      * 查询学校ID--学校名称对应的规范
      */
@@ -116,7 +123,7 @@ public class HttpUtil {
      * 电话号码查询 所有地区
      */
     public static final String QUERY_NUMBER = URL
-	    + "phoneNumber/queryPhoneNumberListByMobile?android=1&page=1&rows=50";
+	    + "phoneNumber/queryPhoneNumberListByMobile?android=1";
 
     /**
      * 宽带订单详细 提交（未付款）
@@ -128,26 +135,26 @@ public class HttpUtil {
      */
     public static final String SUBMIT_NUMBER_DETAIL = URL
 	    + "enterNetDetail/saveOrUpdate?android=1";
-    /**
-     * 商品订单详细
-     */
-    public static final String SUBMIT_GOODS_DETAIL = URL
-	    + "goodsDetail/saveOrUpdate?android=1";
-    
-    
+
     /**
      * 查询商品分类表，这里的分类是中部有图标的分类，可以后台变动的 ，所有的分类不是这个接口
      */
-    public static final String QUERY_GOOD_TYPE =URL +"goodType/queryGoodTypeList?android=1";
-    
+    public static final String QUERY_GOOD_TYPE = URL
+	    + "goodType/queryGoodTypeList?android=1";
+
     /**
-     * 查询商品列表 需要传入参数&page= 页码   &rows=每页显示数量 / &type_id=用于区分大类  
+     * 查询商品列表 需要传入参数&page= 页码 &rows=每页显示数量 / &type_id=用于区分大类
      * type_id=a6ad60a7-a587-4216-b83d-54094b05af5b 推荐商品
      */
 
     public static final String QUERY_GOODSLIST = URL
 	    + "goods/queryGoodsList?android=1";
-    
+/**
+ * 查询积分信息商品列表，
+ */
+    public static final String QUERY_CENTGOODS = URL
+	    + "scoreGood/queryScoreGoodList?android=1";
+
     /****** 领奖 活动************************split line *****************************************************/
     /**
      * 领奖
@@ -189,7 +196,7 @@ public class HttpUtil {
     public static final String SUBMIT_EVENT_APPLY = URL
 	    + "sign/saveOrUpdate?android=1";
     /**
-     * 取消点赞 操作 报名不可取消   &table_name业务表（tbl_topic:说说，0：活动
+     * 取消点赞 操作 报名不可取消 &table_name业务表（tbl_topic:说说，0：活动
      * ）&source_id业务ID&type类型（0：报名 1：点赞）&p_id报名，点赞人l
      */
     public static final String SUBMIT_EVENT_CANCEL = URL
@@ -224,7 +231,7 @@ public class HttpUtil {
      */
     public static final String QUERY_SHUOSHUO_REMEN = URL
 	    + "topic/queryHotTopicList?android=1";
-    
+
     /**
      * 说说评论的查询 需要传入t_id参数 以及page rows参数
      */

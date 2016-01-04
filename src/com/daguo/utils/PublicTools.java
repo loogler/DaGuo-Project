@@ -3,6 +3,9 @@
  */
 package com.daguo.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -255,6 +259,24 @@ public class PublicTools {
 	int mScreenHeigh = dm.heightPixels;
 	Log.i("屏幕高度", mScreenHeigh + "");
 	return mScreenHeigh;
+    }
+
+    /**
+     * bitmap转inputStream
+     * 
+     * @param bm
+     *            bitmap
+     * 
+     * @param quality
+     *            转化的图形质量 （100- 300）
+     * @return
+     */
+    public static InputStream Bitmap2InputStream(Bitmap bm, int quality) {
+
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	bm.compress(Bitmap.CompressFormat.PNG, quality, baos);
+	InputStream is = new ByteArrayInputStream(baos.toByteArray());
+	return is;
     }
 
 }

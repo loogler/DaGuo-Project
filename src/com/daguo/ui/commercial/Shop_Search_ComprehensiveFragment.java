@@ -121,17 +121,8 @@ public class Shop_Search_ComprehensiveFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	    Bundle savedInstanceState) {
-	View view = inflater.inflate(
-		R.layout.fragment_shop_search_comprehensive, null);
-	refresh_view = (PullToRefreshLayout) view
-		.findViewById(R.id.refresh_view);
-	content_view = (GridView) view.findViewById(R.id.content_view);
-
-	refresh_view.setOnRefreshListener(this);
-	adapter = new Main_2Adapter(getActivity(), lists);
-	content_view.setAdapter(adapter);
-
-	return view;
+	
+	return null;
     }
 
     /**************************************** get data thread *********************************************************/

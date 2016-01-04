@@ -45,91 +45,50 @@
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:orientation="horizontal"
             android:paddingBottom="2dp" >
 
-            <LinearLayout
-                android:id="@+id/tab1Layout"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:text="按  "
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/comprehensive_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="综合"
-                    android:textColor="@color/tabhome_btntextcolor"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/comprehensive_iv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sc_shuoshuo_tab_back" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/number_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="数量"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/number_iv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="#fff" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="价格"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/price_iv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="#fff" />
-            </LinearLayout>
+                android:text="综合"
+                android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
 
-    <com.daguo.util.base.ViewPagerSlipper
-        android:id="@+id/viewPager"
+    <com.daguo.libs.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/refresh_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+        <!-- 支持所有实现Pullable接口的View -->
+
+        <com.daguo.libs.pulltorefresh.PullableGridView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp" />
+
+        <include layout="@layout/load_more" />
+    </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
 
 </LinearLayout>
