@@ -37,7 +37,7 @@ public class WebView_CommenAty extends Activity {
 	setContentView(R.layout.aty_webview_commen);
 
 	Intent intent = getIntent();
-	String url = intent.getStringExtra("url");
+	String url = intent.getStringExtra("URL");
 
 	webView = (WebView) findViewById(R.id.webView);
 
@@ -47,7 +47,7 @@ public class WebView_CommenAty extends Activity {
 	 */
 
 	 Log.d("通用webView", url);
-	webView.loadUrl("https://"+url);
+	webView.loadUrl(url);
 
 	/**
 	 * 

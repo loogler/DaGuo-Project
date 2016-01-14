@@ -46,5 +46,5 @@
 
         <include layout="@layout/load_more" />
     </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
-    
+
 </LinearLayout>

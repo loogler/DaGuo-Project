@@ -6,11 +6,14 @@ package com.daguo.ui.commercial;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +35,7 @@ import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.ui.commercial.Shop_CartAdapter.CheckChange;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 /**
  * @author : BugsRabbit
@@ -73,6 +78,28 @@ public class Shop_CartAty extends Activity implements CheckChange,
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_shop_cart);
 	is_choice = new boolean[lists.size()];
+
+//	List<Shop_GoodsItem> ls = new ArrayList<Shop_GoodsItem>();
+//
+//	SharedPreferences sp = getSharedPreferences("order", 0);
+//	String cart = sp.getString("cart", "");
+//	if ("".equals(PublicTools.doWithNullData(cart))) {
+//	    Toast.makeText(Shop_CartAty.this, "购物车为空", Toast.LENGTH_LONG)
+//		    .show();
+//	} else {
+//	    // 有商品
+//	    try {
+//		JSONArray array = new JSONArray(cart);
+//		for (int i = 0; i < array.length(); i++) {
+//		    Shop_GoodsItem sc = (Shop_GoodsItem) array.get(i);
+//		    ls.add(sc);
+//
+//		}
+//	    } catch (JSONException e) {
+//		e.printStackTrace();
+//	    }
+//
+//	}
 
 	initViews();
 	loadCartData();

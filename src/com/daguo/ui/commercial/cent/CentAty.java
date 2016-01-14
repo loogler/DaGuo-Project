@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.ui.before.MyAppliation;
 import com.daguo.util.adapter.CentAdapter;
 import com.daguo.util.beans.CentGoods;
 import com.daguo.utils.HttpUtil;
@@ -105,6 +106,7 @@ public class CentAty extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_cent);
+	MyAppliation.getInstance().addActivity(this);
 	p_id = getSharedPreferences("userinfo", Context.MODE_WORLD_READABLE)
 		.getString("id", "");
 	if ("".equals(PublicTools.doWithNullData(p_id))) {
@@ -123,7 +125,7 @@ public class CentAty extends Activity {
 	    @Override
 	    public void onItemClick(AdapterView<?> arg0, View arg1, int p,
 		    long arg3) {
-		Intent intent = new Intent();
+		Intent intent = new Intent(CentAty.this,Cent_DetailAty.class);
 		intent.putExtra("id", lists.get(p).getId());
 		startActivity(intent);
 	    }

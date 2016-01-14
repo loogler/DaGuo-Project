@@ -1,5 +1,11 @@
 package com.daguo.ui.commercial;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.tsz.afinal.FinalBitmap;
 
 import org.json.JSONArray;
@@ -9,6 +15,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +40,7 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.ui.before.MyAppliation;
 import com.daguo.util.adapter.Shop_GoodsDetail_BannerAdapter;
+import com.daguo.util.base.GoodTypeItem;
 import com.daguo.util.base.ViewPager_Hacky;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
@@ -143,6 +151,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 
 	jion_tv.setOnClickListener(this);
 	buy_tv.setOnClickListener(this);
+	name_tv.setOnClickListener(this);
     }
 
     private void initHeadView() {
@@ -223,6 +232,13 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 
 	    startActivity(intent);
 
+	    break;
+
+	case R.id.name_tv:
+	    // TODO ce shi
+	    Intent intent2 = new Intent(Shop_GoodsDetailAty.this,
+		    Shop_CartAty.class);
+	    startActivity(intent2);
 	    break;
 
 	default:
@@ -334,30 +350,67 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
     }
 
     /**
-     * 
+     * 加入购物车操作
      */
+    @SuppressLint("CommitPrefEdits")
     private void joinTo() {
-	new Thread(new Runnable() {
-	    public void run() {
-		try {
-		    String url = "";
-		    // TODO
-		    String res = HttpUtil.getRequest(url);
-		    JSONObject jsonObject = new JSONObject(res);
-		    if (1 == jsonObject.getInt("result")) {
-			msg = handler.obtainMessage(MSG_JOIN_SUC);
-			msg.sendToTarget();
-
-		    } else {
-			msg = handler.obtainMessage(MSG_JOIN_FAIL);
-			msg.sendToTarget();
-		    }
-
-		} catch (Exception e) {
-		    Log.e("商品详情", "加入购物车异常");
-		}
-	    }
-	}).start();
+	// // 本地做一次数据保存 ，不上传服务器，所以购物车只在自己手机上显示。
+	// // 获取历史记录 -- 转化数据-- 添加新纪录-- 转化数据
+	// Editor editor = getSharedPreferences("order", Activity.MODE_PRIVATE)
+	// .edit();
+	//
+	// String goodsId = shop_GoodsItem.getId();
+	// String goodsPic = shop_GoodsItem.getThumb_path();
+	// String goodsName = shop_GoodsItem.getName();
+	// String goodsPrice = shop_GoodsItem.getPrice();
+	//
+	// Shop_GoodsItem cartGoodsItem = new Shop_GoodsItem();
+	// List<Shop_GoodsItem> cartShop_GoodsItems = new
+	// ArrayList<Shop_GoodsItem>();
+	// cartGoodsItem.setId(goodsId);
+	// cartGoodsItem.setThumb_path(goodsPic);
+	// cartGoodsItem.setPrice(goodsPrice);
+	// cartGoodsItem.setName(goodsName);
+	// cartShop_GoodsItems.add(cartGoodsItem);
+	//
+	// String cart = getSharedPreferences("order", Activity.MODE_PRIVATE)
+	// .getString("cart", "");
+	//
+	// if ("".equals(cart)) {
+	// // 空的购物车
+	// String c = net.sf.json.JSONArray.fromObject(cartShop_GoodsItems)
+	// .toString();
+	// editor.putString("cart", c);
+	// } else {
+	// // 有历史记录
+	//
+	// List<Shop_GoodsItem> ls = new ArrayList<Shop_GoodsItem>();
+	// Shop_GoodsItem s;
+	//
+	// try {
+	// JSONArray a = new JSONArray(cart);
+	//
+	// for (int i = 0; i < a.length(); i++) {
+	// s = (Shop_GoodsItem) a.get(i);
+	//
+	// ls.add(s);
+	// Collections.reverse(ls);
+	// }
+	// ls.add(cartGoodsItem);
+	// Collections.reverse(ls);
+	//
+	// editor.putString("cart", net.sf.json.JSONArray.fromObject(ls)
+	// .toString());
+	// } catch (JSONException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// }
+	//
+	// editor.commit();
+	// Toast.makeText(Shop_GoodsDetailAty.this, "已加入购物车", Toast.LENGTH_LONG)
+	// .show();
+	//
     }
 
     /*************************************************************************/

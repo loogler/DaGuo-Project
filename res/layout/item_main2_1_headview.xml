@@ -39,18 +39,24 @@
         android:numColumns="5"
         android:verticalSpacing="3dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#eee" />
+
     <LinearLayout
         android:id="@+id/miaosha_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="18dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:background="@color/white"
             android:orientation="vertical"
             android:padding="10dp" >
 
@@ -64,24 +70,24 @@
                 android:textStyle="bold" />
 
             <com.daguo.util.base.CustomDigitalClock
-                android:padding="8dp"
                 android:id="@+id/remainTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:text="00:00:01"
                 android:background="@color/black"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="00:00:01"
                 android:textColor="@android:color/white"
                 android:textSize="25sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:background="@color/white"
             android:orientation="vertical" >
 
             <TextView
@@ -89,25 +95,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="测试秒杀商品" />
+                android:text="测试秒杀商品"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/miaoshaPrice_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="RMB:199" />
+                android:text="RMB:199"
+                android:visibility="gone" />
 
             <ImageView
-                android:maxHeight="120dp"
                 android:id="@+id/miaosha_iv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:maxHeight="120dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/school_xinwen" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#eee" />
 
     <TextView
         android:layout_width="match_parent"

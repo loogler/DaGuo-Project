@@ -34,7 +34,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -47,7 +46,15 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.libs.staggeredgridview.StaggeredGridView;
 import com.daguo.libs.staggeredgridview.StaggeredGridView.OnLoadmoreListener;
+import com.daguo.ui.commercial.Shop_GoodsDetailAty;
 import com.daguo.ui.commercial.Shop_SearchAty;
+import com.daguo.ui.school.huodong.SC_HuoDongAty1;
+import com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1;
+import com.daguo.ui.school.shetuan.SC_SheTuanAty;
+import com.daguo.ui.school.shetuan.SC_SheTuanDetailAty;
+import com.daguo.ui.school.xinwen.SC_XinWenAty;
+import com.daguo.ui.school.xinwen.SC_XinWen_DetailAty;
+import com.daguo.ui.school.zhuanti.SC_ZhuanTiDetailAty;
 import com.daguo.util.adapter.Main_2Adapter;
 import com.daguo.util.adapter.Main_2_GoodTypeAdapter;
 import com.daguo.util.base.CustomDigitalClock;
@@ -285,8 +292,11 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	    public void onClick(View arg0) {
 		if (isMiaoSHaTime) {
 
-		    Intent intent = new Intent();
-		    // TODO 跳转商品详情
+		    Intent intent = new Intent(Main_2Aty1.this,
+			    Shop_GoodsDetailAty.class);
+		    intent.putExtra("id", miaoshaGoodsItem.getId());
+		    startActivity(intent);
+
 		} else {
 		    Toast.makeText(Main_2Aty1.this, "不在秒杀时间内",
 			    Toast.LENGTH_SHORT).show();
@@ -427,7 +437,7 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 
 		try {
 		    String url = HttpUtil.QUERY_ADD_BANNER
-			    + "&position=1&page=1&rows=15";
+			    + "&position=4&page=1&rows=15";
 		    String res = "";
 		    JSONObject js = null;
 		    int total = 0;
@@ -745,8 +755,89 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 
     }
 
-    // ////////////////////////////
-    private void onclicks() {
+    /**
+     * 广告栏目点击事件
+     */
+    private void onclicks(int position, List<AddBanner> lists) {
+	String sourceId = null;
+	String menuId = null;
+	String type = null;
+	String url = null;
+	sourceId = lists.get(position).getSource_id();
+	type = lists.get(position).getType();
+
+	if (type.equals("1")) {// 外连接
+	    url = lists.get(position).getUrl();
+	    Intent intent = new Intent(Main_2Aty1.this, WebView_CommenAty.class);
+	    intent.putExtra("URL", url);
+	    startActivity(intent);
+	} else if ("2".equals(type)) {// 跳转栏目
+	    menuId = lists.get(position).getMenu_id();
+	    if ("b3b7866c-3bf9-48a7-8caa-effa1fb86782".equals(menuId)) {
+		// 校园活动
+		Intent intent = new Intent(Main_2Aty1.this,
+			SC_HuoDongAty1.class);
+		startActivity(intent);
+
+	    } else if ("7176add9-6d46-4c97-8983-362848304388".equals(menuId)) {
+		// 校园新鲜事
+		Intent intent = new Intent(Main_2Aty1.this, SC_XinWenAty.class);
+		startActivity(intent);
+	    } else if ("db94a88d-5c78-448b-a3a7-4af1c3850571".equals(menuId)) {
+		// 校园新闻
+		Intent intent = new Intent(Main_2Aty1.this, SC_XinWenAty.class);
+		startActivity(intent);
+
+	    } else if ("d6c986c5-8e52-485e-9a6e-d5d98480564e".equals(menuId)) {
+		// 校园社团
+		Intent intent = new Intent(Main_2Aty1.this, SC_SheTuanAty.class);
+		startActivity(intent);
+
+	    }
+
+	} else if (type.equals("3")) {// 跳转数据
+	    menuId = lists.get(position).getMenu_id();
+	    sourceId = lists.get(position).getSource_id();
+	    if ("b3b7866c-3bf9-48a7-8caa-effa1fb86782".equals(menuId)) {
+		// 校园活动
+		Intent intent = new Intent(Main_2Aty1.this,
+			SC_HuoDong_DetailAty1.class);
+		intent.putExtra("id", sourceId);
+		startActivity(intent);
+
+	    } else if ("7176add9-6d46-4c97-8983-362848304388".equals(menuId)) {
+		// 校园新鲜事
+		Intent intent = new Intent(Main_2Aty1.this,
+			SC_XinWen_DetailAty.class);
+		intent.putExtra("id", sourceId);
+		startActivity(intent);
+	    } else if (menuId.equals("db94a88d-5c78-448b-a3a7-4af1c3850571")) {
+		// 校园新闻
+		Intent intent = new Intent(Main_2Aty1.this,
+			SC_XinWen_DetailAty.class);
+		intent.putExtra("id", sourceId);
+		startActivity(intent);
+
+	    } else if ("d6c986c5-8e52-485e-9a6e-d5d98480564e".equals(menuId)) {
+		// 校园社团
+		Intent intent = new Intent(Main_2Aty1.this,
+			SC_SheTuanDetailAty.class);
+		intent.putExtra("id", sourceId);
+		startActivity(intent);
+	    }
+	} else if (type.equals("4")) {// 跳转专题
+	    Intent intent = new Intent(Main_2Aty1.this,
+		    SC_ZhuanTiDetailAty.class);
+	    intent.putExtra("id", sourceId);
+	    startActivity(intent);
+	} else if (type.equals("5")) {// 跳转商品
+
+	    Intent intent = new Intent(Main_2Aty1.this,
+		    Shop_GoodsDetailAty.class);
+	    intent.putExtra("id", sourceId);
+	    startActivity(intent);
+
+	}
 
     }
 
@@ -793,11 +884,9 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 
 			@Override
 			public void onClick(View arg0) {
-			    // Toast.makeText(Main_1Aty.this,
-			    // "dianji +" + position, Toast.LENGTH_SHORT)
-			    // .show();
-			    // onclicks(position, topBannerLists);
-			    // TODO
+
+			    onclicks(position, topBannerLists);
+
 			}
 		    });
 

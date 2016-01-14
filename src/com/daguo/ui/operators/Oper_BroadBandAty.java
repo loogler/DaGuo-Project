@@ -3,11 +3,15 @@ package com.daguo.ui.operators;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daguo.R;
@@ -27,6 +31,9 @@ public class Oper_BroadBandAty extends Activity implements OnClickListener {
      * initViews
      */
     private ImageView mob_iv, tel_iv, uni_iv;
+    private LinearLayout ll;
+
+    private Bitmap bmll, bmm, bmt, bmu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +70,26 @@ public class Oper_BroadBandAty extends Activity implements OnClickListener {
     /**
      * 
      */
+    @SuppressWarnings("deprecation")
     private void initViews() {
+	ll = (LinearLayout) findViewById(R.id.ll);
 	mob_iv = (ImageView) findViewById(R.id.mob_iv);
 	tel_iv = (ImageView) findViewById(R.id.tel_iv);
 	uni_iv = (ImageView) findViewById(R.id.uni_iv);
+
+	bmll = BitmapFactory.decodeResource(getResources(),
+		R.drawable.bg_oper_brodband);
+	bmm = BitmapFactory.decodeResource(getResources(),
+		R.drawable.oper_brodband1);
+	bmt = BitmapFactory.decodeResource(getResources(),
+		R.drawable.oper_brodband3);
+	bmu = BitmapFactory.decodeResource(getResources(),
+		R.drawable.oper_brodband2);
+
+	ll.setBackgroundDrawable(new BitmapDrawable(bmll));
+	mob_iv.setBackgroundDrawable(new BitmapDrawable(bmm));
+	tel_iv.setBackgroundDrawable(new BitmapDrawable(bmt));
+	uni_iv.setBackgroundDrawable(new BitmapDrawable(bmu));
 
 	mob_iv.setOnClickListener(this);
 	tel_iv.setOnClickListener(this);
@@ -106,7 +129,7 @@ public class Oper_BroadBandAty extends Activity implements OnClickListener {
 	    intent = new Intent(Oper_BroadBandAty.this,
 		    Oper_BroadBand_FStepAty.class);
 	    intent.putExtra("busi_name", "b05bab2f-e7b3-41f7-b22f-acc01c0ef0f5");
-	   
+
 	    startActivity(intent);
 	    break;
 
@@ -122,8 +145,24 @@ public class Oper_BroadBandAty extends Activity implements OnClickListener {
      */
     @Override
     protected void onDestroy() {
-	super.onDestroy();
+	if (null != bmll) {
+	    bmll.recycle();
+
+	}
+	if (null != bmu) {
+	    bmu.recycle();
+
+	}
+	if (null != bmt) {
+	    bmt.recycle();
+
+	}
+	if (null != bmm) {
+	    bmm.recycle();
+
+	}
 	System.gc();
+	super.onDestroy();
     }
 
     // ------------------------------------------------------------------------------------/

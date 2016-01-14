@@ -2,14 +2,19 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
+    </style>
+<!-- 基础的防闪黑的主题 -->
+    <style name="Theme.AppStartLoadTranslucent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!-- Application theme. -->
@@ -241,17 +246,17 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground"> @android:color/transparent </item>
     </style>
-    
+
     <!-- 發說說 -->
-    
+
     <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/activity_translate_in</item>
         <item name="android:windowExitAnimation">@anim/activity_translate_out</item>
     </style>
-	
-	<style name="PopupAnimation1" parent="android:Animation" mce_bogus="1">          
-        <item name="android:windowEnterAnimation">@anim/popup_enter</item>     
-        <item name="android:windowExitAnimation">@anim/popup_exit</item>     
+
+    <style name="PopupAnimation1" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
 
 </resources>

@@ -68,7 +68,7 @@ public class MyAppliation extends Application {
 				getApplicationContext())
 				.defaultDisplayImageOptions(defaultOptions)
 				.discCacheSize(50 * 1024 * 1024)//
-				.discCacheFileCount(100)// 缓存一百张图片
+				.discCacheFileCount(20)// 缓存二十张图片
 				.writeDebugLogs().build();
 		ImageLoader.getInstance().init(config);
 

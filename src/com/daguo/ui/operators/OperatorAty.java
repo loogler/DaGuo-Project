@@ -10,6 +10,9 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,6 +45,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class OperatorAty extends Activity implements OnClickListener {
 
     private final int MSG_ADD_SUC = 10001;
+
+    private Bitmap bmd1, bmd2, bmd3;// 三张背景图
 
     /**
      * initViews
@@ -107,6 +112,20 @@ public class OperatorAty extends Activity implements OnClickListener {
 	setTopBanner();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onDestroy()
+     */
+    @Override
+    protected void onDestroy() {
+	bmd1.recycle();
+	bmd2.recycle();
+	bmd3.recycle();
+	super.onDestroy();
+
+    }
+
     /**
      * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
      */
@@ -132,14 +151,26 @@ public class OperatorAty extends Activity implements OnClickListener {
     /**
      * 
      */
+    @SuppressWarnings("deprecation")
     private void initViews() {
 	tel_iv = (ImageView) findViewById(R.id.tel_iv);
 	net_iv = (ImageView) findViewById(R.id.net_iv);
 	gprs_iv = (ImageView) findViewById(R.id.gprs_iv);
 
+	bmd1 = BitmapFactory.decodeResource(getResources(),
+		R.drawable.operator1);
+	bmd2 = BitmapFactory.decodeResource(getResources(),
+		R.drawable.operator2);
+	bmd3 = BitmapFactory.decodeResource(getResources(),
+		R.drawable.operator3);
+	tel_iv.setBackgroundDrawable(new BitmapDrawable(bmd1));
+	net_iv.setBackgroundDrawable(new BitmapDrawable(bmd2));
+	gprs_iv.setBackgroundDrawable(new BitmapDrawable(bmd3));
+
 	tel_iv.setOnClickListener(this);
 	net_iv.setOnClickListener(this);
 	gprs_iv.setOnClickListener(this);
+
     }
 
     private void setTopBanner() {

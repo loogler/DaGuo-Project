@@ -14,7 +14,6 @@ import com.daguo.R;
 import com.daguo.service.PushService;
 import com.daguo.ui.main.MainActivity;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 第一次加载时的判断页
@@ -33,7 +32,7 @@ public class MainLoadingAty extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.aty_mainloading);
 		MobclickAgent.setSessionContinueMillis(30000);
-		UmengUpdateAgent.setDefault();
+		
 		this.startService(new Intent(this,PushService.class));
 
 		// 获取本地数据

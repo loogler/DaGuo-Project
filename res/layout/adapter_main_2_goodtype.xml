@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="特价影票" />
+        android:text="特价影票"
+        android:textColor="@color/deep_gray"
+        android:textSize="12sp" />
 
 </LinearLayout>

@@ -45,9 +45,10 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
      * initViews
      */
     private TextView consigneeName_tv, consigneeAddress_tv, consgineeChange_tv,
-	    goodsName_tv, goodsPrice_tv, guidNo_tv, goodsCount2_tv,
-	    goodsPriceTotal_tv, submit_tv;
-    private EditText goodsCount_edt;
+	    goodsName_tv, goodsPrice_tv, goodsCount2_tv, goodsPriceTotal_tv,
+	    submit_tv;
+    private TextView goodsCountAdd_tv, goodsCountMin_tv, goodsCount_tv;
+    private EditText guidNo_edt;
 
     private ImageView goodsPic_iv;
 
@@ -143,77 +144,83 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 
 	goodsName_tv = (TextView) findViewById(R.id.goodsName_tv);
 	goodsPrice_tv = (TextView) findViewById(R.id.goodsPrice_tv);
-	goodsCount_edt = (EditText) findViewById(R.id.goodsCount_edt);
+	goodsCount_tv = (TextView) findViewById(R.id.goodsCount_tv);
+	goodsCountMin_tv = (TextView) findViewById(R.id.goodsCountMin_tv);
+	goodsCountAdd_tv = (TextView) findViewById(R.id.goodsCountAdd_tv);
 
-	guidNo_tv = (TextView) findViewById(R.id.guidNo_tv);
+	guidNo_edt = (EditText) findViewById(R.id.guidNo_edt);
 	goodsCount2_tv = (TextView) findViewById(R.id.goodsCount2_tv);
 	goodsPriceTotal_tv = (TextView) findViewById(R.id.goodsPriceTotal_tv);
 	submit_tv = (TextView) findViewById(R.id.submit_tv);
 
 	goodsPic_iv = (ImageView) findViewById(R.id.goodsPic_iv);
 
+	goodsCountAdd_tv.setOnClickListener(this);
+	goodsCountMin_tv.setOnClickListener(this);
 	consgineeChange_tv.setOnClickListener(this);
 	submit_tv.setOnClickListener(this);
 
 	initHeadView();
 
 	setData();
-	goodsCount_edt.addTextChangedListener(new TextWatcher() {
-	    int l = 0;// //////记录字符串被删除字符之前，字符串的长度
-	    int location = 0;// 记录光标的位置
 
-	    @Override
-	    public void onTextChanged(CharSequence s, int start, int before,
-		    int count) {
-
-	    }
-
-	    @Override
-	    public void beforeTextChanged(CharSequence s, int start, int count,
-		    int after) {
-		l = s.length();
-		location = goodsCount_edt.getSelectionStart();
-	    }
-
-	    @Override
-	    public void afterTextChanged(Editable s) {
-		if (l != s.toString().length()) {
-		    //
-		    // gyf.function.face_analysis faceAnalysis=new
-		    // gyf.function.face_analysis(Shop_OrderAty.this);
-		    // SpannableStringBuilder
-		    // sBuilder=faceAnalysis.getSpannableStringBuilder(s.toString());
-		    // eText.setText(sBuilder);
-		    // eText.setText("");
-		    String abc = goodsCount_edt.getText().toString().trim();
-		    if ("".equals(abc)) {
-			abc = "1";
-			Toast.makeText(Shop_OrderAty.this, "订单数不能少于1",
-				Toast.LENGTH_SHORT).show();
-		    }
-		    goodsCount_edt.setText(abc);
-		    try {
-			goodsCount = Integer.parseInt(abc);
-		    } catch (NumberFormatException e) {
-			Toast.makeText(Shop_OrderAty.this, "输入的数量异常",
-				Toast.LENGTH_LONG).show();
-			return;
-		    }
-		    goodsCount2_tv.setText(abc);
-		    goodsPrice_total = String.valueOf(goodsCount
-			    * Double.parseDouble(goodsPrice));
-		    goodsPriceTotal_tv.setText(goodsPrice_total);
-		    Editable etable = goodsCount_edt.getText();
-		    Selection.setSelection(etable, location);
-		    // Toast.makeText(releaseComment.this, "11111",
-		    // Toast.LENGTH_SHORT).show();
-
-		}
-
-		// Toast.makeText(releaseComment.this, "0000",
-		// Toast.LENGTH_SHORT).show();
-	    }
-	});
+	// 去掉edit监听 换成text监听
+	// goodsCount_edt.addTextChangedListener(new TextWatcher() {
+	// int l = 0;// //////记录字符串被删除字符之前，字符串的长度
+	// int location = 0;// 记录光标的位置
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	//
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// l = s.length();
+	// location = goodsCount_edt.getSelectionStart();
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// if (l != s.toString().length()) {
+	// //
+	// // gyf.function.face_analysis faceAnalysis=new
+	// // gyf.function.face_analysis(Shop_OrderAty.this);
+	// // SpannableStringBuilder
+	// // sBuilder=faceAnalysis.getSpannableStringBuilder(s.toString());
+	// // eText.setText(sBuilder);
+	// // eText.setText("");
+	// String abc = goodsCount_edt.getText().toString().trim();
+	// if ("".equals(abc)) {
+	// abc = "1";
+	// Toast.makeText(Shop_OrderAty.this, "订单数不能少于1",
+	// Toast.LENGTH_SHORT).show();
+	// }
+	// goodsCount_edt.setText(abc);
+	// try {
+	// goodsCount = Integer.parseInt(abc);
+	// } catch (NumberFormatException e) {
+	// Toast.makeText(Shop_OrderAty.this, "输入的数量异常",
+	// Toast.LENGTH_LONG).show();
+	// return;
+	// }
+	// goodsCount2_tv.setText(abc);
+	// goodsPrice_total = String.valueOf(goodsCount
+	// * Double.parseDouble(goodsPrice));
+	// goodsPriceTotal_tv.setText(goodsPrice_total);
+	// Editable etable = goodsCount_edt.getText();
+	// Selection.setSelection(etable, location);
+	// // Toast.makeText(releaseComment.this, "11111",
+	// // Toast.LENGTH_SHORT).show();
+	//
+	// }
+	//
+	// // Toast.makeText(releaseComment.this, "0000",
+	// // Toast.LENGTH_SHORT).show();
+	// }
+	// });
 
     }
 
@@ -222,10 +229,10 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
      */
     private void setData() {
 	goodsName_tv.setText(PublicTools.doWithNullData(goodsName));
-	goodsPrice_tv.setText(PublicTools.doWithNullData(goodsPrice));
+	goodsPrice_tv.setText(PublicTools.doWithNullData("￥"+goodsPrice));
 	FinalBitmap.create(this).display(goodsPic_iv,
 		HttpUtil.IMG_URL + PublicTools.doWithNullData(goodsPic));
-	goodsCount_edt.setText("1");
+	goodsCount_tv.setText("1");
 	goodsCount2_tv.setText("1");
 	goodsPriceTotal_tv.setText(PublicTools.doWithNullData(goodsPrice));
 
@@ -260,17 +267,25 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	switch (requestCode) {
 	case REQ_ADDRESS:
-	    guidNo = data.getStringExtra("guid");
-	    consigneeAddress = data.getStringExtra("address");
-	    consigneeName = data.getStringExtra("name");
-	    consigneeTel = data.getStringExtra("tel");
+	    if (data != null) {
 
-	    guidNo_tv.setText(PublicTools.doWithNullData(guidNo));
-	    consigneeAddress_tv.setText(PublicTools
-		    .doWithNullData(consigneeAddress));
-	    consigneeName_tv.setText(PublicTools.doWithNullData(consigneeName)
-		    + "  " + PublicTools.doWithNullData(consigneeTel));
+		guidNo = PublicTools
+			.doWithNullData(data.getStringExtra("guid"));
+		consigneeAddress = PublicTools.doWithNullData(data
+			.getStringExtra("address"));
+		consigneeName = PublicTools.doWithNullData(data
+			.getStringExtra("name"));
+		consigneeTel = PublicTools.doWithNullData(data
+			.getStringExtra("tel"));
 
+		guidNo_edt.setText(PublicTools.doWithNullData(guidNo));
+		consigneeAddress_tv.setText(" "+PublicTools
+			.doWithNullData(consigneeAddress));
+		consigneeName_tv.setText(PublicTools
+			.doWithNullData(consigneeName)
+			+ "  "
+			+ PublicTools.doWithNullData(consigneeTel));
+	    }
 	    break;
 
 	default:
@@ -378,6 +393,8 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
     public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.submit_tv:
+	    guidNo = PublicTools.doWithNullData(guidNo_edt.getText().toString()
+		    .trim());
 	    getOrderCHart();
 
 	    break;
@@ -387,14 +404,22 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 	    startActivityForResult(intent, REQ_ADDRESS);
 
 	    break;
-	// case R.id.goodsCountAdd_tv:
-	// goodsCount++;
-	// goodsCount_edt.setText(String.valueOf(goodsCount));
-	// break;
-	// case R.id.goodsCountMin_tv:
-	// goodsCount--;
-	// goodsCount_edt.setText(String.valueOf(goodsCount));
-	// break;
+	case R.id.goodsCountAdd_tv:
+	    goodsCount--;
+	    goodsCount_tv.setText(String.valueOf(goodsCount));
+	    goodsPrice_total = String.valueOf(goodsCount
+		    * Double.parseDouble(goodsPrice));
+	    goodsCount2_tv.setText(String.valueOf(goodsCount));
+	    goodsPriceTotal_tv.setText(goodsPrice_total);
+	    break;
+	case R.id.goodsCountMin_tv:
+	    goodsCount++;
+	    goodsCount_tv.setText(String.valueOf(goodsCount));
+	    goodsPrice_total = String.valueOf(goodsCount
+		    * Double.parseDouble(goodsPrice));
+	    goodsCount2_tv.setText(String.valueOf(goodsCount));
+	    goodsPriceTotal_tv.setText(goodsPrice_total);
+	    break;
 
 	default:
 	    break;

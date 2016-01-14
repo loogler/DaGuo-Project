@@ -27,6 +27,7 @@ import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.libs.staggeredgridview.StaggeredGridView;
 import com.daguo.libs.staggeredgridview.StaggeredGridView.OnLoadmoreListener;
+import com.daguo.util.Imp.AddBannerOnclickListener;
 import com.daguo.util.adapter.SC_HuoDongAdapter1;
 import com.daguo.util.beans.AddBanner;
 import com.daguo.util.beans.SC_SheTuan;
@@ -88,13 +89,8 @@ public class SC_HuoDongAty1 extends Activity {
 		add_iv.setLayoutParams(new LinearLayout.LayoutParams(
 			GetScreenRecUtil.getWindowWidth(SC_HuoDongAty1.this),
 			GetScreenRecUtil.getWindowWidth(SC_HuoDongAty1.this) / 2));
-		add_iv.setOnClickListener(new View.OnClickListener() {
-
-		    @Override
-		    public void onClick(View arg0) {
-			onClicks();
-		    }
-		});
+		add_iv.setOnClickListener(new AddBannerOnclickListener(
+			SC_HuoDongAty1.this, addLists, 0));
 
 		break;
 	    default:
@@ -135,7 +131,7 @@ public class SC_HuoDongAty1 extends Activity {
 		finish();
 	    }
 	});
-	title_tv.setText("校园社团");
+	title_tv.setText("校园活动");
 	function_tv.setVisibility(View.GONE);
 	remind_iv.setVisibility(View.GONE);
 

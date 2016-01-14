@@ -7,11 +7,13 @@
 	<classpathentry exported="true" kind="lib" path="libs/alipaysecsdk.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/alipayutdid.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="lib" path="libs/pushservice-4.5.3.48.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/afinal_0.5.1_bin.jar"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="libs/nineoldandroids.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/BaiduLBS_Android.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="lib" path="libs/locSDK_6.13.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

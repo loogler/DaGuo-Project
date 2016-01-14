@@ -8,6 +8,8 @@ import java.util.List;
 import net.tsz.afinal.FinalBitmap;
 
 import com.daguo.R;
+import com.daguo.ui.commercial.cent.CentAty;
+import com.daguo.ui.commercial.cent.Cent_DetailAty;
 import com.daguo.util.beans.CentGoods;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
@@ -102,13 +104,14 @@ public class CentAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View arg0) {
-		Intent intent = new Intent();
+		Intent intent = new Intent(activity, Cent_DetailAty.class);
 		intent.putExtra("id", lists.get(position).getId());
 		activity.startActivity(intent);
 	    }
 	});
 	holder.goodsCent_tv.setText(PublicTools.doWithNullData(lists.get(
-		position).getScore()));
+		position).getScore())
+		+ " 积分");
 	holder.goodsName_tv.setText(PublicTools.doWithNullData(lists.get(
 		position).getName()));
 

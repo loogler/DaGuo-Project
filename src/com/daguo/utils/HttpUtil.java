@@ -43,7 +43,9 @@ public class HttpUtil {
      * 
      */
     /**
-     * 服务器 备用 192.168.0.31 KSOFFICE // 192.168.0.146 ksoffice
+     * 
+     * 
+     * 115.29.224.248 大果服务器
      */
     public static final String URL = "http://115.29.224.248:8080/XYYYT/service/";
     /**
@@ -96,8 +98,14 @@ public class HttpUtil {
      */
     public static final String QUERY_USERINFO = URL
 	    + "personInfo/queryPersonInfoList?android=1&rows=1&page=1";
+    /**
+     * 用户关注操作 follow_id` varchar(36) DEFAULT NULL COMMENT '关注人ID followed_id`
+     * varchar(36) DEFAULT NULL COMMENT '被关注人ID'
+     */
+    public static final String SUBMIT_ATTENTION = URL
+	    + "follow/saveOrUpdate?android=1";
 
-    /****** 订单 **************** split line *******************************************/
+    /*------------- 订单 **-----------------**/
     /**
      * 商品主表订单，所有订单共有接口 pay_type= 50ba2daa-2d35-4c8e-a032-edcc89ad45c1 支付宝id
      */
@@ -149,11 +157,17 @@ public class HttpUtil {
 
     public static final String QUERY_GOODSLIST = URL
 	    + "goods/queryGoodsList?android=1";
-/**
- * 查询积分信息商品列表，
- */
+    /**
+     * 查询积分信息商品列表，
+     */
     public static final String QUERY_CENTGOODS = URL
 	    + "scoreGood/queryScoreGoodList?android=1";
+    /**
+     * 兑换积分操作
+     * 
+     */
+    public static final String SUBMIT_CENTGOODS = URL
+	    + "scoreChange/saveOrUpdate?android=1";
 
     /****** 领奖 活动************************split line *****************************************************/
     /**
@@ -215,7 +229,7 @@ public class HttpUtil {
     public static final String QUERY_HUODONG = URL
 	    + "article/queryArticleList?android=1&menu_id=b3b7866c-3bf9-48a7-8caa-effa1fb86782";
 
-    /***** 说说************************** split line ************************************************/
+    /*------------------------- 说说-----------------*/
     /**
      * 说说新建 返回一条说说id
      */
@@ -243,13 +257,69 @@ public class HttpUtil {
     public static final String SUBMIT_SHUSHUO_EVA = URL
 	    + "topicFeedback/saveOrUpdate?android=1";
 
-    /* ********************广告位******************************************8、 */
+    /**
+     * 聊天接口==>查询与对方聊天 的内容 此处调用接口必须传对方的和自己的id s_p_id r_p_id 座位参数去查询
+     */
+    public static final String QUERY_CHAT_DETAIL = URL
+	    + "chatInfo/queryChatInfoList?android=1";
+ 
+    /**
+     * 聊天==》发送一条信息给对方
+     */
+    public static final String SUBMIT_CHAT_SEND = URL
+	    + "chatInfo/saveOrUpdate?android=1";
+
+    /* ------------------*广告位*--------------- */
 
     /**
      * 广告位 post 需要参数为 position =轮播广告类型 page=当前页码 rows=当前页码显示条数
      */
     public static final String QUERY_ADD_BANNER = URL
 	    + "ad/queryAdList?android=1";
+
+    /** -----------------消息中心--------------------------------- */
+    /**
+     * 消息==》通知 列表查看
+     */
+    public static final String QUERY_MESSAGE_INFORM = URL
+	    + "msgCenter/queryMsgCenterList?android=1";
+    /**
+     * 消息==》聊天 所有未读聊天记录查看
+     */
+    public static final String QUERY_MESSAGE_CHAT = URL
+	    + "chatInfo/queryUnReadChatInfoList?android=1";
+
+    /*----------------个人中心------------------------------*/
+    /**
+     * 个人中心主页信息查询 我的说说数 关注数
+     */
+    public static final String QUERY_MYINFO = URL
+	    + "personCenter/queryCountInfo?android=1";
+
+    /**
+     * 个人中心 == 》我的活动 我报名的活动 1）p_id：当前人ID
+     */
+    public static final String QUERY_MYHUODONG = URL
+	    + "personCenter/queryMyAct?android=1";
+
+    /**
+     * 个人中心 ==》 我的点赞 我点赞过的说说
+     */
+    public static final String QUERY_MYDIANZAN = URL
+	    + "personCenter/queryTopicGoods?android=1";
+
+    /**
+     * 个人中心 ==》我的报名 我报名过的社团
+     */
+    public static final String QUERY_MYBAOMING = URL
+	    + "personCenter/querySignAct?android=1";
+
+    /** -----------------app下载--------------------------------* */
+    /**
+     * app列表
+     */
+    public static final String QUERY_APP_DOWNLOAD = URL
+	    + "softInfo/querySoftInfoList?android=1";
 
     /*************************** split line *************************************/
     /**

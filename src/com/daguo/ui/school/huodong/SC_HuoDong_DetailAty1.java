@@ -219,7 +219,7 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 		finish();
 	    }
 	});
-	title_tv.setText("社团详情");
+	title_tv.setText("活动详情");
 	function_tv.setVisibility(View.GONE);
 	remind_iv.setVisibility(View.GONE);
 
@@ -269,9 +269,7 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 	initWebView();
 	mWebView.loadDataWithBaseURL("null", sheTuanList.getContent(),
 		"text/html", "UTF-8", "");
-
 	content_view.addHeaderView(contentView);
-
     }
 
     private void initWebView() {
@@ -421,7 +419,7 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 
 			}
 			sheTuanList.setContent(content);
-			
+
 			sheTuanList.setCreate_time(create_time);
 			sheTuanList.setFeedback_count(feedback_count);
 			sheTuanList.setGood_count(good_count);

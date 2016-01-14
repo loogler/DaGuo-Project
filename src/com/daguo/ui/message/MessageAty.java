@@ -42,6 +42,7 @@ public class MessageAty extends FragmentActivity implements OnClickListener {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_message);
 	initViews();
+	replaceFragment1();
 
     }
 
@@ -52,7 +53,7 @@ public class MessageAty extends FragmentActivity implements OnClickListener {
 
 	title_ll = (LinearLayout) findViewById(R.id.title_ll);
 	frame = (FrameLayout) findViewById(R.id.frame);
-	
+
 	back_tv.setOnClickListener(this);
 	notifer_tv.setOnClickListener(this);
 	chat_tv.setOnClickListener(this);
@@ -74,15 +75,12 @@ public class MessageAty extends FragmentActivity implements OnClickListener {
 
 	    break;
 	case R.id.notifer_tv:
-	    title_ll.setBackgroundResource(R.drawable.button_whitegreen);
-	    notifer_tv
-		    .setTextColor(getResources().getColor(R.color.green_home));
+
 	    replaceFragment1();
 
 	    break;
 	case R.id.chat_tv:
-	    title_ll.setBackgroundResource(R.drawable.button_greenwhite);
-	    notifer_tv.setTextColor(getResources().getColor(R.color.white));
+
 	    replaceFragment2();
 
 	    break;
@@ -95,6 +93,9 @@ public class MessageAty extends FragmentActivity implements OnClickListener {
     /*-------------------tools---------------------------*/
 
     private void replaceFragment1() {
+	title_ll.setBackgroundResource(R.drawable.button_whitegreen);
+	notifer_tv.setTextColor(getResources().getColor(R.color.green_home));
+	chat_tv.setTextColor(getResources().getColor(R.color.white));
 	FragmentManager manager = getSupportFragmentManager();
 	tab1Fragment = new Message_Tab1Fragment();
 	FragmentTransaction transaction = manager.beginTransaction();
@@ -103,6 +104,9 @@ public class MessageAty extends FragmentActivity implements OnClickListener {
     }
 
     private void replaceFragment2() {
+	title_ll.setBackgroundResource(R.drawable.button_greenwhite);
+	notifer_tv.setTextColor(getResources().getColor(R.color.white));
+	chat_tv.setTextColor(getResources().getColor(R.color.green_home));
 	FragmentManager manager = getSupportFragmentManager();
 	tab2Fragment = new Message_Tab2Fragment();
 	FragmentTransaction transaction = manager.beginTransaction();

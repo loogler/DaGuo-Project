@@ -35,18 +35,16 @@ import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
-import com.daguo.ui.commercial.Shop_GoodsDetailAty;
+import com.daguo.ui.message.MessageAty;
 import com.daguo.ui.operators.OperatorAty;
+import com.daguo.ui.school.School_Main4Aty;
 import com.daguo.ui.school.School_MainAty;
-import com.daguo.ui.school.huodong.SC_HuoDongAty1;
-import com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1;
+import com.daguo.ui.school.outlet.OutLetAty;
 import com.daguo.ui.school.shetuan.SC_SheTuanAty;
-import com.daguo.ui.school.shetuan.SC_SheTuanDetailAty;
 import com.daguo.ui.school.xinwen.SC_XinWenAty;
 import com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty;
-import com.daguo.ui.school.xinwen.SC_XinWen_DetailAty;
-import com.daguo.ui.school.zhuanti.SC_ZhuanTiDetailAty;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
+import com.daguo.util.Imp.AddBannerOnclickListener;
 import com.daguo.util.adapter.Main_BottomBannerAdapter;
 import com.daguo.util.base.FrameLayout_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner;
@@ -167,9 +165,12 @@ public class Main_1Aty extends Activity implements OnClickListener {
 			HttpUtil.IMG_URL + midBnanerLists.get(2).getImg_path(),
 			iv3);
 
-		iv1.setOnClickListener(Main_1Aty.this);
-		iv2.setOnClickListener(Main_1Aty.this);
-		iv3.setOnClickListener(Main_1Aty.this);
+		iv1.setOnClickListener(new AddBannerOnclickListener(
+			Main_1Aty.this, midBnanerLists, 0));
+		iv2.setOnClickListener(new AddBannerOnclickListener(
+			Main_1Aty.this, midBnanerLists, 1));
+		iv3.setOnClickListener(new AddBannerOnclickListener(
+			Main_1Aty.this, midBnanerLists, 2));
 
 		break;
 
@@ -179,16 +180,6 @@ public class Main_1Aty extends Activity implements OnClickListener {
 			Main_1Aty.this, bottBannerLists);
 		listView.setAdapter(bottomBannerAdapter);
 		PublicTools.setListViewHeightBasedOnChildren(listView);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-		    @Override
-		    public void onItemClick(AdapterView<?> arg0, View arg1,
-			    int p, long arg3) {
-			onclicks(p, bottBannerLists);
-
-		    }
-
-		});
 
 		break;
 
@@ -213,6 +204,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
      * 实例化界面
      */
     void initViews() {
+	initHeadInfo();
 
 	rl1 = (RelativeLayout) findViewById(R.id.rl1);
 	rl1.setOnClickListener(this);
@@ -246,6 +238,35 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	setMidBannerDimension();
 
 	listView = (ListView) findViewById(R.id.listView);
+
+    }
+
+    /**
+     * 头部按钮
+     */
+    private void initHeadInfo() {
+	TextView personInfo_tv = (TextView) findViewById(R.id.personInfo_tv);
+	TextView function_tv = (TextView) findViewById(R.id.function_tv);
+	ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+
+	personInfo_tv.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		Intent intent = new Intent(Main_1Aty.this,
+			School_Main4Aty.class);
+		startActivity(intent);
+	    }
+	});
+	function_tv.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		Intent intent = new Intent(Main_1Aty.this, MessageAty.class);
+		startActivity(intent);
+	    }
+	});
+	remind_iv.setVisibility(View.GONE);
 
     }
 
@@ -502,91 +523,6 @@ public class Main_1Aty extends Activity implements OnClickListener {
 
     /**
      * 
-     */
-    private void onclicks(int position, List<AddBanner> lists) {
-	String sourceId = null;
-	String menuId = null;
-	String type = null;
-	String url = null;
-	sourceId = lists.get(position).getSource_id();
-	type = lists.get(position).getType();
-
-	if (type.equals("1")) {// 外连接
-	    url = lists.get(position).getUrl();
-	    Intent intent = new Intent(Main_1Aty.this, WebView_CommenAty.class);
-	    intent.putExtra("URL", url);
-	    startActivity(intent);
-	} else if (type.equals("2")) {// 跳转栏目
-	    menuId = lists.get(position).getMenu_id();
-	    if (menuId.equals("b3b7866c-3bf9-48a7-8caa-effa1fb86782")) {
-		// 校园活动
-		Intent intent = new Intent(Main_1Aty.this, SC_HuoDongAty1.class);
-		startActivity(intent);
-
-	    } else if (menuId.equals("7176add9-6d46-4c97-8983-362848304388")) {
-		// 校园新鲜事
-		Intent intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
-		startActivity(intent);
-	    } else if (menuId.equals("db94a88d-5c78-448b-a3a7-4af1c3850571")) {
-		// 校园新闻
-		Intent intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
-		startActivity(intent);
-
-	    } else if (menuId.equals("d6c986c5-8e52-485e-9a6e-d5d98480564e")) {
-		// 校园社团
-		Intent intent = new Intent(Main_1Aty.this, SC_SheTuanAty.class);
-		startActivity(intent);
-
-	    }
-
-	} else if (type.equals("3")) {// 跳转数据
-	    menuId = lists.get(position).getMenu_id();
-	    sourceId = lists.get(position).getSource_id();
-	    if (menuId.equals("b3b7866c-3bf9-48a7-8caa-effa1fb86782")) {
-		// 校园活动
-		Intent intent = new Intent(Main_1Aty.this,
-			SC_HuoDong_DetailAty1.class);
-		intent.putExtra("id", sourceId);
-		startActivity(intent);
-
-	    } else if (menuId.equals("7176add9-6d46-4c97-8983-362848304388")) {
-		// 校园新鲜事
-		Intent intent = new Intent(Main_1Aty.this,
-			SC_XinWen_DetailAty.class);
-		intent.putExtra("id", sourceId);
-		startActivity(intent);
-	    } else if (menuId.equals("db94a88d-5c78-448b-a3a7-4af1c3850571")) {
-		// 校园新闻
-		Intent intent = new Intent(Main_1Aty.this,
-			SC_XinWen_DetailAty.class);
-		intent.putExtra("id", sourceId);
-		startActivity(intent);
-
-	    } else if (menuId.equals("d6c986c5-8e52-485e-9a6e-d5d98480564e")) {
-		// 校园社团
-		Intent intent = new Intent(Main_1Aty.this,
-			SC_SheTuanDetailAty.class);
-		intent.putExtra("id", sourceId);
-		startActivity(intent);
-	    }
-	} else if (type.equals("4")) {// 跳转专题
-	    Intent intent = new Intent(Main_1Aty.this,
-		    SC_ZhuanTiDetailAty.class);
-	    intent.putExtra("id", sourceId);
-	    startActivity(intent);
-	} else if (type.equals("5")) {// 跳转商品
-	    // TODO 跳转商品详情 需要具体商品详情页   通知商城详情页接收商品信息
-	    Intent intent = new Intent(Main_1Aty.this,
-		    Shop_GoodsDetailAty.class);
-	    intent.putExtra("id", sourceId);
-	    startActivity(intent);
-
-	}
-
-    }
-
-    /**
-     * 
      * @author : BugsRabbit
      * @email 395360255@qq.com
      * @version 创建时间：2015-11-27 下午4:33:26
@@ -624,16 +560,8 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    ((ViewPager) container).addView(mImageViews[position], 0);
 	    mViewPager.setObjectForPosition(mImageViews[position], position);
 	    mImageViews[position]
-		    .setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-//			    Toast.makeText(Main_1Aty.this,
-//				    "dianji +" + position, Toast.LENGTH_SHORT)
-//				    .show();
-			    onclicks(position, topBannerLists);
-			}
-		    });
+		    .setOnClickListener(new AddBannerOnclickListener(
+			    Main_1Aty.this, topBannerLists, position));
 
 	    return mImageViews[position];
 	}
@@ -694,14 +622,9 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	case R.id.iv_mail:
 
 	    break;
-	case R.id.rl11:
-	    Toast.makeText(Main_1Aty.this, "功能咱未开放 ", Toast.LENGTH_SHORT)
-		    .show();
 
-	    break;
 	case R.id.tv_news:
-	    Toast.makeText(getBaseContext(), "功能咱未开放 ", Toast.LENGTH_SHORT)
-		    .show();
+
 	    break;
 	case R.id.rl1:
 	    Intent intent2 = new Intent(Main_1Aty.this, School_MainAty.class);
@@ -735,7 +658,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		    .show();
 	    break;
 	case R.id.rl7:
-	    Intent intent7 = new Intent(Main_1Aty.this, School_MainAty.class);
+	    Intent intent7 = new Intent(Main_1Aty.this, OutLetAty.class);
 	    startActivity(intent7);
 	    break;
 
@@ -746,25 +669,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    startActivity(intent10);
 
 	    break;
-	case R.id.iv_pic1:
 
-	    onclicks(0, midBnanerLists);
-
-	    // Toast.makeText(getBaseContext(), "跳转至广告宣传/活动/功能1",
-	    // Toast.LENGTH_SHORT).show();
-	    break;
-	case R.id.iv_pic2:
-	    onclicks(1, midBnanerLists);
-	    // Toast.makeText(getBaseContext(), "跳转至广告宣传/活动/功能2",
-	    // Toast.LENGTH_SHORT).show();
-	    break;
-	case R.id.iv_pic3:
-	    onclicks(2, midBnanerLists);
-	    // Toast.makeText(getBaseContext(), "跳转至广告宣传/活动/功能3",
-	    // Toast.LENGTH_SHORT).show();
-	    // Intent intent4 = new Intent(Main_1Aty.this, BroadBandAty.class);
-	    // startActivity(intent4);
-	    break;
 	case R.id.iv_buttom2:
 	    // Toast.makeText(getBaseContext(), "跳转至广告宣传/活动/功能1++",
 	    // Toast.LENGTH_SHORT).show();

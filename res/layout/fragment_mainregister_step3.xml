@@ -76,7 +76,7 @@
         android:paddingLeft="25dp"
         android:text="  如果短信有延迟，验证码有效时间五分钟，请稍等！"
         android:textColor="@color/grey_2"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/submit_btn"

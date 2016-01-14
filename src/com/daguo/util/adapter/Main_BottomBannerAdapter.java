@@ -6,6 +6,8 @@ package com.daguo.util.adapter;
 import java.util.List;
 
 import com.daguo.R;
+import com.daguo.ui.main.Main_1Aty;
+import com.daguo.util.Imp.AddBannerOnclickListener;
 import com.daguo.util.beans.AddBanner;
 import com.daguo.utils.GetScreenRecUtil;
 import com.daguo.utils.HttpUtil;
@@ -90,7 +92,7 @@ public class Main_BottomBannerAdapter extends BaseAdapter {
 	int width = GetScreenRecUtil.getWindowWidth(activity);
 	add_iv.setLayoutParams(new LinearLayout.LayoutParams(width,
 		2 * width / 5));
-
+	view.setOnClickListener(new AddBannerOnclickListener(activity, lists, p));
 	return view;
     }
 

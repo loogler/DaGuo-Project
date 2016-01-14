@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_oper_brodband"
     android:orientation="vertical"
     android:paddingBottom="50dp" >
 
@@ -20,8 +20,7 @@
             android:layout_height="0dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:scaleType="centerInside"
-            android:src="@drawable/oper_brodband1" />
+            android:scaleType="centerInside" />
 
         <ImageView
             android:id="@+id/uni_iv"
@@ -29,8 +28,7 @@
             android:layout_height="0dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:scaleType="centerInside"
-            android:src="@drawable/oper_brodband2" />
+            android:scaleType="centerInside" />
 
         <ImageView
             android:id="@+id/tel_iv"
@@ -38,8 +36,7 @@
             android:layout_height="0dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:scaleType="centerInside"
-            android:src="@drawable/oper_brodband3" />
+            android:scaleType="centerInside" />
     </LinearLayout>
 
 </LinearLayout>

@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:text="高达上手机小米"
+                android:text="商品名称"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
-                android:text="￥ 999 元"
+                android:text="￥ 0.00 元"
                 android:textColor="@color/red"
                 android:textSize="20sp" />
 

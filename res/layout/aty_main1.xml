@@ -6,66 +6,44 @@
     <!-- 头部 -->
 
     <LinearLayout
-        android:id="@+id/zzzz"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/green_home"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_toptitle_bar"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <LinearLayout
-            android:id="@+id/lin1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/tabhome_userbtn"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/iv_user"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:paddingLeft="5dip"
-                android:scaleType="fitCenter"
-                android:src="@drawable/main_user" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/personInfo_tv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/icon_man" />
 
         <TextView
+            android:id="@+id/title_tv"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="大果校园"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="18sp" />
 
-        <RelativeLayout
-            android:id="@+id/rl11"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/tabhome_userbtn"
-            android:gravity="center_vertical" >
+        <TextView
+            android:id="@+id/function_tv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_message"
+            android:orientation="vertical"
+            android:padding="10dp" />
 
-            <ImageView
-                android:id="@+id/iv_mail"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
-                android:clickable="false"
-                android:focusable="false"
-                android:paddingRight="10dip"
-                android:scaleType="fitCenter"
-                android:src="@drawable/main_ly" />
-
-            <ImageView
-                android:id="@+id/iv_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/iv_mail"
-                android:src="@drawable/tabhome_xx" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/remind_iv"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end"
+            android:scaleType="fitCenter"
+            android:src="@drawable/tabhome_xx" />
     </LinearLayout>
     <!-- 头部结束   轮播开始 -->
 
@@ -102,7 +80,8 @@
                     android:textColor="@color/red"
                     android:textSize="12sp" />
             </LinearLayout>
-<!-- 以上为滚动通知   以下为3d轮播 -->
+            <!-- 以上为滚动通知   以下为3d轮播 -->
+
             <RelativeLayout
                 android:id="@+id/topBanner_rl"
                 android:layout_width="match_parent"

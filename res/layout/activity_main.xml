@@ -22,7 +22,6 @@
         <!-- android:background 必须有 就算没有内容也必须写，否则drawable无法居中～！！！ -->
 
         <RadioButton
-            android:padding="3dp"
             android:id="@+id/home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -32,12 +31,12 @@
             android:checked="true"
             android:drawableTop="@drawable/tabhome_btntop_1"
             android:gravity="center"
+            android:padding="3dp"
             android:text="首页"
             android:textColor="@color/tabhome_btntextcolor"
             android:textSize="12dp" />
 
         <RadioButton
-            android:padding="3dp"
             android:id="@+id/interaction"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -46,12 +45,12 @@
             android:button="@null"
             android:drawableTop="@drawable/tabhome_btntop_2"
             android:gravity="center"
+            android:padding="3dp"
             android:text="商城"
             android:textColor="@color/tabhome_btntextcolor"
             android:textSize="12dp" />
 
         <RadioButton
-            android:padding="3dp"
             android:id="@+id/shop"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -60,12 +59,12 @@
             android:button="@null"
             android:drawableTop="@drawable/tabhome_btntop_3"
             android:gravity="center"
-            android:text="购物车"
+            android:padding="3dp"
+            android:text="同学说"
             android:textColor="@color/tabhome_btntextcolor"
             android:textSize="12dp" />
 
         <RadioButton
-            android:padding="3dp"
             android:id="@+id/cent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -74,6 +73,7 @@
             android:button="@null"
             android:drawableTop="@drawable/tabhome_btntop_4"
             android:gravity="center"
+            android:padding="3dp"
             android:text="设置"
             android:textColor="@color/tabhome_btntextcolor"
             android:textSize="12dp" />

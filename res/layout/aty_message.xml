@@ -2,29 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_toptitle_bar"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:layout_height="44dp"
+        android:background="@drawable/bg_toptitle_bar" >
 
         <TextView
             android:id="@+id/back_tv"
             android:layout_width="10dp"
             android:layout_height="20dp"
+            android:layout_gravity="start|center_vertical"
             android:layout_margin="10dp"
             android:background="@drawable/arrow_left" />
 
         <LinearLayout
             android:id="@+id/title_ll"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="1"
             android:background="@drawable/button_greenwhite"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
@@ -54,7 +55,7 @@
             android:layout_width="10dp"
             android:layout_height="20dp"
             android:layout_margin="10dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/frame"

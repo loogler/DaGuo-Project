@@ -44,7 +44,7 @@ public class MyGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-	return files == null ? 0 : files.length;
+	return files == null ? 0 : files.length>5? 5:files.length;
     }
 
     @Override

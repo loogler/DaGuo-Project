@@ -17,6 +17,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -361,6 +362,8 @@ public class SC_XinWen_DetailAty extends Activity {
 	if (feedbackContent != null && !"".equals(feedbackContent)
 		&& !"null".equals(feedbackContent)) {
 	    evaluateSheTuan();
+	    InputMethodManager manager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+	    manager.toggleSoftInput(0, InputMethodManager.RESULT_HIDDEN);
 	} else {
 	    Toast.makeText(SC_XinWen_DetailAty.this, "评价内容为空",
 		    Toast.LENGTH_LONG).show();
