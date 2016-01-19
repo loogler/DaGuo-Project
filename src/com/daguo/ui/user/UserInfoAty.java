@@ -3,7 +3,10 @@
  */
 package com.daguo.ui.user;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
@@ -31,6 +34,7 @@ import android.widget.ListView;
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.ui.message.Chat_Aty;
 import com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty1;
 import com.daguo.util.adapter.SC_ShuoShuoAdapter;
 import com.daguo.util.base.CircularImage;
@@ -38,6 +42,8 @@ import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.util.beans.UserInfo;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
+import com.daguo.utils.TimeGetUtils;
 
 /**
  * @author : BugsRabbit
@@ -56,7 +62,7 @@ public class UserInfoAty extends Activity {
     private ListView content_view;
 
     // 头部view
-    private View topView;
+
     private CircularImage photo;
     private TextView name_tv, schoolname_tv;
     private TextView attention_tv, chat_tv;
@@ -68,7 +74,7 @@ public class UserInfoAty extends Activity {
     private List<ShuoShuoContent> contentLists = new ArrayList<ShuoShuoContent>();
     private ShuoShuoContent contentList = null;
     private List<HeadInfo> headInfos;
-    // shuoshuo
+    // shuo shuo
     private SC_ShuoShuoAdapter adapter = null;
 
     /**
@@ -95,7 +101,7 @@ public class UserInfoAty extends Activity {
 		break;
 	    case MSG_USERINFO:
 		setHeadView();
-		content_view.addHeaderView(topView);
+
 		break;
 
 	    default:
@@ -117,6 +123,8 @@ public class UserInfoAty extends Activity {
 	addHeadView();
 	p_id = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 		.getString("id", "");
+	a_id = getIntent().getStringExtra("id");
+	loadUserInfo();
 	loadData();
 	adapter = new SC_ShuoShuoAdapter(this, contentLists);
 	content_view.setAdapter(adapter);
@@ -168,15 +176,13 @@ public class UserInfoAty extends Activity {
 
     @SuppressLint("InflateParams")
     private void addHeadView() {
-	topView = LayoutInflater.from(UserInfoAty.this).inflate(
-		R.layout.item_userinfo_head, null);
 
-	photo = (CircularImage) topView.findViewById(R.id.photo);
-	name_tv = (TextView) topView.findViewById(R.id.name_tv);
-	schoolname_tv = (TextView) topView.findViewById(R.id.schoolname_tv);
-	attention_tv = (TextView) topView.findViewById(R.id.attention_tv);
-	chat_tv = (TextView) topView.findViewById(R.id.chat_tv);
-	sex_iv = (ImageView) topView.findViewById(R.id.sex_iv);
+	photo = (CircularImage) findViewById(R.id.photo);
+	name_tv = (TextView) findViewById(R.id.name_tv);
+	schoolname_tv = (TextView) findViewById(R.id.schoolname_tv);
+	attention_tv = (TextView) findViewById(R.id.attention_tv);
+	chat_tv = (TextView) findViewById(R.id.chat_tv);
+	sex_iv = (ImageView) findViewById(R.id.sex_iv);
 
 	attention_tv.setOnClickListener(new View.OnClickListener() {
 
@@ -189,19 +195,30 @@ public class UserInfoAty extends Activity {
 
 	    @Override
 	    public void onClick(View v) {
-		// TODO
+		Intent intent = new Intent(UserInfoAty.this, Chat_Aty.class);
+
+		intent.putExtra("", "");
+		startActivity(intent);
 
 	    }
 	});
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @SuppressWarnings({ "deprecation", "static-access" })
     private void setHeadView() {
 
 	FinalBitmap.create(UserInfoAty.this).display(photo,
 		HttpUtil.IMG_URL + userInfo.getHead_info());
 	name_tv.setText(userInfo.getName());
-	schoolname_tv.setText(userInfo.getStart_year()
-		+ userInfo.getSchool_name());
+	if (!"".equals(PublicTools.doWithNullData(userInfo.getStart_year()))) {
+
+	    schoolname_tv.setText(userInfo.getStart_year().substring(0, 4)
+		    + "级 " + userInfo.getSchool_name());
+
+	} else {
+	    schoolname_tv.setText(userInfo.getSchool_name());
+	}
 	if ("0".equals(userInfo.getSex())) {
 	    sex_iv.setImageResource(R.drawable.icon_sex_man);
 	} else if ("1".equals(userInfo.getSex())) {
@@ -322,8 +339,9 @@ public class UserInfoAty extends Activity {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.QUERY_USERINFO + "&id=" + a_id;
-		    // TODO a_id 是其他类传递进来的
+		    String url = HttpUtil.QUERY_USERINFO + "&page=1&rows=1"
+			    + "&id=" + a_id;
+
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
 
@@ -385,6 +403,13 @@ public class UserInfoAty extends Activity {
 
 		    } else {
 			// 提交失败
+			runOnUiThread(new Runnable() {
+			    public void run() {
+				Toast.makeText(UserInfoAty.this, "关注失败，请重试",
+					Toast.LENGTH_LONG).show();
+				// TODO多次点击关注会怎么处理
+			    }
+			});
 		    }
 
 		} catch (Exception e) {

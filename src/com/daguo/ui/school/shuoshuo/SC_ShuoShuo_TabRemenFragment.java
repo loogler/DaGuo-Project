@@ -3,7 +3,10 @@ package com.daguo.ui.school.shuoshuo;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tsz.afinal.FinalBitmap;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -18,13 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
-import com.daguo.util.adapter.Main_2Adapter;
+import com.daguo.util.Imp.AddBannerOnclickListener;
 import com.daguo.util.adapter.SC_ShuoShuoAdapter;
+import com.daguo.util.beans.AddBanner;
 import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.utils.HttpUtil;
@@ -37,10 +42,13 @@ import com.daguo.utils.HttpUtil;
 public class SC_ShuoShuo_TabRemenFragment extends Fragment {
     String tag = "SC_ShuoShuo_TabRemenFragment";
     private final int MSG_CONTENT = 100;
+    private final int MSG_TOPBANNERLISTS = 101;
 
     // initViews
     private PullToRefreshLayout refresh_view;
     private ListView content_view;
+    // 广告view
+    private ImageView add1_iv, add2_iv;
 
     /**
      * 说说内容data
@@ -50,7 +58,10 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
     private List<HeadInfo> headInfos;
     // shuoshuo
     private SC_ShuoShuoAdapter adapter = null;
-  
+
+    // 广告位信息
+    private List<AddBanner> addLists = new ArrayList<AddBanner>();
+
     /**
      * 通用data
      * 
@@ -61,7 +72,9 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
     /**
      * tools
      */
+    FinalBitmap finalBitmap;
     private Message msg;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
 	@SuppressWarnings("unchecked")
 	public void handleMessage(Message msg) {
@@ -73,6 +86,16 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
 		adapter.notifyDataSetChanged();
 
 		break;
+	    case MSG_TOPBANNERLISTS:
+		finalBitmap.display(add1_iv, HttpUtil.IMG_URL
+			+ addLists.get(0).getImg_path());
+		finalBitmap.display(add2_iv, HttpUtil.IMG_URL
+			+ addLists.get(1).getImg_path());
+		add1_iv.setOnClickListener(new AddBannerOnclickListener(
+			getActivity(), addLists, 0));
+		add2_iv.setOnClickListener(new AddBannerOnclickListener(
+			getActivity(), addLists, 1));
+		break;
 
 	    default:
 		break;
@@ -83,7 +106,10 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
+	finalBitmap = FinalBitmap.create(getActivity());
+
 	loadData();
+	loadAddData();
 	adapter = new SC_ShuoShuoAdapter(getActivity(), contentLists);
 	content_view.setAdapter(adapter);
 
@@ -112,6 +138,9 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
 		getActivity().startActivity(intent);
 	    }
 	});
+	// 广告位图
+	add1_iv = (ImageView) view.findViewById(R.id.add1_iv);
+	add2_iv = (ImageView) view.findViewById(R.id.add2_iv);
 
 	return view;
 
@@ -127,8 +156,8 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.QUERY_SHUOSHUO_REMEN + "&rows=15&page="
-			    + pageIndex;
+		    String url = HttpUtil.QUERY_SHUOSHUO_REMEN
+			    + "&rows=15&page=" + pageIndex;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
 
@@ -222,6 +251,61 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
 
     }
 
+    private void loadAddData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_ADD_BANNER
+			    + "&position=10&page=1&rows=2";
+		    String res = "";
+		    JSONObject js = null;
+		    int total = 0;
+		    res = HttpUtil.getRequest(url);
+		    js = new JSONObject(res);
+		    total = js.getInt("total");
+		    AddBanner list = null;
+		    if (total == 0) {
+			// 无广告 ，或者加载异常
+			Log.e("同学说获取广告信息", "获取 广告信息异常");
+
+		    } else {
+			JSONArray array = js.getJSONArray("rows");
+			for (int i = 0; i < array.length(); i++) {
+			    String id = array.optJSONObject(i).getString("id");
+			    String img_path = array.optJSONObject(i).getString(
+				    "img_path");
+			    String menu_id = array.optJSONObject(i).getString(
+				    "menu_id");
+			    String source_id = array.optJSONObject(i)
+				    .getString("source_id");
+			    String type = array.optJSONObject(i).getString(
+				    "type");
+			    String urls = array.optJSONObject(i).getString(
+				    "url");
+			    list = new AddBanner();
+			    list.setId(id);
+			    list.setImg_path(img_path);
+			    list.setMenu_id(menu_id);
+			    list.setSource_id(source_id);
+			    list.setType(type);
+			    list.setUrl(urls);
+			    addLists.add(list);
+			}
+			msg = handler.obtainMessage(MSG_TOPBANNERLISTS);
+			msg.sendToTarget();
+		    }
+
+		} catch (JSONException e) {
+		    e.printStackTrace();
+		    Log.e("同学说获取广告信息", "获取广告json异常");
+		} catch (Exception e) {
+		    Log.e("同学说获取广告信息", "获取广告异常");
+		    e.printStackTrace();
+		}
+	    }
+	}).start();
+    }
+
     /*******************************************************************************************/
 
     private class MyRefreshListener implements OnRefreshListener {
@@ -242,6 +326,7 @@ public class SC_ShuoShuo_TabRemenFragment extends Fragment {
 		public void handleMessage(Message msg) {
 		    // 千万别忘了告诉控件刷新完毕了哦！
 		    pageIndex = 1;
+		    contentLists.clear();
 		    loadData();
 		    pullToRefreshLayout
 			    .refreshFinish(PullToRefreshLayout.SUCCEED);

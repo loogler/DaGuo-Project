@@ -272,6 +272,8 @@
         </activity>
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1" >
         </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_NewStudentAty" >
+        </activity>
         <!-- com.daguo.ui.school.xinwen. 学校活动的部分包括新闻之类的所有 -->
         <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty" >
         </activity>

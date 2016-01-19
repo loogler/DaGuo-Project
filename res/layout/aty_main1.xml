@@ -14,10 +14,10 @@
 
         <TextView
             android:id="@+id/personInfo_tv"
-            android:layout_width="22dp"
+            android:layout_width="19dp"
             android:layout_height="22dp"
             android:layout_margin="10dp"
-            android:background="@drawable/icon_man" />
+            android:background="@drawable/icon_people2" />
 
         <TextView
             android:id="@+id/title_tv"
@@ -42,6 +42,7 @@
             android:layout_width="10dp"
             android:layout_height="20dp"
             android:layout_gravity="end"
+            android:layout_marginRight="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/tabhome_xx" />
     </LinearLayout>
@@ -393,21 +394,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter" />
+                    android:cropToPadding="true"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/iv_pic2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter" />
+                    android:cropToPadding="true"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/iv_pic3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter" />
+                    android:cropToPadding="true"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop" />
             </LinearLayout>
 
             <!-- 上面是竖排广告，下面是活动 -->
@@ -418,8 +425,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp" >
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical" >
 
                 <ListView
                     android:id="@+id/listView"

@@ -197,7 +197,7 @@ public class MainRegister_Step2Fragment extends Fragment {
     private void getVerificationCode(final String tel) {
 	new Thread(new Runnable() {
 	    public void run() {
-		String url = HttpUtil.QUERY_USERINFO;
+		String url = HttpUtil.QUERY_USERINFO+"&page=1&rows=1";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("tel", tel);
 		String res = "";

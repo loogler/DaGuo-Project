@@ -209,7 +209,7 @@ public class Cent_CartAty extends Activity {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.QUERY_USERINFO + "&id=" + p_id;
+		    String url = HttpUtil.QUERY_USERINFO + "&page=1&rows=1&id=" + p_id;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
 		    if (jsonObject.getInt("total") > 0) {

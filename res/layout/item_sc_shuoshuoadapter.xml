@@ -62,7 +62,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/user_info"
         android:background="@drawable/sc_shuoshuo1_content_bg1"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingBottom="3dp" >
 
         <!-- 文字内容 -->
 
@@ -113,7 +114,8 @@
                 android:layout_marginLeft="3dp"
                 android:layout_toRightOf="@id/date"
                 android:text="来自"
-                android:textColor="#C6C6C6" />
+                android:textColor="#C6C6C6"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/type"
@@ -121,13 +123,15 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv1"
                 android:text="心情"
-                android:textColor="@color/green_home" />
+                android:textColor="@color/green_home"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/date"
+                android:layout_margin="2.5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal" >
 
@@ -139,11 +143,10 @@
 
                     <com.daguo.modem.photo.NoScrollGridView
                         android:id="@+id/grid"
-                        android:layout_width="match_parent"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:horizontalSpacing="3dp"
+                        android:horizontalSpacing="5dp"
                         android:numColumns="5"
-                        android:stretchMode="columnWidth"
                         android:verticalSpacing="1dp" >
                     </com.daguo.modem.photo.NoScrollGridView>
                 </LinearLayout>
@@ -155,7 +158,7 @@
                     android:layout_marginRight="5dp"
                     android:drawableLeft="@drawable/sc_shuoshuo_zan"
                     android:gravity="end"
-                    android:text="99"
+                    android:text="0"
                     android:textColor="#697fb1"
                     android:textSize="14sp" />
 
@@ -165,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/sc_shuoshuo_pinglun"
                     android:gravity="center_vertical"
-                    android:text="999"
+                    android:text="0"
                     android:textColor="#697fb1"
                     android:textSize="14sp" />
 
@@ -178,5 +181,11 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/content"
+        android:background="@color/white" />
 
 </RelativeLayout>

@@ -5,22 +5,21 @@ package com.daguo.util.adapter;
 
 import java.util.List;
 
-import com.daguo.R;
-import com.daguo.ui.main.Main_1Aty;
-import com.daguo.util.Imp.AddBannerOnclickListener;
-import com.daguo.util.beans.AddBanner;
-import com.daguo.utils.GetScreenRecUtil;
-import com.daguo.utils.HttpUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.daguo.R;
+import com.daguo.util.Imp.AddBannerOnclickListener;
+import com.daguo.util.beans.AddBanner;
+import com.daguo.utils.GetScreenRecUtil;
+import com.daguo.utils.HttpUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @author : BugsRabbit
@@ -74,6 +73,7 @@ public class Main_BottomBannerAdapter extends BaseAdapter {
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
+    @SuppressLint({ "ViewHolder", "InflateParams" })
     @Override
     public View getView(int p, View v, ViewGroup arg2) {
 	View view = null;

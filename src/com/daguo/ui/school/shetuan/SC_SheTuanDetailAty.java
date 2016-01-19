@@ -582,7 +582,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 	    public void run() {
 
 		String url = HttpUtil.QUERY_EVENT_APPLY
-			+ "&table_name=0&source_id=" + sheTuanId + "&p_id="
+			+ "&table_name=1&source_id=" + sheTuanId + "&p_id="
 			+ p_id + "&page=1&rows=1";
 		try {
 		    String res = HttpUtil.getRequest(url);
@@ -616,7 +616,7 @@ public class SC_SheTuanDetailAty extends Activity implements
 	new Thread(new Runnable() {
 	    public void run() {
 		String url = HttpUtil.SUBMIT_EVENT_APPLY
-			+ "&table_name=0&type=0&p_id=" + p_id + "&source_id="
+			+ "&table_name=1&type=0&p_id=" + p_id + "&source_id="
 			+ sheTuanId;
 		try {
 		    String res = HttpUtil.getRequest(url);

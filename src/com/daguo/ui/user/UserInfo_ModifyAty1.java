@@ -289,7 +289,7 @@ public class UserInfo_ModifyAty1 extends Activity implements OnClickListener {
 	Thread initDataThread = new Thread(new Runnable() {
 		public void run() {
 
-			String url = HttpUtil.QUERY_USERINFO;
+			String url = HttpUtil.QUERY_USERINFO+"&page=1&rows=1";
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("id", p_id);
 			String res;

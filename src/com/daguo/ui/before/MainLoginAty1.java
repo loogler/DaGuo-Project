@@ -223,7 +223,7 @@ public class MainLoginAty1 extends Activity {
 	public void run() {
 	    // 判断号码输入没有
 
-	    String url = HttpUtil.QUERY_USERINFO;
+	    String url = HttpUtil.QUERY_USERINFO+"&page=1&rows=1";
 	    Map<String, String> map = new HashMap<String, String>();
 	    map.put("tel", telNumber);
 	    String res;

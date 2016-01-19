@@ -11,8 +11,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/shape_radius_rec_whitebg"
+            android:layout_margin="1dp"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -24,7 +23,7 @@
                     android:id="@+id/title1_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple"
+                    android:background="@drawable/shape_fillet_purple"
                     android:padding="8dp"
                     android:text="赛事"
                     android:textColor="@color/white"

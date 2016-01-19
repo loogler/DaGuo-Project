@@ -266,7 +266,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		startActivity(intent);
 	    }
 	});
-	remind_iv.setVisibility(View.GONE);
+	remind_iv.setVisibility(View.INVISIBLE);
 
     }
 

@@ -108,7 +108,7 @@ public class ChouJiangConsoleAty extends Activity {
 	    public void run() {
 		try {
 
-		    String urlString = HttpUtil.QUERY_USERINFO;
+		    String urlString = HttpUtil.QUERY_USERINFO+"&page=1&rows=1";
 		    Map<String, String> map = new HashMap<String, String>();
 		    map.put("id", p_id);
 		    // 积分 处理

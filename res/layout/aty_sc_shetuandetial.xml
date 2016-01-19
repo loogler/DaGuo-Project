@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="45dp"
-        android:layout_marginTop="40dp" >
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="43dp" >
 
         <include layout="@layout/refresh_head" />
         <!-- 支持所有实现Pullable接口的View -->
@@ -19,7 +21,7 @@
             android:id="@+id/content_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@drawable/shape_fillet_trans_grey"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:numColumns="2"

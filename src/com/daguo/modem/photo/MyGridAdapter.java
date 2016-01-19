@@ -70,6 +70,7 @@ public class MyGridAdapter extends BaseAdapter {
 			.findViewById(R.id.album_image);
 		LayoutParams params = new LayoutParams(50, 50);
 		viewHolder.imageView.setLayoutParams(params);
+		
 		convertView.setTag(viewHolder);
 	    } else {
 		viewHolder = (MyGridViewHolder) convertView.getTag();

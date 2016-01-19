@@ -234,6 +234,7 @@ public class SC_ShuoShuo_TabZuixinFragment extends Fragment {
 		public void handleMessage(Message msg) {
 		    // 千万别忘了告诉控件刷新完毕了哦！
 		    pageIndex = 1;
+		    contentLists.clear();
 		    loadData();
 		    pullToRefreshLayout
 			    .refreshFinish(PullToRefreshLayout.SUCCEED);

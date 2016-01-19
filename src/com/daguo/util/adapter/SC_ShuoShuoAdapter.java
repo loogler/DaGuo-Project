@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.modem.photo.MyGridAdapter;
 import com.daguo.modem.photo.NoScrollGridView;
+import com.daguo.modem.photo.SC_ShuoShuo_HeadGridAdapter;
 import com.daguo.util.base.CircularImage;
 import com.daguo.util.base.MyGridView;
 import com.daguo.util.beans.HeadInfo;
@@ -206,7 +207,8 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 	    }
 	    String[] str = (String[]) headInfoLists
 		    .toArray(new String[headInfoLists.size()]);
-	    viewHoldler.grid.setAdapter(new MyGridAdapter(str, context, 1));
+	    viewHoldler.grid.setAdapter(new SC_Thumb_HeadInfo_Small_Adapter(str,
+		    context));
 	    viewHoldler.grid.setOnItemClickListener(new OnItemClickListener() {
 
 		@Override
@@ -224,7 +226,7 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 	if (infos.get(position).getType().isEmpty()) {
 	    viewHoldler.type.setVisibility(View.GONE);
 	} else {
-	    viewHoldler.type.setVisibility(View.VISIBLE);
+	    viewHoldler.type.setVisibility(View.GONE);
 	    viewHoldler.type.setText(infos.get(position).getType());
 	}
 
@@ -262,37 +264,6 @@ public class SC_ShuoShuoAdapter extends BaseAdapter {
 		.findViewById(R.id.image_content);
 	holdler.grid = (NoScrollGridView) view.findViewById(R.id.grid);
 	return holdler;
-    }
-
-    /**
-     * 处理时间
-     * 
-     * @param string
-     * @return
-     */
-    private String handTime(String time) {
-	if (time == null || "".equals(time.trim())) {
-	    return "";
-	}
-	try {
-	    Date date = format.parse(time);
-	    long tm = System.currentTimeMillis();// 当前时间戳
-	    long tm2 = date.getTime();// 发表动态的时间戳
-	    long d = (tm - tm2) / 1000;// 时间差距 单位秒
-	    if ((d / (60 * 60 * 24)) > 0) {
-		return d / (60 * 60 * 24) + "天前";
-	    } else if ((d / (60 * 60)) > 0) {
-		return d / (60 * 60) + "小时前";
-	    } else if ((d / 60) > 0) {
-		return d / 60 + "分钟前";
-	    } else {
-		// return d + "秒前";
-		return "刚刚";
-	    }
-	} catch (ParseException e) {
-	    e.printStackTrace();
-	}
-	return null;
     }
 
     /**

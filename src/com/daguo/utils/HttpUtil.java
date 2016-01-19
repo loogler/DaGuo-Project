@@ -97,7 +97,7 @@ public class HttpUtil {
      * 个人信息查询
      */
     public static final String QUERY_USERINFO = URL
-	    + "personInfo/queryPersonInfoList?android=1&rows=1&page=1";
+	    + "personInfo/queryPersonInfoList?android=1";
     /**
      * 用户关注操作 follow_id` varchar(36) DEFAULT NULL COMMENT '关注人ID followed_id`
      * varchar(36) DEFAULT NULL COMMENT '被关注人ID'
@@ -312,7 +312,7 @@ public class HttpUtil {
      * 个人中心 ==》我的报名 我报名过的社团
      */
     public static final String QUERY_MYBAOMING = URL
-	    + "personCenter/querySignAct?android=1";
+	    + "personCenter/querySignParty?android=1";
 
     /** -----------------app下载--------------------------------* */
     /**

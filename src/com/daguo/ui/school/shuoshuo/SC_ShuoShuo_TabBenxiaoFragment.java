@@ -20,25 +20,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.modem.photo.NoScrollGridView;
 import com.daguo.util.adapter.SC_ShuoShuoAdapter;
+import com.daguo.util.adapter.SC_ShuoShuo_NewStudentAdapter;
 import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
+import com.daguo.util.beans.UserInfo;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 @SuppressLint({ "InflateParams", "HandlerLeak" })
 public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 
     private final int MSG_CONTENT = 100;
+    private final int MSG_USERHEAD_SUC = 101;
 
     // initViews
     private PullToRefreshLayout refresh_view;
     private ListView content_view;
+    // 本校说说头部的新报道同学 。
+    private TextView more_tv;
+    private NoScrollGridView grid;
+    private SC_ShuoShuo_NewStudentAdapter gridApter;
+
+    private List<UserInfo> userLists = new ArrayList<UserInfo>();
 
     /**
      * 说说内容data
@@ -72,6 +84,11 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 		adapter.notifyDataSetChanged();
 
 		break;
+	    case MSG_USERHEAD_SUC:
+
+		gridApter.notifyDataSetChanged();
+
+		break;
 
 	    default:
 		break;
@@ -83,6 +100,7 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
 	loadData();
+	loadGridData();
 	school_id = getActivity().getSharedPreferences("userinfo",
 		Activity.MODE_WORLD_READABLE).getString("school_id", "");
 	if (school_id.isEmpty()) {
@@ -99,6 +117,18 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 	    Bundle savedInstanceState) {
 	View view = inflater.inflate(R.layout.fragment_sc_shuoshuo_tabbenxiao,
 		null);
+
+	more_tv = (TextView) view.findViewById(R.id.more_tv);
+
+	more_tv.setOnClickListener(new View.OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		Intent intent = new Intent(getActivity(),
+			SC_ShuoShuo_NewStudentAty.class);
+		startActivity(intent);
+	    }
+	});
 	refresh_view = (PullToRefreshLayout) view
 		.findViewById(R.id.refresh_view);
 	content_view = (ListView) view.findViewById(R.id.content_view);
@@ -116,6 +146,10 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 	    }
 	});
 
+	gridApter = new SC_ShuoShuo_NewStudentAdapter(userLists, getActivity());
+	grid = (NoScrollGridView) view.findViewById(R.id.grid);
+	grid.setAdapter(gridApter);
+
 	return view;
     }
 
@@ -132,7 +166,7 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 		    JSONObject js = null;
 		    if (!school_id.isEmpty() && !school_id.equals("null")
 			    && !school_id.equals("[]")) {
-			String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page="
+			String url = HttpUtil.QUERY_SHUOSHUO + "&rows=10&page="
 				+ pageIndex + "&school_id=" + school_id;
 			String res = HttpUtil.getRequest(url);
 			js = new JSONObject(res);
@@ -237,6 +271,61 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 
     }
 
+    /**
+     * 加载新报道的同学
+     */
+    private void loadGridData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    if (!"".equals(PublicTools.doWithNullData(school_id))) {
+			String url = HttpUtil.QUERY_USERINFO
+				+ "&page=1&rows=40&school_id=" + school_id;
+			String res = HttpUtil.getRequest(url);
+
+			JSONObject jsonObject = new JSONObject(res);
+
+			if (jsonObject.getInt("total") > 0) {
+			    // 查询到数条记录
+			    JSONArray array = jsonObject.getJSONArray("rows");
+			    for (int i = 0; i < array.length(); i++) {
+				String head_info = array.optJSONObject(i)
+					.getString("head_info");
+				String name = array.optJSONObject(i).getString(
+					"name");
+				String id = array.optJSONObject(i).getString(
+					"id");
+
+				if (!"".equals(PublicTools
+					.doWithNullData(head_info))) {
+				    // 没有头像的 不显示，避免新注册用户过多导致大部分人不显示头像
+				    UserInfo info = new UserInfo();
+				    info.setHead_info(head_info);
+				    info.setName(name);
+				    info.setId(id);
+
+				    userLists.add(info);
+				}
+			    }
+			    msg = handler.obtainMessage(MSG_USERHEAD_SUC);
+			    msg.sendToTarget();
+
+			} else {
+			    // 查询本校信息失败 ，或者该校就一个人注册
+			}
+
+		    } else {
+			// 学校信息出错
+			Log.e("同学说-本校说说", "查询本校信息  学校id为空");
+
+		    }
+
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
+    }
+
     /*******************************************************************************************/
 
     private class MyRefreshListener implements OnRefreshListener {
@@ -257,6 +346,7 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 		public void handleMessage(Message msg) {
 		    // 千万别忘了告诉控件刷新完毕了哦！
 		    pageIndex = 1;
+		    contentLists.clear();
 		    loadData();
 		    pullToRefreshLayout
 			    .refreshFinish(PullToRefreshLayout.SUCCEED);
