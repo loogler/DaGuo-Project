@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daguo.R;
+import com.daguo.ui.before.zzz;
 import com.daguo.ui.school.outlet.AppDownLoadAty;
 import com.daguo.ui.school.outlet.OutLetAty;
 import com.daguo.util.beans.OutLet;
@@ -120,7 +121,7 @@ public class School_Main3Aty extends Activity implements OnClickListener {
 	    break;
 	case R.id.nearby_iv:
 	    // 附近的人
-	    intent = new Intent(School_Main3Aty.this, OutLetAty.class);
+	    intent = new Intent(School_Main3Aty.this, zzz.class);
 	    startActivity(intent);
 	    break;
 

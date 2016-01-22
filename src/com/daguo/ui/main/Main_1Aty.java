@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +31,6 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
@@ -45,11 +44,14 @@ import com.daguo.ui.school.xinwen.SC_XinWenAty;
 import com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
 import com.daguo.util.Imp.AddBannerOnclickListener;
+import com.daguo.util.adapter.Main1_FunctionIconAdapter;
 import com.daguo.util.adapter.Main_BottomBannerAdapter;
 import com.daguo.util.base.FrameLayout_3DBanner;
+import com.daguo.util.base.MyGridView;
 import com.daguo.util.base.ViewPager_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner.TransitionEffect;
 import com.daguo.util.beans.AddBanner;
+import com.daguo.util.beans.SC_SheTuan;
 import com.daguo.utils.GetScreenRecUtil;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
@@ -62,6 +64,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @version 创建时间：2015-11-26 下午3:17:40
  * @function ：app 主页 主界面
  */
+@SuppressLint("InlinedApi")
 public class Main_1Aty extends Activity implements OnClickListener {
     private static String tag = "Main_1Aty";
     // /////////////////////////////////////////////////////////////
@@ -93,18 +96,21 @@ public class Main_1Aty extends Activity implements OnClickListener {
     private final int MSG_TOPBANNERLISTS = 111;
     private final int MSG_MIDBANNERLISTS = 112;
     private final int MSG_BOTTBANNERLISTS = 113;
+    private final int MSG_INFORMATION = 114;
+    private final int MSG_FUNCTION_SUC = 115;
     // /////////////////////////////////////////////////////////////////////////
     /*
      * 中间通知
      */
     private TextView tv_news;
+    private String infomationText;
 
     /**
      * 中间功能按钮
      */
-    private LinearLayout lll;
-    private RelativeLayout rl1, rl2, rl3, rl4, rl5, rl6, rl7, rl8;
-    private ImageView iv_jiantou;
+    private MyGridView myGridView;
+    private List<SC_SheTuan> gridLists = new ArrayList<SC_SheTuan>();
+    private Main1_FunctionIconAdapter gridAdapter;
 
     /**
      * 三张图片
@@ -122,7 +128,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
     /**
      * dialog 提示用户登录/注册
      */
-    private Dialog dia;
+    // private Dialog dia;
 
     /**
      * tools
@@ -131,6 +137,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
     ImageLoader imageLoader;
     Message msg;
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
 	public void handleMessage(android.os.Message msg) {
 
@@ -183,6 +190,16 @@ public class Main_1Aty extends Activity implements OnClickListener {
 
 		break;
 
+	    case MSG_INFORMATION:
+		tv_news.setText(PublicTools.doWithNullData(infomationText));
+
+		break;
+
+	    case MSG_FUNCTION_SUC:
+		gridAdapter.notifyDataSetChanged();
+
+		break;
+
 	    default:
 		break;
 	    }
@@ -197,6 +214,8 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	imageLoader = ImageLoader.getInstance();
 	initViews();
 	setTopBanner();
+	loadFunctionIconData();
+	loadInfomation();
 
     }
 
@@ -206,31 +225,56 @@ public class Main_1Aty extends Activity implements OnClickListener {
     void initViews() {
 	initHeadInfo();
 
-	rl1 = (RelativeLayout) findViewById(R.id.rl1);
-	rl1.setOnClickListener(this);
-
 	tv_news = (TextView) this.findViewById(R.id.tv_news);
 	tv_news.setOnClickListener(this);
 
-	iv_jiantou = (ImageView) findViewById(R.id.iv_jiantou);
-	lll = (LinearLayout) findViewById(R.id.lll);
-	rl1 = (RelativeLayout) this.findViewById(R.id.rl1);
-	rl2 = (RelativeLayout) this.findViewById(R.id.rl2);
-	rl3 = (RelativeLayout) this.findViewById(R.id.rl3);
-	rl4 = (RelativeLayout) this.findViewById(R.id.rl4);
-	rl5 = (RelativeLayout) this.findViewById(R.id.rl5);
-	rl6 = (RelativeLayout) this.findViewById(R.id.rl6);
-	rl7 = (RelativeLayout) this.findViewById(R.id.rl7);
-	rl8 = (RelativeLayout) this.findViewById(R.id.rl8);
-	iv_jiantou.setOnClickListener(this);
-	rl1.setOnClickListener(this);
-	rl2.setOnClickListener(this);
-	rl3.setOnClickListener(this);
-	rl4.setOnClickListener(this);
-	rl5.setOnClickListener(this);
-	rl6.setOnClickListener(this);
-	rl7.setOnClickListener(this);
-	rl8.setOnClickListener(this);
+	myGridView = (MyGridView) findViewById(R.id.function_grid);
+	gridAdapter = new Main1_FunctionIconAdapter(Main_1Aty.this, gridLists);
+	myGridView.setAdapter(gridAdapter);
+	myGridView.setOnItemClickListener(new OnItemClickListener() {
+
+	    @Override
+	    public void onItemClick(AdapterView<?> arg0, View v, int p,
+		    long arg3) {
+		Intent intent = null;
+		if ("cbd55d85-b515-4958-946f-e514e23559f4".equals(gridLists
+			.get(p).getMenu_id())) {// 新鲜事
+		    intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
+		    startActivity(intent);
+
+		} else if ("e012e43b-8628-467f-9b88-99810be1ffc4"
+			.equals(gridLists.get(p).getMenu_id())) {// 校园广场
+		    intent = new Intent(Main_1Aty.this, School_MainAty.class);
+		    startActivity(intent);
+		} else if ("e1a2452e-8279-4869-90bf-e8299de58a80"
+			.equals(gridLists.get(p).getMenu_id())) {// 社团
+		    intent = new Intent(Main_1Aty.this, SC_SheTuanAty.class);
+		    startActivity(intent);
+		} else if ("34c074bc-943c-4bfb-80f9-3666a74d115d"
+			.equals(gridLists.get(p).getMenu_id())) {// 移动生活
+		    intent = new Intent(Main_1Aty.this, OperatorAty.class);
+		    startActivity(intent);
+		} else if ("d5f503a1-ddea-47ab-822b-6471ff25f1b9"
+			.equals(gridLists.get(p).getMenu_id())) {// 课表服务
+		    intent = new Intent(Main_1Aty.this, Main_Aty.class);
+		    startActivity(intent);
+		} else if ("c88e7c70-a9ef-4524-9fcd-92580480c6e9"
+			.equals(gridLists.get(p).getMenu_id())) {// 校园超市
+		    // intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
+		    // startActivity(intent);
+		    // TODO 超市还在设计中
+		} else if ("d3490024-4e1c-4b99-8eb0-ac643f09eae8"
+			.equals(gridLists.get(p).getMenu_id())) {// 聚会达人
+		    // intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
+		    // startActivity(intent);
+		    // TODO 超市还在设计中
+		} else if ("dc0d893b-69a1-4d0f-9179-6f374757773c"
+			.equals(gridLists.get(p).getMenu_id())) {// 校外世界
+		    intent = new Intent(Main_1Aty.this, OutLetAty.class);
+		    startActivity(intent);
+		}
+	    }
+	});
 
 	iv1 = (ImageView) this.findViewById(R.id.iv_pic1);
 	iv2 = (ImageView) this.findViewById(R.id.iv_pic2);
@@ -276,9 +320,12 @@ public class Main_1Aty extends Activity implements OnClickListener {
      */
     private void setMidBannerDimension() {
 	int width = GetScreenRecUtil.getWindowWidth(Main_1Aty.this) / 3;
-	iv3.setLayoutParams(new LinearLayout.LayoutParams(width, 5 * width / 3));
-	iv2.setLayoutParams(new LinearLayout.LayoutParams(width, 5 * width / 3));
-	iv1.setLayoutParams(new LinearLayout.LayoutParams(width, 5 * width / 3));
+	iv3.setLayoutParams(new LinearLayout.LayoutParams(width,
+		245 * width / 230));
+	iv2.setLayoutParams(new LinearLayout.LayoutParams(width,
+		245 * width / 230));
+	iv1.setLayoutParams(new LinearLayout.LayoutParams(width,
+		245 * width / 230));
     }
 
     /**
@@ -360,6 +407,77 @@ public class Main_1Aty extends Activity implements OnClickListener {
 	    imageView.setScaleType(ScaleType.CENTER_CROP);
 	    mImageViews[i] = imageView;
 	}
+    }
+
+    /**
+     * 加载首页通知小文子
+     */
+    private void loadInfomation() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_EVENT
+			    + "&menu_id=f2681529-4307-44da-b267-5512f935009b&page=1&rows=1";
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject object = new JSONObject(res);
+		    if (object.getInt("total") > 0) {
+			infomationText = object.getJSONArray("rows")
+				.optJSONObject(0).getString("title");
+			msg = handler.obtainMessage(MSG_INFORMATION);
+			msg.sendToTarget();
+
+		    } else {
+			// 无显示文字
+		    }
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
+    }
+
+    /**
+     * 加载小圈圈按钮的数据
+     */
+    private void loadFunctionIconData() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_EVENT
+			    + "&page=1&rows=8&menu_id=71ff981e-55b4-4a35-9ca6-5b0a15d7b6c8";
+		    String res = HttpUtil.getRequest(url);
+
+		    JSONObject jsonObject = new JSONObject(res);
+		    if (jsonObject.getInt("total") > 0) {
+			//
+			JSONArray array = jsonObject.getJSONArray("rows");
+			for (int i = 0; i < array.length(); i++) {
+			    String img_path = array.optJSONObject(i).getString(
+				    "img_path");
+			    String menu_id = array.optJSONObject(i).getString(
+				    "id");
+			    String title = array.optJSONObject(i).getString(
+				    "title");
+			    String sort = array.optJSONObject(i).getString(
+				    "sort");
+			    SC_SheTuan abc = new SC_SheTuan();
+			    abc.setImg_path(img_path);
+			    abc.setMenu_id(menu_id);
+			    abc.setTitle(title);
+			    abc.setSort(sort);
+
+			    gridLists.add(abc);
+
+			}
+			msg = handler.obtainMessage(MSG_FUNCTION_SUC);
+			msg.sendToTarget();
+
+		    } else {
+			// 没有查询到该类信息。。
+		    }
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
     }
 
     /**
@@ -613,60 +731,17 @@ public class Main_1Aty extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
 	switch (v.getId()) {
-	case R.id.lin1:
-	    Intent intents = new Intent(Main_1Aty.this,
-		    UserInfo_ModifyAty1.class);
-	    startActivity(intents);
+	// case R.id.lin1:
+	// Intent intents = new Intent(Main_1Aty.this,
+	// UserInfo_ModifyAty1.class);
+	// startActivity(intents);
 
-	    break;
+	// break;
 	case R.id.iv_mail:
 
 	    break;
 
 	case R.id.tv_news:
-
-	    break;
-	case R.id.rl1:
-	    Intent intent2 = new Intent(Main_1Aty.this, School_MainAty.class);
-	    startActivity(intent2);
-	    // finish(); 不能在这里结束activity，保持让所有进程被结束时 还能回到这里。
-
-	    break;
-	case R.id.rl2:
-
-	    Intent intent8 = new Intent(Main_1Aty.this, SC_XinWenAty.class);
-	    startActivity(intent8);
-	    break;
-	case R.id.rl3:
-
-	    // Toast.makeText(getBaseContext(), "跳转至移动生活", Toast.LENGTH_SHORT)
-	    // .show();
-	    Intent intent3 = new Intent(Main_1Aty.this, OperatorAty.class);
-	    startActivity(intent3);
-	    break;
-
-	case R.id.rl4:
-	    Intent intent = new Intent(Main_1Aty.this, Main_Aty.class);
-	    startActivity(intent);
-	    break;
-	case R.id.rl5:
-	    Toast.makeText(getBaseContext(), "往右翻页就可以啦", Toast.LENGTH_SHORT)
-		    .show();
-	    break;
-	case R.id.rl6:
-	    Toast.makeText(getBaseContext(), "功能咱未开放 ", Toast.LENGTH_SHORT)
-		    .show();
-	    break;
-	case R.id.rl7:
-	    Intent intent7 = new Intent(Main_1Aty.this, OutLetAty.class);
-	    startActivity(intent7);
-	    break;
-
-	case R.id.rl8:
-	    // Toast.makeText(getBaseContext(), "功能咱未开放 ", Toast.LENGTH_SHORT)
-	    // .show();
-	    Intent intent10 = new Intent(Main_1Aty.this, SC_SheTuanAty.class);
-	    startActivity(intent10);
 
 	    break;
 
@@ -682,18 +757,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		    SC_XinWen_AwardsAty.class);
 	    startActivity(intent5);
 	    break;
-	case R.id.iv_jiantou:
-	    if (lll.getVisibility() == View.GONE) {
-		lll.setVisibility(View.VISIBLE);
-		iv_jiantou
-			.setImageResource(R.drawable.tabhome1_function_shouqi);
-	    } else if (lll.getVisibility() == View.VISIBLE) {
-		lll.setVisibility(View.GONE);
-		iv_jiantou
-			.setImageResource(R.drawable.tabhome1_function_zhankai);
-	    }
 
-	    break;
 	default:
 	    break;
 	}

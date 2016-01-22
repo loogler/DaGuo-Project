@@ -137,7 +137,7 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 		Toast.makeText(SC_HuoDong_DetailAty1.this, "报名成功！恭喜哦",
 			Toast.LENGTH_LONG).show();
 		apply_tv.setBackgroundColor(getResources().getColor(
-			R.color.gray));
+			R.color.grey_1));
 		apply_tv.setTextColor(getResources().getColor(R.color.red_1));
 		apply_tv.setText("已报名");
 		apply_tv.setClickable(false);
@@ -151,7 +151,7 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 
 	    case MSG_APPLYED:
 		apply_tv.setBackgroundColor(getResources().getColor(
-			R.color.gray));
+			R.color.grey_1));
 		apply_tv.setTextColor(getResources().getColor(R.color.red_1));
 		apply_tv.setText("已报名");
 		apply_tv.setClickable(false);

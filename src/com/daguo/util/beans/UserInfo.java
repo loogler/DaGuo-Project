@@ -25,6 +25,7 @@ public class UserInfo {
     private String name;
     private String stu_card_copy;
     private String id;
+    private String person_num;// 引导员编号
 
     /**
      * @return the tel
@@ -249,6 +250,21 @@ public class UserInfo {
      */
     public void setId(String id) {
 	this.id = id;
+    }
+
+    /**
+     * @return the person_num
+     */
+    public String getPerson_num() {
+	return person_num;
+    }
+
+    /**
+     * @param person_num
+     *            the person_num to set
+     */
+    public void setPerson_num(String person_num) {
+	this.person_num = person_num;
     }
 
 }

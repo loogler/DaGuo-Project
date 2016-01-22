@@ -77,6 +77,7 @@ public class SC_HuoDongAty1 extends Activity {
 		if (lists.size() > 0) {
 		    lists.clear();
 		}
+		@SuppressWarnings("unchecked")
 		List<SC_SheTuan> abc = (List<SC_SheTuan>) msg.obj;
 		lists.addAll(abc);
 

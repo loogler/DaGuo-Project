@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.ui.main.Main_2Aty1;
 import com.daguo.util.adapter.Main_2Adapter;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
@@ -75,14 +76,14 @@ public class Shop_SearchAty extends FragmentActivity implements
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
 	    case MSG_GOOD_DATA_SUC:
-		
+
 		if (msg.obj != null) {
 
 		    @SuppressWarnings("unchecked")
 		    List<Shop_GoodsItem> abcGoodsItems = (List<Shop_GoodsItem>) msg.obj;
 		    lists.addAll(abcGoodsItems);
 		    adapter.notifyDataSetChanged();
-		    type_id="";
+		    type_id = "";
 
 		}
 
@@ -159,7 +160,15 @@ public class Shop_SearchAty extends FragmentActivity implements
 		    map.put("name", searchString);
 		    String res = HttpUtil.postRequest(url, map);
 		    JSONObject jsonObject = new JSONObject(res);
-
+		    if (jsonObject.getInt("totalPageNum") < pageIndex) {
+			runOnUiThread(new Runnable() {
+			    public void run() {
+				Toast.makeText(Shop_SearchAty.this, "加载完成，到底了。。",
+					Toast.LENGTH_LONG).show();
+			    }
+			});
+			return;
+		    }
 		    if (jsonObject.getInt("total") > 0) {
 			JSONArray array = jsonObject.getJSONArray("rows");
 			List<Shop_GoodsItem> abcGoodsItems = new ArrayList<Shop_GoodsItem>();

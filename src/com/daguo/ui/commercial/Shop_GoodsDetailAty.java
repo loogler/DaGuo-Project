@@ -1,11 +1,5 @@
 package com.daguo.ui.commercial;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.tsz.afinal.FinalBitmap;
 
 import org.json.JSONArray;
@@ -15,7 +9,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,7 +33,6 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.ui.before.MyAppliation;
 import com.daguo.util.adapter.Shop_GoodsDetail_BannerAdapter;
-import com.daguo.util.base.GoodTypeItem;
 import com.daguo.util.base.ViewPager_Hacky;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
@@ -59,6 +51,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 	OnItemClickListener {
 
     private String id;
+    private String p_id;
     private final int MSG_GOODS_DATA = 1001;
     private final int MSG_JOIN_SUC = 1002;
     private final int MSG_JOIN_FAIL = 1003;
@@ -70,6 +63,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
      */
     private ViewPager_Hacky photo_vp;
     private TextView name_tv, price_tv, jion_tv, buy_tv;
+    private TextView stockNum_tv, number_tv;
     // 内容
     private FrameLayout mFullscreenContainer;
     private FrameLayout mContentView;
@@ -131,6 +125,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 	MyAppliation.getInstance().addActivity(this);
 	Intent intent = getIntent();
 	id = PublicTools.doWithNullData(intent.getStringExtra("id"));
+	p_id = getSharedPreferences("userinfo", 0).getString("id", "");
 
 	initViews();
 	loadGoodsData();
@@ -149,9 +144,9 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 	jion_tv = (TextView) findViewById(R.id.jion_tv);
 	buy_tv = (TextView) findViewById(R.id.buy_tv);
 
-	jion_tv.setOnClickListener(this);
-	buy_tv.setOnClickListener(this);
-	name_tv.setOnClickListener(this);
+	number_tv = (TextView) findViewById(R.id.number_tv);
+	stockNum_tv = (TextView) findViewById(R.id.stockNum_tv);
+
     }
 
     private void initHeadView() {
@@ -174,9 +169,20 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
     }
 
     private void setContentData() {
+	jion_tv.setOnClickListener(this);
+	buy_tv.setOnClickListener(this);
+	name_tv.setOnClickListener(this);
+
 	name_tv.setText(PublicTools.doWithNullData(shop_GoodsItem.getName()));
 	price_tv.setText("￥ "
 		+ PublicTools.doWithNullData(shop_GoodsItem.getPrice()));
+	stockNum_tv.setText("库存："
+		+ PublicTools.doWithNullData(shop_GoodsItem.getStock_num())
+		+ " 件");
+	number_tv
+		.setText("已售："
+			+ PublicTools.doWithNullData(shop_GoodsItem.getNumber()
+				+ " 件"));
 
 	mFullscreenContainer = (FrameLayout) findViewById(R.id.fullscreen_custom_content);
 	mContentView = (FrameLayout) findViewById(R.id.main_content);
@@ -215,6 +221,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
     public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.jion_tv:
+
 	    customProgressDialog = CustomProgressDialog.createDialog(this,
 		    "添加中，请稍等。。");
 	    customProgressDialog.show();
@@ -223,14 +230,20 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 	    break;
 
 	case R.id.buy_tv:
-	    Intent intent = new Intent(Shop_GoodsDetailAty.this,
-		    Shop_OrderAty.class);
-	    intent.putExtra("id", id);
-	    intent.putExtra("price", shop_GoodsItem.getPrice());
-	    intent.putExtra("name", shop_GoodsItem.getName());
-	    intent.putExtra("pic", shop_GoodsItem.getThumb_path());
+	    if (Integer.parseInt(shop_GoodsItem.getStock_num()) > 0) {
 
-	    startActivity(intent);
+		Intent intent = new Intent(Shop_GoodsDetailAty.this,
+			Shop_OrderAty.class);
+		intent.putExtra("id", id);
+		intent.putExtra("price", shop_GoodsItem.getPrice());
+		intent.putExtra("name", shop_GoodsItem.getName());
+		intent.putExtra("pic", shop_GoodsItem.getThumb_path());
+
+		startActivity(intent);
+	    } else {
+		Toast.makeText(Shop_GoodsDetailAty.this, "库存不足啦！",
+			Toast.LENGTH_LONG).show();
+	    }
 
 	    break;
 
@@ -286,6 +299,10 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 				    .getString("thumb_path");
 			    String type_name = array.optJSONObject(i)
 				    .getString("type_name");
+			    String number = array.optJSONObject(i).getString(
+				    "number");
+			    String stock_num = array.optJSONObject(i)
+				    .getString("stock_num");
 
 			    if (img_src != null && !img_src.equals("")
 				    && !img_src.equals("null")) {
@@ -330,6 +347,8 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 			    shop_GoodsItem.setPrice(price);
 			    shop_GoodsItem.setThumb_path(thumb_path);
 			    shop_GoodsItem.setType_name(type_name);
+			    shop_GoodsItem.setNumber(number);
+			    shop_GoodsItem.setStock_num(stock_num);
 
 			    msg = handler.obtainMessage(MSG_GOODS_DATA);
 			    msg.sendToTarget();
@@ -354,63 +373,27 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
      */
     @SuppressLint("CommitPrefEdits")
     private void joinTo() {
-	// // 本地做一次数据保存 ，不上传服务器，所以购物车只在自己手机上显示。
-	// // 获取历史记录 -- 转化数据-- 添加新纪录-- 转化数据
-	// Editor editor = getSharedPreferences("order", Activity.MODE_PRIVATE)
-	// .edit();
-	//
-	// String goodsId = shop_GoodsItem.getId();
-	// String goodsPic = shop_GoodsItem.getThumb_path();
-	// String goodsName = shop_GoodsItem.getName();
-	// String goodsPrice = shop_GoodsItem.getPrice();
-	//
-	// Shop_GoodsItem cartGoodsItem = new Shop_GoodsItem();
-	// List<Shop_GoodsItem> cartShop_GoodsItems = new
-	// ArrayList<Shop_GoodsItem>();
-	// cartGoodsItem.setId(goodsId);
-	// cartGoodsItem.setThumb_path(goodsPic);
-	// cartGoodsItem.setPrice(goodsPrice);
-	// cartGoodsItem.setName(goodsName);
-	// cartShop_GoodsItems.add(cartGoodsItem);
-	//
-	// String cart = getSharedPreferences("order", Activity.MODE_PRIVATE)
-	// .getString("cart", "");
-	//
-	// if ("".equals(cart)) {
-	// // 空的购物车
-	// String c = net.sf.json.JSONArray.fromObject(cartShop_GoodsItems)
-	// .toString();
-	// editor.putString("cart", c);
-	// } else {
-	// // 有历史记录
-	//
-	// List<Shop_GoodsItem> ls = new ArrayList<Shop_GoodsItem>();
-	// Shop_GoodsItem s;
-	//
-	// try {
-	// JSONArray a = new JSONArray(cart);
-	//
-	// for (int i = 0; i < a.length(); i++) {
-	// s = (Shop_GoodsItem) a.get(i);
-	//
-	// ls.add(s);
-	// Collections.reverse(ls);
-	// }
-	// ls.add(cartGoodsItem);
-	// Collections.reverse(ls);
-	//
-	// editor.putString("cart", net.sf.json.JSONArray.fromObject(ls)
-	// .toString());
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// }
-	//
-	// editor.commit();
-	// Toast.makeText(Shop_GoodsDetailAty.this, "已加入购物车", Toast.LENGTH_LONG)
-	// .show();
-	//
+	// 提交到购物车
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.SUBMIT_CART_JION + "&p_id=" + p_id
+			    + "&good_id=" + id;
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject jsonObject = new JSONObject(res);
+
+		    if (1 == jsonObject.getInt("result")) {
+			// 加入成共
+			handler.sendEmptyMessage(MSG_JOIN_SUC);
+		    } else {
+			// 加入失败
+			handler.sendEmptyMessage(MSG_JOIN_FAIL);
+		    }
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
+
     }
 
     /*************************************************************************/

@@ -391,6 +391,15 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 			    + pageIndex;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
+		    if (jsonObject.getInt("totalPageNum") < pageIndex) {
+			runOnUiThread(new Runnable() {
+			    public void run() {
+				Toast.makeText(Main_2Aty1.this, "加载完成，到底了。。",
+					Toast.LENGTH_LONG).show();
+			    }
+			});
+			return;
+		    }
 		    if (jsonObject.getInt("total") > 0) {
 			JSONArray array = jsonObject.getJSONArray("rows");
 			List<Shop_GoodsItem> abc = new ArrayList<Shop_GoodsItem>();

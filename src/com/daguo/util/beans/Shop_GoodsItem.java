@@ -20,6 +20,8 @@ public class Shop_GoodsItem {
     private String type_id;// 分类id
     private String type_name;// 分类名
     private String id;// 商品id
+    private String number ;//销量
+    private String stock_num ;//库存量
     
     //秒杀 商品
     private String end_time ;
@@ -202,6 +204,34 @@ public class Shop_GoodsItem {
      */
     public void setEnd_time(String end_time) {
 	this.end_time = end_time;
+    }
+
+    /**
+     * @return the number
+     */
+    public String getNumber() {
+	return number;
+    }
+
+    /**
+     * @param number the number to set
+     */
+    public void setNumber(String number) {
+	this.number = number;
+    }
+
+    /**
+     * @return the stock_num
+     */
+    public String getStock_num() {
+	return stock_num;
+    }
+
+    /**
+     * @param stock_num the stock_num to set
+     */
+    public void setStock_num(String stock_num) {
+	this.stock_num = stock_num;
     }
 
 }

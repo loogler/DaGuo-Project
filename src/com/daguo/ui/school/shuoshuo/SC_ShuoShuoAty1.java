@@ -24,11 +24,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.modem.writeshuoshuo.ui.SC_ShuoShuo_WriteAty;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
 import com.daguo.util.base.ViewPagerSlipper;
+import com.daguo.utils.PublicTools;
 
 /**
  * 说说框架页面 包含了热门 附近 等等内容
@@ -49,7 +51,7 @@ public class SC_ShuoShuoAty1 extends FragmentActivity {
     private ImageButton addButton;
     private ImageView backButton;
 
-    private String p_photo, p_name, p_school, p_sex;
+    private String p_photo, p_name, p_school, p_sex, p_year;
 
     private int currIndex = 0;// 当前页卡编号
     private int zero = 0;// 动画图片偏移量
@@ -68,6 +70,8 @@ public class SC_ShuoShuoAty1 extends FragmentActivity {
 	p_name = sp.getString("name", "");
 	p_school = sp.getString("school_name", "");
 	p_sex = sp.getString("sex", "");
+	p_year = sp.getString("start_year", "");
+	p_photo = sp.getString("head_info", "");
 
 	init();
 	fragments.add(new SC_ShuoShuo_TabRemenFragment());
@@ -131,14 +135,52 @@ public class SC_ShuoShuoAty1 extends FragmentActivity {
      * @return
      */
     boolean check() {
-	if (p_name != null && !p_name.equals("") && p_school != null
-		&& !p_school.equals("") && p_sex != null && !p_sex.equals("")) {
 
-	    return true;
-	} else {
+	if (PublicTools.doWithNullData(p_name).isEmpty()) {
+	    Toast.makeText(SC_ShuoShuoAty1.this, "资料未完善，请先完善资料",
+		    Toast.LENGTH_LONG).show();
 	    return false;
 
+	} else {
+
+	    if (PublicTools.doWithNullData(p_photo).isEmpty()) {
+		Toast.makeText(SC_ShuoShuoAty1.this, "资料未完善，请先完善资料",
+			Toast.LENGTH_LONG).show();
+		return false;
+	    } else {
+
+		if (PublicTools.doWithNullData(p_school).isEmpty()) {
+		    Toast.makeText(SC_ShuoShuoAty1.this, "资料未完善，请先完善资料",
+			    Toast.LENGTH_LONG).show();
+		    return false;
+		} else {
+
+		    if (PublicTools.doWithNullData(p_sex).isEmpty()) {
+			Toast.makeText(SC_ShuoShuoAty1.this, "资料未完善，请先完善资料",
+				Toast.LENGTH_LONG).show();
+			return false;
+		    } else {
+
+			if (PublicTools.doWithNullData(p_year).isEmpty()) {
+			    Toast.makeText(SC_ShuoShuoAty1.this,
+				    "资料未完善，请先完善资料", Toast.LENGTH_LONG).show();
+			    return false;
+			} else {
+			    return true;
+			}
+		    }
+		}
+	    }
 	}
+
+	// if (p_name != null && !p_name.equals("") && p_school != null
+	// && !p_school.equals("") && p_sex != null && !p_sex.equals("")) {
+	//
+	// return true;
+	// } else {
+	// return false;
+	//
+	// }
 
     }
 

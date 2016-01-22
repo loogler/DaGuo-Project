@@ -24,15 +24,15 @@
             android:padding="5dp"
             android:textSize="13sp" />
     </LinearLayout>
+    
 
     <com.daguo.libs.staggeredgridview.StaggeredGridView
-        android:background="@color/transparent"
         android:id="@+id/staggeredGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="45dp"
+        android:background="@color/transparent"
         staggered:drawSelectorOnTop="true"
-        
         staggered:numColumns="2" >
     </com.daguo.libs.staggeredgridview.StaggeredGridView>
 

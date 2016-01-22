@@ -157,6 +157,16 @@ public class HttpUtil {
 
     public static final String QUERY_GOODSLIST = URL
 	    + "goods/queryGoodsList?android=1";
+
+    /**
+     * 加入购物车操作 ==>canshu
+     * p_id=d510e0bb-ff40-4def-8919-ee1e1573f0cd&good_id=4378dd43
+     * -c575-4ce1-9af2-45489413cc65
+     * 
+     */
+    public static final String SUBMIT_CART_JION = URL
+	    + "shoppingCart/saveOrUpdate?android=1";
+
     /**
      * 查询积分信息商品列表，
      */
@@ -262,7 +272,7 @@ public class HttpUtil {
      */
     public static final String QUERY_CHAT_DETAIL = URL
 	    + "chatInfo/queryChatInfoList?android=1";
- 
+
     /**
      * 聊天==》发送一条信息给对方
      */

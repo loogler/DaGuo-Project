@@ -48,6 +48,7 @@ import com.daguo.view.dialog.CustomProgressDialog;
 public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	RadarSearchListener, BDLocationListener {
     private final int MSG_USERINFO = 10001;
+    private final int MSG_SEARCH = 10002;
 
     //
     ListView content_view;
@@ -70,6 +71,7 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
     private boolean uploadAuto = false;
 
     CustomProgressDialog dialog;
+    RadarSearchManager mManager;
 
     private int radius = 1000;
 
@@ -91,6 +93,14 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 		List<OutLet> a = (List<OutLet>) msg.obj;
 		lists.addAll(a);
 		adapter.notifyDataSetChanged();
+
+		break;
+	    case MSG_SEARCH:
+		// 构造请求参数，其中centerPt是自己的位置坐标
+		RadarNearbySearchOption option = new RadarNearbySearchOption()
+			.centerPt(pt).pageNum(pageIndex).radius(2000);
+		// 发起查询请求
+		mManager.nearbyInfoRequest(option);
 
 		break;
 
@@ -115,15 +125,16 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	setContentView(R.layout.aty_outlet);
 	getShared();
 
+	SDKInitializer.initialize(this.getApplicationContext());
 	content_view = (ListView) findViewById(R.id.content_view);
 	pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.refresh_view);
 
-	SDKInitializer.initialize(this.getApplicationContext());
+	mManager = RadarSearchManager.getInstance();
 
 	// 周边雷达设置监听
-	RadarSearchManager.getInstance().addNearbyInfoListener(this);
+	mManager.addNearbyInfoListener(this);
 	// 周边雷达设置用户，id为空默认是设备标识
-	RadarSearchManager.getInstance().setUserID(userID);
+	mManager.setUserID(userID);
 	// 定位初始化
 	mLocClient = new LocationClient(this);
 	mLocClient.registerLocationListener(this);
@@ -135,29 +146,35 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	mLocClient.start();
 	CustomProgressDialog.createDialog(OutLetAty.this, "加載中", 3000).show();
 
+	new Handler().sendMessageDelayed(handler.obtainMessage(MSG_SEARCH),
+		3000);
 	adapter = new OutLetAdapter(this, lists);
 	content_view.setAdapter(adapter);
 
 	pullToRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
 
 	    @Override
-	    public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
+	    public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
 		new Handler().postDelayed(new Runnable() {
 		    public void run() {
-			lists.clear();
-			radius = 1000;
-			uploadContinueClick();
+			// lists.clear();
+			// radius = 1000;
+			// uploadContinueClick();
+			pullToRefreshLayout
+				.refreshFinish(PullToRefreshLayout.SUCCEED);
 
 		    }
 		}, 2000);
 	    }
 
 	    @Override
-	    public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
+	    public void onLoadMore(final PullToRefreshLayout pullToRefreshLayout) {
 		new Handler().postDelayed(new Runnable() {
 		    public void run() {
 			radius = radius * 2;
 			uploadContinueClick();
+			pullToRefreshLayout
+				.loadmoreFinish(PullToRefreshLayout.SUCCEED);
 		    }
 		}, 2000);
 	    }
@@ -195,7 +212,7 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	    return;
 	}
 
-	RadarSearchManager.getInstance().startUploadAuto(this, 10000);
+	mManager.startUploadAuto(this, 10000);
 
 	searchNearby();
     }
@@ -213,7 +230,7 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 
 	RadarNearbySearchOption option = new RadarNearbySearchOption()
 		.centerPt(pt).pageNum(pageIndex).radius(radius);
-	RadarSearchManager.getInstance().nearbyInfoRequest(option);
+	mManager.nearbyInfoRequest(option);
 
     }
 

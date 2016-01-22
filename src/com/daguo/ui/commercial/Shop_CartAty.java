@@ -6,14 +6,11 @@ package com.daguo.ui.commercial;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,11 +20,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
@@ -35,7 +32,6 @@ import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.ui.commercial.Shop_CartAdapter.CheckChange;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.HttpUtil;
-import com.daguo.utils.PublicTools;
 
 /**
  * @author : BugsRabbit
@@ -246,7 +242,16 @@ public class Shop_CartAty extends Activity implements CheckChange,
 		    // TODO url没写
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
-
+		    
+		    if (jsonObject.getInt("totalPageNum") < pageIndex) {
+		 			runOnUiThread(new Runnable() {
+		 			    public void run() {
+		 				Toast.makeText(Shop_CartAty.this, "加载完成，到底了。。",
+		 					Toast.LENGTH_LONG).show();
+		 			    }
+		 			});
+		 			return;
+		 		    }
 		    if (jsonObject.getInt("total") > 0) {
 
 		    } else {

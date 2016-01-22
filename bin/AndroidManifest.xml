@@ -15,8 +15,6 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -28,7 +26,6 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
@@ -52,10 +49,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 百度地圖 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
+
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" >
     </uses-permission>
@@ -99,6 +93,7 @@
     <application
         android:name="com.daguo.ui.before.MyAppliation"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="大果校园"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -168,6 +163,8 @@
         <activity android:name="com.daguo.ui.before.MainRegisterAty" >
         </activity>
         <activity android:name="com.daguo.ui.before.MainRegisterAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.zzz" >
         </activity>
         <!-- com.daguo.ui.commercial.   商城部分界面 -->
         <activity android:name="com.daguo.ui.commercial.Shop_GoodsDetailAty" >
@@ -404,6 +401,7 @@ V1.3.0添加的service，负责下载通知的资源
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="twMQZgc2Po1jbckKl9GzrkiN" />
 
+        <!--
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -413,6 +411,12 @@ V1.3.0添加的service，负责下载通知的资源
                 <action android:name="com.baidu.location.service_v2.6" >
                 </action>
             </intent-filter>
+        </service>
+        -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
         </service>
 
         <!-- push结束 -->

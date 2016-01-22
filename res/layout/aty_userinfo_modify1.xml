@@ -231,6 +231,33 @@
                         android:text=""
                         android:textColor="@color/grey_2" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="引导员编号" />
+
+                    <TextView
+                        android:id="@+id/guidnumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:drawableRight="@drawable/right_arrows"
+                        android:gravity="right"
+                        android:textColor="@color/grey_2" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -271,9 +298,9 @@
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:background="@drawable/shezhi_bottom_btn"
                 android:gravity="center"
-                android:layout_margin="10dp"
                 android:text="提交" />
         </LinearLayout>
     </ScrollView>
