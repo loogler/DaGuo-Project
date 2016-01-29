@@ -7,10 +7,9 @@
         android:id="@+id/tuijian_header_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="fitXY"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/tabhome_ad02" />
+        android:scaleType="fitXY" />
 
 </RelativeLayout>

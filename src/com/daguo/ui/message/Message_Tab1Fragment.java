@@ -35,7 +35,7 @@ import android.widget.ListView;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2015-12-30 上午8:56:47
- * @function ：消息中心通知
+ * @function ：消息中心通知主界面
  */
 public class Message_Tab1Fragment extends Fragment {
 

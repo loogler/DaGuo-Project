@@ -16,6 +16,8 @@ import com.daguo.R;
 import com.daguo.ui.before.zzz;
 import com.daguo.ui.school.outlet.AppDownLoadAty;
 import com.daguo.ui.school.outlet.OutLetAty;
+import com.daguo.ui.school.outlet.WorldViewAty;
+import com.daguo.ui.school.xinxianshi.SC_XinXianShiAty;
 import com.daguo.util.beans.OutLet;
 
 /**
@@ -23,7 +25,7 @@ import com.daguo.util.beans.OutLet;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2016-1-8 上午12:31:31
- * @function ：
+ * @function ： 校外世界主要界面 是校园第三个翻页的界面
  */
 
 public class School_Main3Aty extends Activity implements OnClickListener {
@@ -113,11 +115,13 @@ public class School_Main3Aty extends Activity implements OnClickListener {
 	    break;
 
 	case R.id.news_iv:
-	    // TODO // 校外新闻 暂时没有这个接口
+	    intent = new Intent(School_Main3Aty.this, SC_XinXianShiAty.class);
+	    startActivity(intent);
+
 	    break;
 	case R.id.look_iv:
-
-	    // TODO // 校外新闻 没有该接口
+	    intent = new Intent(School_Main3Aty.this, WorldViewAty.class);
+	    startActivity(intent);
 	    break;
 	case R.id.nearby_iv:
 	    // 附近的人

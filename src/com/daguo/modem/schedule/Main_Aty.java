@@ -49,6 +49,7 @@ public class Main_Aty extends TabActivity {
     private TabHost tabHost;
     private LocalActivityManager manager = null;
     public static String mTextviewArray[] = { "备忘录", "课程表" };
+    @SuppressWarnings("rawtypes")
     public static Class mTabClassArray[] = { TodayDateRemindAty.class,
 	    TodayDateScheduleAty.class };
 
@@ -185,7 +186,7 @@ public class Main_Aty extends TabActivity {
 	    switch (index) {
 	    case 0:
 		bt1.setBackgroundDrawable(getResources().getDrawable(
-			R.drawable.remind_title_f_s1_f));
+			R.drawable.remind_title_f_s1_p));
 		bt2.setBackgroundDrawable(getResources().getDrawable(
 			R.drawable.remind_title_f_s2_p));
 		break;
@@ -194,7 +195,7 @@ public class Main_Aty extends TabActivity {
 		bt1.setBackgroundDrawable(getResources().getDrawable(
 			R.drawable.remind_title_f_s1_p));
 		bt2.setBackgroundDrawable(getResources().getDrawable(
-			R.drawable.remind_title_f_s2_f));
+			R.drawable.remind_title_f_s2_p));
 		break;
 
 	    default:
@@ -219,7 +220,7 @@ public class Main_Aty extends TabActivity {
 	    switch (arg0) {
 	    case 0:
 		bt1.setBackgroundDrawable(getResources().getDrawable(
-			R.drawable.remind_title_f_s1_f));
+			R.drawable.remind_title_f_s1_p));
 		bt2.setBackgroundDrawable(getResources().getDrawable(
 			R.drawable.remind_title_f_s2_p));
 		tabHost.setCurrentTab(0);
@@ -233,7 +234,7 @@ public class Main_Aty extends TabActivity {
 		bt1.setBackgroundDrawable(getResources().getDrawable(
 			R.drawable.remind_title_f_s1_p));
 		bt2.setBackgroundDrawable(getResources().getDrawable(
-			R.drawable.remind_title_f_s2_f));
+			R.drawable.remind_title_f_s2_p));
 		tabHost.setCurrentTab(1);
 		if (currIndex == 0) {
 		    animation = new TranslateAnimation(offset, one, 0, 0);

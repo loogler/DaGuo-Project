@@ -12,8 +12,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/checkbox_greenwhite"
         android:button="@null"
-        android:checked="false"
-        android:visibility="gone" />
+        android:checked="false" />
 
     <ImageView
         android:id="@+id/goodsPic_iv"

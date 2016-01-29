@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.raw;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -48,6 +47,7 @@ import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.modem.photo.MyGridAdapter;
 import com.daguo.modem.photo.NoScrollGridView;
+import com.daguo.ui.message.Chat_Aty;
 import com.daguo.util.adapter.Eva_OrdinaryAdapter;
 import com.daguo.util.base.CircularImage;
 import com.daguo.util.base.MyGridView;
@@ -106,6 +106,7 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 
     private String id = null;// 说说id
     private String p_id = null;// 用户id
+    private String p_photo = null;// 用户头像
     private int pageIndex = 1;// 页码数
     private boolean isGoodAdd = false;// 是否点赞
 
@@ -132,6 +133,10 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	    case MSG_CONTENT:
 		setContentData();
 		content_view.addHeaderView(topView);
+		loadFeedbackData();
+		adapter = new Eva_OrdinaryAdapter(
+			SC_ShuoShuo_EvaluationAty1.this, evaLists);
+		content_view.setAdapter(adapter);
 		break;
 
 	    case MSG_GOOD_DATA_Y:
@@ -210,15 +215,12 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	SharedPreferences sp = getSharedPreferences("userinfo",
 		Activity.MODE_WORLD_READABLE);
 	p_id = sp.getString("id", "");
+	p_photo = sp.getString("head_info", "");
 
 	initHeadView();
 	initViews();
 	loadContentData();
 	loadGoodData();
-	loadFeedbackData();
-
-	adapter = new Eva_OrdinaryAdapter(this, evaLists);
-	content_view.setAdapter(adapter);
 
     }
 
@@ -466,7 +468,8 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	if (contentList.getGood_count().isEmpty()) {
 	    goodCount_tv.setText("全部评论(" + "0)");
 	} else {
-	    goodCount_tv.setText("全部评论(" + contentList.getGood_count() + ")");
+	    goodCount_tv.setText("全部评论(" + contentList.getFeedback_count()
+		    + ")");
 	}
 
     }
@@ -795,7 +798,7 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	    break;
 
 	case R.id.share_tv:
-	    
+
 	    Intent sendIntent = new Intent();
 	    sendIntent.setAction(Intent.ACTION_SEND);
 	    sendIntent.putExtra(Intent.EXTRA_TEXT, "大果校园下载地址"
@@ -817,6 +820,15 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	    } else {
 		goodAdd();
 	    }
+
+	    break;
+	case R.id.chat_tv:
+	    Intent intent = new Intent(SC_ShuoShuo_EvaluationAty1.this,
+		    Chat_Aty.class);
+
+	    intent.putExtra("id", p_id);
+	    intent.putExtra("photo", p_photo);
+	    startActivity(intent);
 
 	    break;
 

@@ -3,7 +3,7 @@
 	<item android:state_pressed="true" 
           android:drawable="@drawable/inserticon_4_p" />
 
-	<item android:drawable="@drawable/inserticon_4_f" />  
+	<item android:drawable="@drawable/inserticon_4_p" />  
 
 
 

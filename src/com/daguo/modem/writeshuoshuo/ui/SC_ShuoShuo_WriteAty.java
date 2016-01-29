@@ -83,12 +83,13 @@ public class SC_ShuoShuo_WriteAty extends Activity {
     String content;// 说说内容
     EditText content_edt; // 输入框
 
-    String p_id, p_name;
+    String p_id, p_name, p_schoolId;
 
     // 添加的图片路径列表
     private List<String> img_pathListsList = new ArrayList<String>();
 
     Message msg;
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
 	/*
 	 * (non-Javadoc)
@@ -117,6 +118,7 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 	}
     };
 
+    @SuppressLint("InflateParams")
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	Res.init(this);
@@ -130,9 +132,12 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		Context.MODE_WORLD_READABLE);
 	p_id = sp.getString("id", "");
 	p_name = sp.getString("name", "");
+	p_schoolId = sp.getString("school_id", "");
 	Init();
     }
 
+    @SuppressLint("InflateParams")
+    @SuppressWarnings("deprecation")
     public void Init() {
 
 	activity_selectimg_send = (TextView) findViewById(R.id.activity_selectimg_send);
@@ -221,11 +226,19 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 	    @Override
 	    public void onClick(View arg0) {
 
-		// TODO
 		String con = content_edt.getText().toString().trim();
 		content = PublicTools.doWithNullData(con);
 		upLoadPhoto(HttpUtil.IMG_URL_SUB);
 
+	    }
+	});
+
+	TextView back_tv = (TextView) findViewById(R.id.back_tv);
+	back_tv.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		finish();
 	    }
 	});
 
@@ -303,6 +316,7 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		    map.put("img_path", img_path);
 		    map.put("good_count", "0");
 		    map.put("feedback_count", "0");
+		    map.put("school_id", p_schoolId);
 		    String res = HttpUtil.postRequest(url, map);
 
 		    JSONObject js = new JSONObject(res);

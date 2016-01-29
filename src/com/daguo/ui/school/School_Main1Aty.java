@@ -14,6 +14,8 @@ import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
 import com.daguo.ui.message.MessageAty;
 import com.daguo.ui.school.huodong.SC_HuoDongAty1;
+import com.daguo.ui.school.map.SchoolMapAty;
+import com.daguo.ui.school.shetuan.SC_SheTuanAty;
 import com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1;
 import com.daguo.ui.school.xinwen.SC_XinWenAty;
 
@@ -24,6 +26,8 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 	    tv_activity;
 
     private String p_id, p_school, p_name;
+
+    private Intent intents = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +139,8 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 
 	case R.id.iv_ditu:
 	    // 校园地图
+	    intents = new Intent(School_Main1Aty.this, SchoolMapAty.class);
+	    startActivity(intents);
 	    break;
 	case R.id.iv_xinwen:
 	    // 校园新闻
@@ -143,6 +149,8 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 	    break;
 	case R.id.iv_shetuan:
 	    // 校园社团
+	    intents = new Intent(School_Main1Aty.this, SC_SheTuanAty.class);
+	    startActivity(intents);
 
 	    break;
 	case R.id.iv_kebiao:

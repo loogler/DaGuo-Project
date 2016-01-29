@@ -1,7 +1,5 @@
 package com.daguo.ui.before;
 
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

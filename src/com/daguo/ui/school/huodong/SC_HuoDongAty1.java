@@ -199,7 +199,7 @@ public class SC_HuoDongAty1 extends Activity {
 	new Thread(new Runnable() {
 	    public void run() {
 		String url = HttpUtil.QUERY_EVENT
-			+ "&menu_id=b3b7866c-3bf9-48a7-8caa-effa1fb86782&rows=10&page="
+			+ "&menu_id=b3b7866c-3bf9-48a7-8caa-effa1fb86782&rows=14&page="
 			+ pageIndex;
 		String res = null;
 		try {

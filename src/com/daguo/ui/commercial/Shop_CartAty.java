@@ -238,8 +238,8 @@ public class Shop_CartAty extends Activity implements CheckChange,
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = "";// + pid
-		    // TODO url没写
+		    String url =HttpUtil.QUERY_CART+ "&page=1&rows=10";// + pid
+		   
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
 		    
@@ -253,7 +253,9 @@ public class Shop_CartAty extends Activity implements CheckChange,
 		 			return;
 		 		    }
 		    if (jsonObject.getInt("total") > 0) {
-
+			//TODO 
+			
+			
 		    } else {
 			// 没有数据
 		    }

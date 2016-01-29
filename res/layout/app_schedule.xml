@@ -30,23 +30,31 @@
         </GridView>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/app_schedule_bt1"
-        style="@style/btn_style_2"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
-    </Button>
+        android:layout_alignParentRight="true"
+        android:background="#f5d541"
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/app_schedule_bt1"
+            style="@style/btn_style_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" >
+        </Button>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/l1"
-        android:layout_toRightOf="@+id/app_schedule_bt1"
         android:background="@drawable/a9"
         android:orientation="vertical"
-        android:padding="15dip" >
+        android:padding="15dip"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/schedule_tv1"
@@ -58,12 +66,12 @@
             android:visibility="gone" />
 
         <TextView
-            android:gravity="center"
             android:id="@+id/schedule_tv2"
             style="@style/R_datebox_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="星期三"
             android:textSize="20sp" />
     </LinearLayout>

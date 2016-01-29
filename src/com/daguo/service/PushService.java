@@ -28,7 +28,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.daguo.R;
-import com.daguo.R.id;
 import com.daguo.ui.main.WebView_CommenAty;
 import com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1;
 import com.daguo.ui.school.shetuan.SC_SheTuanDetailAty;
@@ -63,11 +62,11 @@ public class PushService extends Service {
 		if (idddd.equals(pushMessage.getId())) {
 		    // 同一条push信息
 		} else {
-		    String a= pushMessage.getSource_title();
+		    String a = pushMessage.getSource_title();
 		    if (PublicTools.doWithNullData(a).isEmpty()) {
-			contentTitle="新的大果通知消息";
-		    }else {
-			contentTitle=a;
+			contentTitle = "新的大果通知消息";
+		    } else {
+			contentTitle = a;
 		    }
 		    setNotification();
 		    idddd = pushMessage.getId();

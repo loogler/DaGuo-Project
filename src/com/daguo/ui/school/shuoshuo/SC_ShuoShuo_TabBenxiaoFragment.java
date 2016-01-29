@@ -170,6 +170,7 @@ public class SC_ShuoShuo_TabBenxiaoFragment extends Fragment {
 				+ pageIndex + "&school_id=" + school_id;
 			String res = HttpUtil.getRequest(url);
 			js = new JSONObject(res);
+			//TODO 返回数据为空 。。
 		    } else {
 			// school_id 存在問題，改用schoolName
 			String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page="

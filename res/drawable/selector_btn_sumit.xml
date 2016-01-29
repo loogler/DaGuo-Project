@@ -3,7 +3,7 @@
 	<item android:state_pressed="true" 
           android:drawable="@drawable/sumit_p" />
 
-	<item android:drawable="@drawable/sumit_f" />  
+	<item android:drawable="@drawable/sumit_p" />  
 
 
 

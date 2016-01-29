@@ -16,30 +16,45 @@
             android:layout_height="0dip"
             android:layout_weight="0" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
+            android:layout_height="160dp"
+            android:background="@drawable/bg_schedule_title"
+            android:gravity="bottom" >
 
-            <Button
-                android:id="@+id/bt1"
-                style="@style/tab_item_text_style"
+            <LinearLayout
+                android:background="#ea4626"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/remind_title_f_s1_p"
-                android:text="备忘录" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true" >
 
-            <Button
-                android:id="@+id/bt2"
-                style="@style/tab_item_text_style"
+                <Button
+                    android:layout_margin="5dp"
+                    android:id="@+id/bt2"
+                    style="@style/tab_item_text_style"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/remind_title_f_s2_p" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#38bcf5"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/remind_title_f_s2_p"
-                android:text="课程表" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true">
+
+                <Button
+                    android:layout_margin="5dp"
+                    android:id="@+id/bt1"
+                    style="@style/tab_item_text_style"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/remind_title_f_s1_p" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/cursor"
@@ -63,4 +78,7 @@
             android:layout_weight="1.0" />
     </LinearLayout>
 
+    <!--  -->
+    
+    
 </TabHost>

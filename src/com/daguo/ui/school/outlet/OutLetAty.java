@@ -43,7 +43,7 @@ import com.daguo.view.dialog.CustomProgressDialog;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2016-1-5 下午3:56:27
- * @function ：身边的人定位
+ * @function ：身边的人定位主界面
  */
 public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	RadarSearchListener, BDLocationListener {
@@ -196,8 +196,9 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	p_sex = sp.getString("sex", "null");
 	p_year = sp.getString("start_year", "null");
 
-	userID = p_id + "," + p_img + "," + p_name + "," + p_pro + "," + p_sex
-		+ "," + p_year;
+//	userID = p_id + "," + p_img + "," + p_name + "," + p_pro + "," + p_sex
+//		+ "," + p_year;
+	userID ="ABC";
     }
 
     /**

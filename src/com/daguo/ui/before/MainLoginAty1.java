@@ -31,6 +31,7 @@ import com.daguo.R;
 import com.daguo.ui.main.MainActivity;
 import com.daguo.util.message.xioo;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 import com.daguo.utils.TelNumberCheckUtil;
 import com.daguo.view.dialog.CustomProgressDialog;
 
@@ -223,7 +224,7 @@ public class MainLoginAty1 extends Activity {
 	public void run() {
 	    // 判断号码输入没有
 
-	    String url = HttpUtil.QUERY_USERINFO+"&page=1&rows=1";
+	    String url = HttpUtil.QUERY_USERINFO + "&page=1&rows=1";
 	    Map<String, String> map = new HashMap<String, String>();
 	    map.put("tel", telNumber);
 	    String res;
@@ -307,16 +308,24 @@ public class MainLoginAty1 extends Activity {
     }
 
     private boolean verificationCheck() {
-	String ver = verification_edt.getText().toString().trim();
-	int v = Integer.parseInt(ver);
-	if (verificationCode == v) {
-	    return true;
+	String ver = PublicTools.doWithNullData(verification_edt.getText()
+		.toString().trim());
+
+	if (!ver.isEmpty()) {
+	    int v = Integer.parseInt(ver);
+	    if (verificationCode == v) {
+		return true;
+	    } else {
+		// 验证码不符
+		Toast.makeText(MainLoginAty1.this, "验证码错误", Toast.LENGTH_SHORT)
+			.show();
+		return false;
+	    }
 	} else {
-	    // 验证码不符
-	    Toast.makeText(MainLoginAty1.this, "验证码错误", Toast.LENGTH_SHORT)
-		    .show();
+
 	    return false;
 	}
+
     }
 
     /**

@@ -24,13 +24,22 @@
         android:cacheColorHint="#00000000" >
     </ListView>
 
-    <Button
-        android:id="@+id/app_remind_bt1"
-        style="@style/btn_style"
+    <LinearLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" >
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:background="#f5d541"
+        >
+        
+    <Button
+        android:layout_margin="5dp"
+        android:id="@+id/app_remind_bt1"
+        style="@style/btn_style"
+        android:layout_width="wrap_content"
+        >
     </Button>
+    </LinearLayout>
 
 </RelativeLayout>

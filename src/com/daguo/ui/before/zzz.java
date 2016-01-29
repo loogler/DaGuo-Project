@@ -230,10 +230,11 @@ public class zzz extends Activity implements BDLocationListener,
 	p_sex = sp.getString("sex", "null");
 	p_year = sp.getString("start_year", "null");
 
+	userComment = "A";
 	userID = p_id;
-	userComment = p_img + "," + p_name + "," + p_pro + "," + p_sex + ","
-		+ p_year;
-//	userID = "zhang san ";
+//	 + "," + p_img + "," + p_name + "," + p_pro + "," + p_sex
+//		+ "," + p_year;
+//	 userID = "zhang san ";
     }
 
     private void regist() {
@@ -361,35 +362,35 @@ public class zzz extends Activity implements BDLocationListener,
 	    // android.R.layout.simple_list_item_1, listResult.infoList));
 
 	    List<RadarNearbyInfo> aList = result.infoList;
-	    
+
 	    List<OutLet> dList = new ArrayList<OutLet>();
 	    for (int i = 0; i < aList.size(); i++) {
 		String b = aList.get(i).comments;
-		String c =aList.get(i).userID;
+		String c = aList.get(i).userID;
 
 		String[] user = b.split(",");
 
 		list = new OutLet();
 		try {
 
-		     String p_id = PublicTools.doWithNullData(c);
-		     String p_img = PublicTools.doWithNullData(user[0]);
-		     String p_name = PublicTools.doWithNullData(user[1]);
-		     String p_pro = PublicTools.doWithNullData(user[2]);
-		     String p_sex = PublicTools.doWithNullData(user[3]);
-		     String p_year = PublicTools.doWithNullData(user[4]);
-		     list.setName(p_name);
-		     list.setId(p_id);
-		     list.setHead_info(p_img);
-		     list.setSex(p_sex);
-		     list.setStart_year(p_year);
-		     list.setPro_name(p_pro);
-//		    list.setName("张三");
-//		    list.setId("8ce10832-e592-4148-9e52-8ac3df4c421b");
-//		    list.setHead_info("image/20160120/1453287340010.JPEG");
-//		    list.setSex("0");
-//		    list.setStart_year("2016");
-//		    list.setPro_name("乐哈哈");
+		    String p_id = PublicTools.doWithNullData(c);
+		    String p_img = PublicTools.doWithNullData(user[0]);
+		    String p_name = PublicTools.doWithNullData(user[1]);
+		    String p_pro = PublicTools.doWithNullData(user[2]);
+		    String p_sex = PublicTools.doWithNullData(user[3]);
+		    String p_year = PublicTools.doWithNullData(user[4]);
+		    list.setName(p_name);
+		    list.setId(p_id);
+		    list.setHead_info(p_img);
+		    list.setSex(p_sex);
+		    list.setStart_year(p_year);
+		    list.setPro_name(p_pro);
+		    // list.setName("张三");
+		    // list.setId("8ce10832-e592-4148-9e52-8ac3df4c421b");
+		    // list.setHead_info("image/20160120/1453287340010.JPEG");
+		    // list.setSex("0");
+		    // list.setStart_year("2016");
+		    // list.setPro_name("乐哈哈");
 
 		    list.setTime(new SimpleDateFormat("yyyy-mm-dd hh:MM:ss")
 			    .format(aList.get(i).timeStamp));

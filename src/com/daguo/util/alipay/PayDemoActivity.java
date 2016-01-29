@@ -184,6 +184,9 @@ public class PayDemoActivity extends FragmentActivity {
 
 			Intent intent = new Intent(PayDemoActivity.this,
 				ChouJiangAty.class);
+			String[] ccc = { "pingguo ", "ju zi ", " putao ",
+				"xiangjiao ", "lizi ", "boluo ", };
+			intent.putExtra("name", ccc);
 			intent.putExtra("orderId", orderId);
 			startActivity(intent);
 		    } else {

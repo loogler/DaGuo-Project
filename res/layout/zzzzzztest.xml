@@ -14,7 +14,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/tabhome1_buttom_add1" />
+                  />
 
               
                 <ImageView
@@ -24,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/tabhome1_buttom_add2" />
+                   />
             </LinearLayout>
             
      <TextView 

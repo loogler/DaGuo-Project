@@ -38,7 +38,7 @@ import android.widget.TextView;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2016-1-8 上午1:00:31
- * @function ：
+ * @function ： 我的活动主界面  （我的活动是我报名的活动）
  */
 public class UserInfo_MyHuoDongAty extends Activity {
 

@@ -21,9 +21,14 @@ import android.widget.TextView;
 import com.daguo.R;
 import com.daguo.ui.commercial.cent.CentAty;
 import com.daguo.ui.main.Main_4Aty;
+import com.daguo.ui.user.UserInfo_MyAttentionAty;
 import com.daguo.ui.user.UserInfo_MyBaoMingAty;
+import com.daguo.ui.user.UserInfo_MyCentAty;
 import com.daguo.ui.user.UserInfo_MyDianZan;
 import com.daguo.ui.user.UserInfo_MyHuoDongAty;
+import com.daguo.ui.user.UserInfo_MyHuoDong_EvaAty;
+import com.daguo.ui.user.UserInfo_MyOrderAty;
+import com.daguo.ui.user.UserInfo_MyShuoShuoAty;
 import com.daguo.util.beans.UserCenter;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
@@ -147,9 +152,10 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	dingdanLayout = (LinearLayout) findViewById(R.id.dingdan_ll);
 	baomingLayout = (LinearLayout) findViewById(R.id.baoming_ll);
 	shezhiLayout = (LinearLayout) findViewById(R.id.shezhi_ll);
-	// shuoshuoLayout.setOnClickListener(this);
-	// huodong_0Layout.setOnClickListener(this);
-	// guanzhuLayout.setOnClickListener(this);
+
+	shuoshuoLayout.setOnClickListener(this);
+	huodong_0Layout.setOnClickListener(this);
+	guanzhuLayout.setOnClickListener(this);
 	jifenLayout.setOnClickListener(this);
 	duihuanLayout.setOnClickListener(this);
 	huodongLayout.setOnClickListener(this);
@@ -247,11 +253,27 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	    startActivity(intent);
 	    break;
 	case R.id.shuoshuo_ll:
-	    // intent=new Intent(School_Main4Aty.this ,);
+	    intent = new Intent(School_Main4Aty.this,
+		    UserInfo_MyShuoShuoAty.class);
+	    startActivity(intent);
+
+	    break;
+
+	case R.id.huodong0_ll:
+	    intent = new Intent(School_Main4Aty.this,
+		    UserInfo_MyHuoDongAty.class);
+	    startActivity(intent);
+	    break;
+
+	case R.id.guanzhu_ll:
+	    intent = new Intent(School_Main4Aty.this,
+		    UserInfo_MyAttentionAty.class);
+	    startActivity(intent);
 
 	    break;
 	case R.id.jifen_ll:
-	    // TODO 积分信息界面
+	    intent = new Intent(School_Main4Aty.this, UserInfo_MyCentAty.class);
+	    startActivity(intent);
 
 	    break;
 	case R.id.duihuan_ll:
@@ -264,7 +286,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	case R.id.huodong_ll:
 	    // 我的活动跳转
 	    intent = new Intent(School_Main4Aty.this,
-		    UserInfo_MyHuoDongAty.class);
+		    UserInfo_MyHuoDong_EvaAty.class);
 	    startActivity(intent);
 	    break;
 	case R.id.dianzan_ll:
@@ -279,6 +301,10 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 
 	    intent = new Intent(School_Main4Aty.this,
 		    UserInfo_MyBaoMingAty.class);
+	    startActivity(intent);
+	    break;
+	case R.id.dingdan_ll:
+	    intent = new Intent(School_Main4Aty.this, UserInfo_MyOrderAty.class);
 	    startActivity(intent);
 	    break;
 

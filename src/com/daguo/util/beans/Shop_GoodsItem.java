@@ -20,13 +20,15 @@ public class Shop_GoodsItem {
     private String type_id;// 分类id
     private String type_name;// 分类名
     private String id;// 商品id
-    private String number ;//销量
-    private String stock_num ;//库存量
-    
-    //秒杀 商品
-    private String end_time ;
-    private String start_time ;
-    
+    private String number;// 销量
+    private String stock_num;// 库存量
+
+    // 秒杀 商品
+    private String end_time;
+    private String start_time;
+    // 订单
+    private String pay_status;//支付状态
+    private String orderId;//订单id
 
     /**
      * @return the goods_desc
@@ -186,7 +188,8 @@ public class Shop_GoodsItem {
     }
 
     /**
-     * @param start_time the start_time to set
+     * @param start_time
+     *            the start_time to set
      */
     public void setStart_time(String start_time) {
 	this.start_time = start_time;
@@ -200,7 +203,8 @@ public class Shop_GoodsItem {
     }
 
     /**
-     * @param end_time the end_time to set
+     * @param end_time
+     *            the end_time to set
      */
     public void setEnd_time(String end_time) {
 	this.end_time = end_time;
@@ -214,7 +218,8 @@ public class Shop_GoodsItem {
     }
 
     /**
-     * @param number the number to set
+     * @param number
+     *            the number to set
      */
     public void setNumber(String number) {
 	this.number = number;
@@ -228,10 +233,39 @@ public class Shop_GoodsItem {
     }
 
     /**
-     * @param stock_num the stock_num to set
+     * @param stock_num
+     *            the stock_num to set
      */
     public void setStock_num(String stock_num) {
 	this.stock_num = stock_num;
+    }
+
+    /**
+     * @return the pay_status
+     */
+    public String getPay_status() {
+	return pay_status;
+    }
+
+    /**
+     * @param pay_status the pay_status to set
+     */
+    public void setPay_status(String pay_status) {
+	this.pay_status = pay_status;
+    }
+
+    /**
+     * @return the orderId
+     */
+    public String getOrderId() {
+	return orderId;
+    }
+
+    /**
+     * @param orderId the orderId to set
+     */
+    public void setOrderId(String orderId) {
+	this.orderId = orderId;
     }
 
 }

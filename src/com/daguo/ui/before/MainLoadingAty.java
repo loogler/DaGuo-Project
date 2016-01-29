@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.daguo.R;
+import com.daguo.modem.choujiang.LotteryAty;
 import com.daguo.service.PushService;
 import com.daguo.ui.main.MainActivity;
 import com.umeng.analytics.MobclickAgent;
@@ -23,79 +24,82 @@ import com.umeng.analytics.MobclickAgent;
  */
 @SuppressLint("WorldReadableFiles")
 public class MainLoadingAty extends Activity {
-	private boolean isFirstLoading;
+    private boolean isFirstLoading;
 
-	@SuppressLint("WorldReadableFiles")
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.aty_mainloading);
-		MobclickAgent.setSessionContinueMillis(30000);
-		
-		this.startService(new Intent(this,PushService.class));
+    @SuppressLint("WorldReadableFiles")
+    @SuppressWarnings("deprecation")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.aty_mainloading);
+	MobclickAgent.setSessionContinueMillis(30000);
 
-		// 获取本地数据
-		SharedPreferences sPreferences = getSharedPreferences("setting",
-				Context.MODE_WORLD_READABLE);
-		isFirstLoading = sPreferences.getBoolean("isFirstLoading", false);
-		Log.d("isfirstloading1", isFirstLoading + "");
-		// isFirstLoading == false后期换这个判断首次加载
-		if (isFirstLoading == false) {
-			// 保存到本地
-			SharedPreferences sp = getSharedPreferences("setting",
-					Context.MODE_WORLD_READABLE);
-			Editor editor = sp.edit();
-			editor.putBoolean("isFirstLoading", true);
-			editor.commit();
-			Log.d("isfirstloading2", isFirstLoading + "");
-			// 加载效果
-			new Handler().postDelayed(new Runnable() {
+	this.startService(new Intent(this, PushService.class));
 
-				@Override
-				public void run() {
-//					Intent i = new Intent(MainLoadingAty.this,
-//							MainWelcomeAty.class);
-					Intent i = new Intent(MainLoadingAty.this,
-							GuideViewDoor.class);
-					startActivity(i);
-					MainLoadingAty.this.finish();
-				}
-			}, 2000);
+	// 获取本地数据
+	SharedPreferences sPreferences = getSharedPreferences("setting",
+		Context.MODE_WORLD_READABLE);
+	isFirstLoading = sPreferences.getBoolean("isFirstLoading", false);
+	Log.d("isfirstloading1", isFirstLoading + "");
+	// isFirstLoading == false后期换这个判断首次加载
+	if (isFirstLoading == false) {
+	    // 保存到本地
+	    SharedPreferences sp = getSharedPreferences("setting",
+		    Context.MODE_WORLD_READABLE);
+	    Editor editor = sp.edit();
+	    editor.putBoolean("isFirstLoading", true);
+	    editor.commit();
+	    Log.d("isfirstloading2", isFirstLoading + "");
+	    // 加载效果
+	    new Handler().postDelayed(new Runnable() {
 
-		} else {
-
-			// 加载效果
-			new Handler().postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					// Intent intent = new Intent(MainLoadingAty.this,
-					// MainLoginAty.class);
-					// startActivity(intent);
-					// MainLoadingAty.this.finish();
-					SharedPreferences sp = getSharedPreferences("userinfo",
-							Context.MODE_WORLD_READABLE);
-					String tel = sp.getString("tel", "");
-					if (tel != null && !tel.equals("")) {
-
-						// 已登录，直接进主页
-						Intent intent = new Intent(MainLoadingAty.this,
-								MainActivity.class);
-						startActivity(intent);
-						finish();
-					} else {
-						// 未登录/注册
-						Intent intent = new Intent(MainLoadingAty.this,
-								MainBeforeLoginActivity.class);
-						startActivity(intent);
-						finish();
-					}
-				}
-			}, 2000);
-
+		@Override
+		public void run() {
+		    // Intent i = new Intent(MainLoadingAty.this,
+		    // MainWelcomeAty.class);
+		    Intent i = new Intent(MainLoadingAty.this,
+			    GuideViewDoor.class);
+		    startActivity(i);
+		    MainLoadingAty.this.finish();
 		}
+	    }, 2000);
+
+	} else {
+
+	    // 加载效果
+	    new Handler().postDelayed(new Runnable() {
+
+		@Override
+		public void run() {
+		    // Intent intent = new Intent(MainLoadingAty.this,
+		    // MainLoginAty.class);
+		    // startActivity(intent);
+		    // MainLoadingAty.this.finish();
+		    SharedPreferences sp = getSharedPreferences("userinfo",
+			    Context.MODE_WORLD_READABLE);
+		    String tel = sp.getString("tel", "");
+		    if (tel != null && !tel.equals("")) {
+
+			// 已登录，直接进主页
+			// Intent intent = new Intent(MainLoadingAty.this,
+			// MainActivity.class);
+			// TODO
+			Intent intent = new Intent(MainLoadingAty.this,
+				LotteryAty.class);
+			startActivity(intent);
+			finish();
+		    } else {
+			// 未登录/注册
+			Intent intent = new Intent(MainLoadingAty.this,
+				MainBeforeLoginActivity.class);
+			startActivity(intent);
+			finish();
+		    }
+		}
+	    }, 2000);
 
 	}
+
+    }
 
 }

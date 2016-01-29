@@ -85,7 +85,9 @@ public class SC_HuoDongAdapter1 extends BaseAdapter {
 	    public void onClick(View arg0) {
 
 		Intent intent = new Intent(activity, SC_HuoDong_DetailAty1.class);
+		
 		intent.putExtra("id", lists.get(p).getId());
+		
 		activity.startActivity(intent);
 
 	    }

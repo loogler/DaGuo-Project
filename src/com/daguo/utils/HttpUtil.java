@@ -166,6 +166,11 @@ public class HttpUtil {
      */
     public static final String SUBMIT_CART_JION = URL
 	    + "shoppingCart/saveOrUpdate?android=1";
+    /**
+     * 查询购物车列表， 参数&page=1&rows=1&person_id=d510e0bb-ff40-4def-8919-ee1e1573f0cd
+     */
+    public static final String QUERY_CART = URL
+	    + "shoppingCart/queryShoppingCartList?android=1";
 
     /**
      * 查询积分信息商品列表，
@@ -313,6 +318,11 @@ public class HttpUtil {
 	    + "personCenter/queryMyAct?android=1";
 
     /**
+     * 个人中心== 》 我的活动， 我评论过的活动
+     */
+    public static final String QUERY_MYHUODONG_EVA = URL
+	    + "personCenter/queryLikeAct?android=1";
+    /**
      * 个人中心 ==》 我的点赞 我点赞过的说说
      */
     public static final String QUERY_MYDIANZAN = URL
@@ -323,6 +333,27 @@ public class HttpUtil {
      */
     public static final String QUERY_MYBAOMING = URL
 	    + "personCenter/querySignParty?android=1";
+    /**
+     * 个人中心===》查询我的关注 （关注/被关注） 范例测试
+     * &page=1&rows=1&follow_id=07a98832-e061-4a5f-b7a1-86df0e9fc7ec
+     */
+    public static final String QUERY_ATTENTION = URL
+	    + "follow/queryFollowList?android=1";
+
+    /**
+     * 个人中心===》 查询我的订单 范例测试 ：
+     * &page=1&rows=13&p_id=07a98832-e061-4a5f-b7a1-86df0e9fc7ec
+     * ---------------未付款 pay_status=0 已付款 ：pay_status=1 ；；；status=1查询处理情况
+     */
+    public static final String QUERY_MYORDER = URL
+	    + "personCenter/queryMyOrder?android=1";
+
+    /**
+     * 个人中心==》 查询我的新手任务 。 canshu
+     * &page=1&rows=1&p_id=8ce10832-e592-4148-9e52-8ac3df4c421b
+     */
+    public static final String QUERY_MYCENT = URL
+	    + "noviceTask/queryNoviceTaskList?android=1";
 
     /** -----------------app下载--------------------------------* */
     /**

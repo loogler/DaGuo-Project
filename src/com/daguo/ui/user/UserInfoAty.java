@@ -3,10 +3,7 @@
  */
 package com.daguo.ui.user;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
@@ -22,14 +19,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
@@ -43,7 +39,6 @@ import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.util.beans.UserInfo;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
-import com.daguo.utils.TimeGetUtils;
 
 /**
  * @author : BugsRabbit
@@ -239,7 +234,7 @@ public class UserInfoAty extends Activity {
 	    public void run() {
 		try {
 		    String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page="
-			    + pageIndex + "&p_id=" + p_id;
+			    + pageIndex + "&p_id=" + a_id;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
 
@@ -387,7 +382,7 @@ public class UserInfoAty extends Activity {
 	    public void run() {
 		try {
 		    String url = HttpUtil.SUBMIT_ATTENTION + "&follow_id="
-			    + p_id + "&followed_id" + a_id;
+			    + p_id + "&followed_id=" + a_id;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
 

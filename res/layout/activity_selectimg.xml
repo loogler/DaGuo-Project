@@ -7,28 +7,42 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/black" >
+        android:layout_height="40dp"
+        android:background="@drawable/bg_toptitle_bar" >
+
+        <TextView
+            android:id="@+id/back_tv"
+            android:layout_margin="8dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/icon_delete" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="写动态"
+            android:text="发说说"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/activity_selectimg_send"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
-            android:text="发送"
-            android:textColor="@drawable/text_while"
-            android:textSize="20sp" />
+            android:layout_alignParentTop="true"
+            android:background="@drawable/icon_sendshuoshuo"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/activity_selectimg_send"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <EditText
@@ -36,17 +50,17 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_margin="8dp"
+        android:background="@null"
         android:gravity="left|top"
-        android:hint="说点什么吧..."       
-        android:background="@null" >
+        android:hint="说点什么吧..." >
     </EditText>
 
-    <GridView 
+    <GridView
         android:id="@+id/noScrollgridview"
         android:layout_width="290dp"
         android:layout_height="350dp"
         android:layout_marginLeft="5dp"
-        android:horizontalSpacing="3dp"        
+        android:horizontalSpacing="3dp"
         android:numColumns="4"
         android:scrollbars="none"
         android:verticalSpacing="5dp" >

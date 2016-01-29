@@ -36,6 +36,8 @@ import android.widget.Toast;
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.ui.main.Main_1Aty;
+import com.daguo.util.Imp.AddBannerOnclickListener;
 import com.daguo.util.adapter.NewsAdapter;
 import com.daguo.util.base.FrameLayout_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner;
@@ -290,16 +292,13 @@ public class SC_XinWenAty extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-			    Toast.makeText(SC_XinWenAty.this,
-				    "dianji +" + position, Toast.LENGTH_SHORT)
-				    .show();
-			    onClicks(position, addLists);
+			    new AddBannerOnclickListener(SC_XinWenAty.this,
+				    addLists, position);
 			}
 		    });
 
 	    return mImageViews[position];
 	}
-
     }
 
     /**
@@ -340,10 +339,6 @@ public class SC_XinWenAty extends Activity {
 			.setBackgroundResource(R.drawable.shape_dot_white);
 	    }
 	}
-    }
-
-    private void onClicks(int position, List<AddBanner> lists) {
-	// TODO 广告栏点击事件
     }
 
     private void initData() {

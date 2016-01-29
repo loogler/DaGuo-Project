@@ -207,7 +207,7 @@ public class SC_SheTuanAty extends Activity {
 	new Thread(new Runnable() {
 	    public void run() {
 		String url = HttpUtil.QUERY_EVENT
-			+ "&menu_id=d6c986c5-8e52-485e-9a6e-d5d98480564e&rows=10&page="
+			+ "&menu_id=d6c986c5-8e52-485e-9a6e-d5d98480564e&rows=14&page="
 			+ pageIndex;
 		String res = null;
 		try {

@@ -541,10 +541,11 @@ public class SC_HuoDong_DetailAty1 extends Activity implements
 	case R.id.share_tv:
 	    Intent sendIntent = new Intent();
 	    sendIntent.setAction(Intent.ACTION_SEND);
-	    sendIntent.putExtra(Intent.EXTRA_TEXT, "大果校园下载地址"
-		    + HttpUtil.DOWNLOAD);// 分享内容
+	    sendIntent.putExtra(Intent.EXTRA_TEXT,
+		    "喵的，这里还有这么好玩的校园活动，怎么我以前没有发现，我已经参加了，你来瞄一眼吧"
+			    + HttpUtil.DOWNLOAD);// 分享内容
 	    sendIntent.setType("text/plain");
-	    startActivity(Intent.createChooser(sendIntent, "大果校园欢迎您"));// 分享标题
+	    startActivity(Intent.createChooser(sendIntent, "大果校园"));// 分享标题
 	    break;
 	case R.id.apply_tv:
 	    applyToSheTuan();

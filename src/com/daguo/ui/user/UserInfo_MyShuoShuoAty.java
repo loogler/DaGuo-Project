@@ -14,10 +14,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
@@ -27,18 +28,20 @@ import com.daguo.util.adapter.SC_ShuoShuoAdapter;
 import com.daguo.util.beans.HeadInfo;
 import com.daguo.util.beans.ShuoShuoContent;
 import com.daguo.utils.HttpUtil;
+
 /**
  * 
-* @author : BugsRabbit 
-* @email 395360255@qq.com
-* @version 创建时间：2016-1-8 下午2:13:57
-* @function ：显示我的说说界面  接口未改 功能已废弃
+ * @author : BugsRabbit
+ * @email 395360255@qq.com
+ * @version 创建时间：2016-1-8 下午2:13:57
+ * @function ：显示我的说说界面 接口未改 功能已废弃
  */
 public class UserInfo_MyShuoShuoAty extends Activity implements
-	OnClickListener, OnItemClickListener, OnRefreshListener {
+	OnItemClickListener, OnRefreshListener {
 
     private int pageIndex = 1;// 加载页码
     private final int MSG_CONTENT = 100;
+    private String p_id;
 
     /**
      * initViews
@@ -81,12 +84,13 @@ public class UserInfo_MyShuoShuoAty extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_userinfo_myshuoshuo);
-//	initViews();
-//
-//	loadData();
-//	adapter = new SC_ShuoShuoAdapter(UserInfo_MyShuoShuoAty.this,
-//		contentLists);
-//	content_view.setAdapter(adapter);
+	p_id = getSharedPreferences("userinfo", 0).getString("id", "");
+	initViews();
+
+	loadData();
+	adapter = new SC_ShuoShuoAdapter(UserInfo_MyShuoShuoAty.this,
+		contentLists);
+	content_view.setAdapter(adapter);
 
     }
 
@@ -94,6 +98,7 @@ public class UserInfo_MyShuoShuoAty extends Activity implements
      * 初始化控件
      */
     private void initViews() {
+	initHeadView();
 	refresh_view = (PullToRefreshLayout) findViewById(R.id.refresh_view);
 	content_view = (ListView) findViewById(R.id.content_view);
 
@@ -113,6 +118,28 @@ public class UserInfo_MyShuoShuoAty extends Activity implements
     }
 
     /**
+     * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+     */
+    private void initHeadView() {
+	TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	TextView title_tv = (TextView) findViewById(R.id.title_tv);
+	TextView function_tv = (TextView) findViewById(R.id.function_tv);
+	ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+
+	back_tView.setOnClickListener(new View.OnClickListener() {
+
+	    @Override
+	    public void onClick(View arg0) {
+		finish();
+	    }
+	});
+	title_tv.setText("我的说说");
+	function_tv.setVisibility(View.GONE);
+	remind_iv.setVisibility(View.GONE);
+
+    }
+
+    /**
      * 加载说说列表
      * 
      * @param url
@@ -123,7 +150,7 @@ public class UserInfo_MyShuoShuoAty extends Activity implements
 	    public void run() {
 		try {
 		    String url = HttpUtil.QUERY_SHUOSHUO + "&rows=15&page="
-			    + pageIndex;
+			    + pageIndex + "&p_id=" + p_id;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject js = new JSONObject(res);
 
@@ -222,18 +249,7 @@ public class UserInfo_MyShuoShuoAty extends Activity implements
 
     }
 
-    @Override
-    public void onClick(View v) {
-	switch (v.getId()) {
-	case R.id.back:
-
-	    break;
-
-	default:
-	    break;
-	}
-    }
-
+    @SuppressLint("HandlerLeak")
     @Override
     public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
 	// 下拉刷新操作

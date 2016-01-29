@@ -34,8 +34,10 @@ import android.widget.TextView;
 
 import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
+import com.daguo.ui.commercial.Shop_SearchAty;
 import com.daguo.ui.message.MessageAty;
 import com.daguo.ui.operators.OperatorAty;
+import com.daguo.ui.school.School_Main3Aty;
 import com.daguo.ui.school.School_Main4Aty;
 import com.daguo.ui.school.School_MainAty;
 import com.daguo.ui.school.outlet.OutLetAty;
@@ -265,12 +267,12 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		    // TODO 超市还在设计中
 		} else if ("d3490024-4e1c-4b99-8eb0-ac643f09eae8"
 			.equals(gridLists.get(p).getMenu_id())) {// 聚会达人
-		    // intent = new Intent(Main_1Aty.this, SC_XinWenAty.class);
-		    // startActivity(intent);
-		    // TODO 超市还在设计中
+		    intent = new Intent(Main_1Aty.this, Shop_SearchAty.class);
+		    startActivity(intent);
+
 		} else if ("dc0d893b-69a1-4d0f-9179-6f374757773c"
 			.equals(gridLists.get(p).getMenu_id())) {// 校外世界
-		    intent = new Intent(Main_1Aty.this, OutLetAty.class);
+		    intent = new Intent(Main_1Aty.this, School_Main3Aty.class);
 		    startActivity(intent);
 		}
 	    }

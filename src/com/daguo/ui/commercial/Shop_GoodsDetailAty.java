@@ -383,7 +383,7 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 		    JSONObject jsonObject = new JSONObject(res);
 
 		    if (1 == jsonObject.getInt("result")) {
-			// 加入成共
+			// 加入成功  这里的多次加入情况是后台处理，不再添加，前台不处理。
 			handler.sendEmptyMessage(MSG_JOIN_SUC);
 		    } else {
 			// 加入失败
