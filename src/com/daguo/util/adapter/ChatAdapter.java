@@ -14,6 +14,7 @@ import com.daguo.util.beans.ChatMsg;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.TextView;
  * @version 创建时间：2016-1-7 下午3:26:57
  * @function ：
  */
+@SuppressLint("InflateParams")
 public class ChatAdapter extends BaseAdapter {
 
     Activity activity;
@@ -56,7 +58,7 @@ public class ChatAdapter extends BaseAdapter {
      */
     @Override
     public Object getItem(int arg0) {
-	return arg0;
+	return lists.get(arg0);
     }
 
     /*
@@ -75,13 +77,14 @@ public class ChatAdapter extends BaseAdapter {
      * @see android.widget.Adapter#getView(int, android.view.View,
      * android.view.ViewGroup)
      */
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int p, View v, ViewGroup arg2) {
 	VH vh = null;
-	ChatMsg chatMsg = lists.get(p);
-	boolean isSend = chatMsg.isSend();
+//	ChatMsg chatMsg = (ChatMsg) getItem(p);
+	boolean isSend = ((ChatMsg) getItem(p)).isSend();
 	if (v == null) {
-	    if (isSend) {
+	    if (!isSend) {
 		v = inflater.inflate(R.layout.adapter_chat1, null);
 
 	    } else {

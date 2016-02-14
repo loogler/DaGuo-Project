@@ -54,7 +54,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
             android:layout_weight="2"
             android:background="@color/white"
             android:orientation="vertical"
@@ -62,7 +63,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:src="@drawable/bg_miaosha" />
 
             <TextView
@@ -90,7 +91,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="3"
             android:background="@color/white"
             android:orientation="vertical" >
@@ -117,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:maxHeight="120dp"
-                android:scaleType="centerInside"
+                android:scaleType="fitXY"
                 android:src="@drawable/school_xinwen" />
         </LinearLayout>
     </LinearLayout>

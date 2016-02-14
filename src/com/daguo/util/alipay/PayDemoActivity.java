@@ -3,12 +3,15 @@ package com.daguo.util.alipay;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +33,9 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.daguo.R;
 import com.daguo.modem.choujiang.ChouJiangAty;
+import com.daguo.modem.choujiang.LotteryAty;
 import com.daguo.ui.before.MyAppliation;
+import com.daguo.util.beans.Awards;
 import com.daguo.utils.HttpUtil;
 
 @SuppressLint("WorldReadableFiles")
@@ -47,12 +52,18 @@ public class PayDemoActivity extends FragmentActivity {
 
     private final int MSG_UPDATE_SUC = 10001;
     private final int MSG_UPDATE_FAIL = 10002;
+    private final int MSG_SUC = 10003;
     private String pay_num;
     private String orderId;
     private String p_id;
 
     private String price, name, count, priceTotal;
     private TextView priceButton, nameButton, numButton, priceTotalButton;
+
+    /**
+     * 此处初始化抽奖数据。
+     */
+    private List<Awards> lists = new ArrayList<Awards>();
 
     /**
      * tools
@@ -105,6 +116,7 @@ public class PayDemoActivity extends FragmentActivity {
 			Toast.LENGTH_LONG).show();
 
 		break;
+
 	    default:
 		break;
 	    }
@@ -155,6 +167,9 @@ public class PayDemoActivity extends FragmentActivity {
 			}
 		    });
 	}
+
+	initData();
+
     }
 
     private void getDataFromActivity() {
@@ -168,39 +183,91 @@ public class PayDemoActivity extends FragmentActivity {
     }
 
     private void update() {
+	if (lists.size() > 0) {
+
+	    new Thread(new Runnable() {
+		public void run() {
+		    try {
+			String url = HttpUtil.SUBMIT_ORDER_PUB;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("id", orderId);
+			map.put("pay_num", pay_num);
+			map.put("pay_status", "1");
+
+			String res = HttpUtil.postRequest(url, map);
+			JSONObject jsonObject = new JSONObject(res);
+			if ("1".equals(jsonObject.getString("result"))) {
+			    // 成功
+
+			    Intent intent = new Intent(PayDemoActivity.this,
+				    LotteryAty.class);
+
+			    List<String> aList = new ArrayList<String>();
+			    for (int i = 0; i < lists.size(); i++) {
+				String aString = lists.get(i).getName();
+				aList.add(aString);
+			    }
+			    String[] names = aList.toArray(new String[aList
+				    .size()]);
+			    List<String> bList = new ArrayList<String>();
+			    for (int j = 0; j < lists.size(); j++) {
+				String bString = lists.get(j).getId();
+				bList.add(bString);
+			    }
+
+			    String[] ids = bList.toArray(new String[bList
+				    .size()]);
+			    intent.putExtra("names", names);
+			    intent.putExtra("ids", ids);
+			    intent.putExtra("orderId", orderId);
+			    startActivity(intent);
+			} else {
+			    // 失败
+			    msg = mHandler.obtainMessage(MSG_UPDATE_FAIL);
+			    msg.sendToTarget();
+
+			}
+
+		    } catch (JSONException ex) {
+			Log.e("支付跳转", "Json异常崩溃");
+
+		    } catch (Exception e) {
+			Log.e("支付跳转", "异常崩溃");
+		    }
+		}
+	    }).start();
+
+	} else {
+	    Toast.makeText(PayDemoActivity.this, "信息初始化异常，请检查网络",
+		    Toast.LENGTH_SHORT).show();
+	    initData();
+
+	}
+    }
+
+    private void initData() {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.SUBMIT_ORDER_PUB;
-		    Map<String, String> map = new HashMap<String, String>();
-		    map.put("id", orderId);
-		    map.put("pay_num", pay_num);
-		    map.put("pay_status", "1");
-
-		    String res = HttpUtil.postRequest(url, map);
+		    String url = "http://115.29.224.248:8080/XYYYT/service/gift/queryGiftList?android=1&page=1&rows=6";
+		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
-		    if ("1".equals(jsonObject.getString("result"))) {
-			// 成功
+		    JSONArray array = jsonObject.getJSONArray("rows");
 
-			Intent intent = new Intent(PayDemoActivity.this,
-				ChouJiangAty.class);
-			String[] ccc = { "pingguo ", "ju zi ", " putao ",
-				"xiangjiao ", "lizi ", "boluo ", };
-			intent.putExtra("name", ccc);
-			intent.putExtra("orderId", orderId);
-			startActivity(intent);
-		    } else {
-			// 失败
-			msg = mHandler.obtainMessage(MSG_UPDATE_FAIL);
-			msg.sendToTarget();
+		    for (int i = 0; i < 6; i++) {
+			String name = array.optJSONObject(i).getString("name");
+			String id = array.optJSONObject(i).getString("id");
+			String type = array.optJSONObject(i).getString("type");
+			Awards list = new Awards();
+			list.setId(id);
+			list.setName(name);
+			list.setType(type);
+			lists.add(list);
 
 		    }
 
-		} catch (JSONException ex) {
-		    Log.e("支付跳转", "Json异常崩溃");
-
+		    mHandler.sendEmptyMessage(MSG_SUC);
 		} catch (Exception e) {
-		    Log.e("支付跳转", "异常崩溃");
 		}
 	    }
 	}).start();

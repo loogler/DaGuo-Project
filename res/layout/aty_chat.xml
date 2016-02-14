@@ -5,8 +5,6 @@
 
     <include layout="@layout/item_commentitleview" />
 
-    <include layout="@layout/item_commentitleview" />
-
     <com.daguo.libs.pulltorefresh.PullToRefreshLayout
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"

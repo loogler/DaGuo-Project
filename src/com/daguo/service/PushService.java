@@ -26,6 +26,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.ui.main.WebView_CommenAty;
@@ -115,6 +116,12 @@ public class PushService extends Service {
 	long times = System.currentTimeMillis();
 
 	try {
+	    if (pushMessage == null) {
+		Toast.makeText(getApplicationContext(), "断网了",
+			Toast.LENGTH_LONG).show();
+		return;
+
+	    }
 	    Date dateStart = sdf.parse(pushMessage.getS_date().toString());
 	    Date dateEnd = sdf.parse(pushMessage.getE_date().toString());
 	    miaoshaTime_start = dateStart.getTime();

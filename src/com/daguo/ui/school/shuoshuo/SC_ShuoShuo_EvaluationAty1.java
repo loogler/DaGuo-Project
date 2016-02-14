@@ -110,6 +110,8 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
     private int pageIndex = 1;// 页码数
     private boolean isGoodAdd = false;// 是否点赞
 
+    private String userId;
+
     //
     private String feedbackContent;
 
@@ -459,12 +461,12 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 
 	}
 
-	if (contentList.getType().isEmpty()) {
-	    type_tv.setVisibility(View.GONE);
-	} else {
-	    type_tv.setVisibility(View.VISIBLE);
-	    type_tv.setText(contentList.getType());
-	}
+	// if (contentList.getType().isEmpty()) {
+	// type_tv.setVisibility(View.GONE);
+	// } else {
+	// type_tv.setVisibility(View.VISIBLE);
+	// type_tv.setText(contentList.getType());
+	// }
 	if (contentList.getGood_count().isEmpty()) {
 	    goodCount_tv.setText("全部评论(" + "0)");
 	} else {
@@ -826,8 +828,8 @@ public class SC_ShuoShuo_EvaluationAty1 extends Activity implements
 	    Intent intent = new Intent(SC_ShuoShuo_EvaluationAty1.this,
 		    Chat_Aty.class);
 
-	    intent.putExtra("id", p_id);
-	    intent.putExtra("photo", p_photo);
+	    intent.putExtra("id", contentList.getP_id());
+	    intent.putExtra("photo", contentList.getP_photo());
 	    startActivity(intent);
 
 	    break;

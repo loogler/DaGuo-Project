@@ -113,6 +113,7 @@ public class AddBannerOnclickListener implements OnClickListener {
 		activity.startActivity(intent);
 	    }
 	} else if (type.equals("4")) {// 跳转专题
+		//TODO 跳转专题需要处理数据
 	    Intent intent = new Intent(activity, SC_ZhuanTiDetailAty.class);
 	    intent.putExtra("id", sourceId);
 	    activity.startActivity(intent);

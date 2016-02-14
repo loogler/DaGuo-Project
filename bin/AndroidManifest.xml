@@ -150,8 +150,6 @@
 
         <!-- com.daguo.ui.before. 登录前相关的准备事项 -->
 
-        <activity android:name="com.daguo.ui.before.MainLoginAty" >
-        </activity>
         <activity android:name="com.daguo.ui.before.MainLoginAty1" >
         </activity>
         <activity android:name="com.daguo.ui.before.MainBeforeLoginActivity" >
@@ -161,8 +159,6 @@
         <activity android:name="com.daguo.ui.before.MainWelcomeAty" >
         </activity>
         <activity android:name="com.daguo.ui.before.GuideViewDoor" >
-        </activity>
-        <activity android:name="com.daguo.ui.before.MainRegisterAty" >
         </activity>
         <activity android:name="com.daguo.ui.before.MainRegisterAty1" >
         </activity>
@@ -186,6 +182,14 @@
         </activity>
         <activity android:name="com.daguo.ui.commercial.cent.Cent_CartAty" >
         </activity>
+        <!-- com.daguo.ui.commercial.coupon.校园优惠劵 -->
+        <activity android:name="com.daguo.ui.commercial.coupon.CouponAty" >
+        </activity>
+
+        
+        <!-- com.daguo.ui.commercial.school. 校园商城 -->
+        <activity android:name="com.daguo.ui.commercial.school.SchoolShop_MainAty" >
+        </activity>
 
         <!-- com.daguo.ui.main.  登录主页部分的界面 -->
         <activity android:name="com.daguo.ui.main.MainActivity" >
@@ -193,8 +197,6 @@
         <activity android:name="com.daguo.ui.main.Main_1Aty" >
         </activity>
         <activity android:name="com.daguo.ui.main.Main_2Aty1" >
-        </activity>
-        <activity android:name="com.daguo.ui.main.Main_2Aty" >
         </activity>
         <activity android:name="com.daguo.ui.main.Main_3Aty" >
         </activity>
@@ -215,10 +217,6 @@
         <activity android:name="com.daguo.ui.operators.Oper_MobileAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.OperatorAty" >
-        </activity>
-        <activity android:name="com.daguo.ui.operators.BroadBandOrderAty" >
-        </activity>
-        <activity android:name="com.daguo.ui.operators.MoblieOrderAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.Oper_BroadBand_FStepAty" >
         </activity>
@@ -249,6 +247,8 @@
         <!-- com.daguo.ui.school.map. 校园 地图 部分功能 -->
         <activity android:name="com.daguo.ui.school.map.SchoolMapAty" >
         </activity>
+        <activity android:name="com.daguo.ui.school.map.SchoolMapDetailAty" >
+        </activity>
 
         <!-- com.daguo.ui.school.outlet. 校外部分 -->
         <activity android:name="com.daguo.ui.school.outlet.OutLetAty" >
@@ -270,10 +270,6 @@
 
         <!-- com.daguoschool.ui.school.shuoshuo  校园的分支1  说说功能 -->
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty" >
-        </activity>
-        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_WriteAty" >
-        </activity>
-        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty" >
         </activity>
         <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty1" >
         </activity>
@@ -344,14 +340,16 @@
         </activity>
         <activity android:name="com.daguo.ui.user.UserInfo_MyOrder_FinishAty" >
         </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyCouponAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyCouponDetailAty" >
+        </activity>
         <activity android:name="com.daguo.util.test.Test_Bitmap" >
         </activity>
 
         <!-- alipay 支付宝 -->
 
         <activity android:name="com.daguo.util.alipay.PayDemoActivity" >
-        </activity>
-        <activity android:name="com.daguo.util.alipay.Pay_NumberAty" >
         </activity>
         <activity android:name="com.daguo.util.alipay.Pay_GoodsAty" >
         </activity>
@@ -363,73 +361,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 【应用包名】字符串需要替换成本应用的应用包名
-        <receiver
-            android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.daguo.intent.action.COMMAND" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-Umeng的长连服务，用来建立推送的长连接的
-【应用包名】字符串需要替换成本应用的应用包名
-        <service
-            android:name="com.umeng.message.UmengService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="com.daguo.intent.action.START" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.daguo.intent.action.COCKROACH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.PING_V4" />
-
-                <category android:name="umeng" />
-            </intent-filter>
-        </service>
-Umeng的消息接收服务
-        <service
-            android:name="com.umeng.message.UmengIntentService"
-            android:process=":push" />
-Umeng的消息路由服务
-        <service
-            android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:exported="true"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="org.android.agoo.client.MessageReceiverService" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.android.agoo.client.ElectionReceiverService" />
-            </intent-filter>
-        </service>
-v2.4.1添加的Service，Umeng的消息接收后的处理服务
-        <service
-            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.umeng.messge.registercallback.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.unregistercallback.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.message.handler.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.autoupdate.handler.action" />
-            </intent-filter>
-        </service>
-V1.3.0添加的service，负责下载通知的资源
-        <service android:name="com.umeng.message.UmengDownloadResourceService" />
-        -->
 
         <!-- 百度地圖定位 -->
         <meta-data

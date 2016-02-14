@@ -131,18 +131,18 @@ public class Message_Tab2Fragment extends Fragment {
 
 	    }
 	});
-	
+
 	view.findViewById(R.id.tv).setOnClickListener(new OnClickListener() {
-	    
+
 	    @Override
 	    public void onClick(View arg0) {
-		Intent intent =new Intent(getActivity() ,Chat_Aty.class);
+		Intent intent = new Intent(getActivity(), Chat_Aty.class);
 		intent.putExtra("id", "5c38c078-ee1f-4591-a5ed-47c0831bd883");
 		intent.putExtra("photo", "image/20151230/1451409212521.JPEG");
 		startActivity(intent);
 	    }
 	});
-	
+
 	adapter = new Message_Tab2Adapter(getActivity(), lists);
 
 	content_view.setAdapter(adapter);
@@ -152,8 +152,8 @@ public class Message_Tab2Fragment extends Fragment {
 	    public void onItemClick(AdapterView<?> arg0, View arg1, int p,
 		    long arg3) {
 		Intent intent = new Intent(getActivity(),
-			SC_ShuoShuo_EvaluationAty1.class);
-		intent.putExtra("id", lists.get(p).getSource_id());
+			Chat_Aty.class);
+		intent.putExtra("id", lists.get(p).getS_id());
 		startActivity(intent);
 
 	    }
@@ -167,39 +167,48 @@ public class Message_Tab2Fragment extends Fragment {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.QUERY_MESSAGE_CHAT + "&page="
-			    + pageIndex + "&rows=20&r_p_id=" + p_id;
-		    String res =HttpUtil.getRequest(url);
-		    
-		    JSONObject jsonObject =new JSONObject(res);
-		    if ( null != jsonObject) {
-			
-			if (jsonObject.getInt("total")>0) {
-			    JSONArray array =jsonObject.getJSONArray("rows");
-			    
+		    String url = HttpUtil.QUERY_MESSAGE_CHAT + "&r_p_id="
+			    + p_id;
+		    String res = HttpUtil.getRequest(url);
+
+		    JSONObject jsonObject = new JSONObject(res);
+		    if (null != jsonObject) {
+			List<Message_Inform> informs = new ArrayList<Message_Inform>();
+			if (jsonObject.getInt("total") > 0) {
+			    JSONArray array = jsonObject.getJSONArray("rows");
+
 			    for (int i = 0; i < array.length(); i++) {
-				list=new Message_Inform();
-				
-				String create_time =array.optJSONObject(i).getString("create_time");
+				list = new Message_Inform();
+				String s_id=array.optJSONObject(i).getString("s_p_id");
+				list.setS_id(s_id);
+
+				String create_time = array.optJSONObject(i)
+					.getString("create_time");
 				list.setCreate_time(create_time);
-				
-				String s_head_info =array.optJSONObject(i).getString("s_head");
+
+				String s_head_info = array.optJSONObject(i)
+					.getString("s_head_info");
 				list.setS_head_info(s_head_info);
-				
-String s_name=array.optJSONObject(i).getString("s_name");
+
+				String s_name = array.optJSONObject(i)
+					.getString("s_name");
 				list.setS_name(s_name);
-				String s_pro_name =array.optJSONObject(i).getString("s_pro_name");
+				String s_pro_name = array.optJSONObject(i)
+					.getString("s_pro_name");
 				list.setS_pro_name(s_pro_name);
-				
-				
-				
+
+				informs.add(list);
+
 			    }
-			}else {
-			    //无数据
+			    msg = handler.obtainMessage(MSG_MESSAGE_SUC);
+			    msg.obj = informs;
+			    msg.sendToTarget();
+			} else {
+			    // 无数据
 			}
-			
-		    } 
-		    
+
+		    }
+
 		} catch (Exception e) {
 		}
 	    }

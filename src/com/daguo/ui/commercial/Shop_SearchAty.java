@@ -101,7 +101,7 @@ public class Shop_SearchAty extends FragmentActivity implements
 	};
     };
 
-    String type_id, id;
+    String type_id, id,school_id;
 
     /*
      * (non-Javadoc)
@@ -117,6 +117,7 @@ public class Shop_SearchAty extends FragmentActivity implements
 	Intent intent = getIntent();
 	type_id = PublicTools.doWithNullData(intent.getStringExtra("type_id"));
 	id = PublicTools.doWithNullData(intent.getStringExtra("id"));
+	school_id=getSharedPreferences("userinfo", 0).getString("school_id", "");
 	loadGoodsData();
 
     }
@@ -158,6 +159,7 @@ public class Shop_SearchAty extends FragmentActivity implements
 			    + pageIndex + "&type_id=" + type_id;
 		    Map<String, String> map = new HashMap<String, String>();
 		    map.put("name", searchString);
+		    map.put("school_id", school_id);
 		    String res = HttpUtil.postRequest(url, map);
 		    JSONObject jsonObject = new JSONObject(res);
 		    if (jsonObject.getInt("totalPageNum") < pageIndex) {

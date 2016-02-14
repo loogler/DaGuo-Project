@@ -24,6 +24,7 @@ import com.daguo.modem.writeshuoshuo.util.PublicWay;
 import com.daguo.modem.writeshuoshuo.util.Res;
 import com.daguo.modem.writeshuoshuo.zoom.PhotoView;
 import com.daguo.modem.writeshuoshuo.zoom.ViewPagerFixed;
+import com.daguo.ui.before.MyAppliation;
 
 /**
  * 
@@ -64,6 +65,7 @@ public class GalleryActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(Res.getLayoutID("plugin_camera_gallery"));// 切屏到主界面
 	PublicWay.activityList.add(this);
+	MyAppliation.getInstance().addActivity(this);
 	mContext = this;
 	back_bt = (Button) findViewById(Res.getWidgetID("gallery_back"));
 	send_bt = (Button) findViewById(Res.getWidgetID("send_button"));

@@ -6,6 +6,7 @@
     android:orientation="horizontal" >
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/cart_ckb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

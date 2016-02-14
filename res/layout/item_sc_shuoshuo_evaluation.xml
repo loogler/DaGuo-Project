@@ -28,7 +28,7 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/photo"
             android:paddingLeft="10dp"
-            android:text="赵云"
+            android:text=""
             android:textColor="#697fb1"
             android:textSize="16sp" />
 
@@ -157,7 +157,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/date_tv"
                 android:text="来自"
-                android:textColor="#C6C6C6" />
+                android:textColor="#C6C6C6"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/type_tv"
@@ -166,7 +167,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/tv1"
                 android:text="心情"
-                android:textColor="@color/green_home" />
+                android:textColor="@color/green_home"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <View

@@ -1,5 +1,9 @@
 package com.daguo.ui.before;
 
+import net.tsz.afinal.FinalBitmap;
+
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -9,11 +13,13 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.daguo.R;
-import com.daguo.modem.choujiang.LotteryAty;
 import com.daguo.service.PushService;
 import com.daguo.ui.main.MainActivity;
+import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -26,12 +32,24 @@ import com.umeng.analytics.MobclickAgent;
 public class MainLoadingAty extends Activity {
     private boolean isFirstLoading;
 
+    private ImageView iv;
+    private String img;
+
+    
+    @SuppressLint("HandlerLeak")
+    Handler handler =new Handler() {
+	public void handleMessage(android.os.Message msg) {
+	    FinalBitmap.create(MainLoadingAty.this).display(iv, HttpUtil.IMG_URL+img);
+	};
+    };
     @SuppressLint("WorldReadableFiles")
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_mainloading);
+	iv = (ImageView) findViewById(R.id.iv);
+	loadIMG();
 	MobclickAgent.setSessionContinueMillis(30000);
 
 	this.startService(new Intent(this, PushService.class));
@@ -80,12 +98,12 @@ public class MainLoadingAty extends Activity {
 		    String tel = sp.getString("tel", "");
 		    if (tel != null && !tel.equals("")) {
 
-			// 已登录，直接进主页
-			// Intent intent = new Intent(MainLoadingAty.this,
-			// MainActivity.class);
-			// TODO
-			Intent intent = new Intent(MainLoadingAty.this,
-				LotteryAty.class);
+//			 已登录，直接进主页
+			 Intent intent = new Intent(MainLoadingAty.this,
+			 MainActivity.class);
+
+//			Intent intent = new Intent(MainLoadingAty.this,
+//				LotteryAty.class);
 			startActivity(intent);
 			finish();
 		    } else {
@@ -100,6 +118,32 @@ public class MainLoadingAty extends Activity {
 
 	}
 
+    }
+
+    private void loadIMG() {
+	new Thread(new Runnable() {
+	    public void run() {
+		try {
+		    String url = HttpUtil.QUERY_EVENT
+			    + "&menu_id=74fd5ced-4ec3-4511-86bb-8091ed233895&page=1&rows=1";
+		    String res = HttpUtil.getRequest(url);
+		    JSONObject jsonObject = new JSONObject(res);
+
+		    if (0 < jsonObject.getInt("total")) {
+			 img = jsonObject.getJSONArray("rows")
+				.optJSONObject(0).getString("img_path");
+			if (!PublicTools.doWithNullData(img).isEmpty()) {
+			    	handler.sendEmptyMessage(0);
+			}else {
+			    //图片加载异常
+			}
+		    } else {
+			// /无结果
+		    }
+		} catch (Exception e) {
+		}
+	    }
+	}).start();
     }
 
 }

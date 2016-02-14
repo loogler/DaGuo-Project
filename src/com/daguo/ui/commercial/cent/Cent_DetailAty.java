@@ -29,7 +29,6 @@ import com.daguo.util.base.ViewPager_Hacky;
 import com.daguo.util.beans.CentGoods;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @author : BugsRabbit

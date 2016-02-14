@@ -6,6 +6,7 @@ package com.daguo.ui.commercial;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -39,8 +40,12 @@ import com.daguo.utils.HttpUtil;
  * @version 创建时间：2015-12-28 下午9:42:14
  * @function ：购物车
  */
+@SuppressLint("HandlerLeak")
 public class Shop_CartAty extends Activity implements CheckChange,
 	OnRefreshListener {
+
+    private final int MSG_CARTDATA = 10001;
+    private String p_id;
     /**
      * initViews
      * 
@@ -64,6 +69,26 @@ public class Shop_CartAty extends Activity implements CheckChange,
 
     private int pageIndex = 1;
 
+    Message msg;
+    Handler handler = new Handler() {
+	public void handleMessage(Message msg) {
+	    switch (msg.what) {
+	    case MSG_CARTDATA:
+		if (null != msg.obj) {
+		    List<Shop_GoodsItem> aaaGoodsItems = (List<Shop_GoodsItem>) msg.obj;
+		    lists.addAll(aaaGoodsItems);
+		    adapter.notifyDataSetChanged();
+
+		}
+
+		break;
+
+	    default:
+		break;
+	    }
+	};
+    };
+
     /*
      * (non-Javadoc)
      * 
@@ -74,28 +99,29 @@ public class Shop_CartAty extends Activity implements CheckChange,
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_shop_cart);
 	is_choice = new boolean[lists.size()];
+	p_id = getSharedPreferences("userinfo", 0).getString("id", "");
 
-//	List<Shop_GoodsItem> ls = new ArrayList<Shop_GoodsItem>();
-//
-//	SharedPreferences sp = getSharedPreferences("order", 0);
-//	String cart = sp.getString("cart", "");
-//	if ("".equals(PublicTools.doWithNullData(cart))) {
-//	    Toast.makeText(Shop_CartAty.this, "购物车为空", Toast.LENGTH_LONG)
-//		    .show();
-//	} else {
-//	    // 有商品
-//	    try {
-//		JSONArray array = new JSONArray(cart);
-//		for (int i = 0; i < array.length(); i++) {
-//		    Shop_GoodsItem sc = (Shop_GoodsItem) array.get(i);
-//		    ls.add(sc);
-//
-//		}
-//	    } catch (JSONException e) {
-//		e.printStackTrace();
-//	    }
-//
-//	}
+	// List<Shop_GoodsItem> ls = new ArrayList<Shop_GoodsItem>();
+	//
+	// SharedPreferences sp = getSharedPreferences("order", 0);
+	// String cart = sp.getString("cart", "");
+	// if ("".equals(PublicTools.doWithNullData(cart))) {
+	// Toast.makeText(Shop_CartAty.this, "购物车为空", Toast.LENGTH_LONG)
+	// .show();
+	// } else {
+	// // 有商品
+	// try {
+	// JSONArray array = new JSONArray(cart);
+	// for (int i = 0; i < array.length(); i++) {
+	// Shop_GoodsItem sc = (Shop_GoodsItem) array.get(i);
+	// ls.add(sc);
+	//
+	// }
+	// } catch (JSONException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// }
 
 	initViews();
 	loadCartData();
@@ -238,24 +264,46 @@ public class Shop_CartAty extends Activity implements CheckChange,
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url =HttpUtil.QUERY_CART+ "&page=1&rows=10";// + pid
-		   
+		    String url = HttpUtil.QUERY_CART + "&page=1&rows=10&p_id="
+			    + p_id;// +
+		    // pid
+
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);
-		    
+
 		    if (jsonObject.getInt("totalPageNum") < pageIndex) {
-		 			runOnUiThread(new Runnable() {
-		 			    public void run() {
-		 				Toast.makeText(Shop_CartAty.this, "加载完成，到底了。。",
-		 					Toast.LENGTH_LONG).show();
-		 			    }
-		 			});
-		 			return;
-		 		    }
+			runOnUiThread(new Runnable() {
+			    public void run() {
+				Toast.makeText(Shop_CartAty.this, "加载完成，到底了。。",
+					Toast.LENGTH_LONG).show();
+			    }
+			});
+			return;
+		    }
 		    if (jsonObject.getInt("total") > 0) {
-			//TODO 
-			
-			
+
+			List<Shop_GoodsItem> abc = new ArrayList<Shop_GoodsItem>();
+			JSONArray array = jsonObject.getJSONArray("rows");
+			for (int i = 0; i < array.length(); i++) {
+			    String id = array.optJSONObject(i).getString("id");
+			    String name = array.optJSONObject(i).getString(
+				    "name");
+			    String price = array.optJSONObject(i).getString(
+				    "price");
+			    String thumb_path = array.optJSONObject(i)
+				    .getString("thumb_path");
+
+			    list = new Shop_GoodsItem();
+			    list.setName(name);
+			    list.setId(id);
+			    list.setPrice(price);
+			    list.setThumb_path(thumb_path);
+			    abc.add(list);
+			}
+
+			msg = handler.obtainMessage(MSG_CARTDATA);
+			msg.obj = abc;
+			msg.sendToTarget();
 		    } else {
 			// 没有数据
 		    }

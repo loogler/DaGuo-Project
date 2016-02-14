@@ -219,7 +219,7 @@ public class AppDownLoadAty extends Activity implements OnRefreshListener {
 	    public void run() {
 		try {
 		    String url = HttpUtil.QUERY_ADD_BANNER
-			    + "&position=13&page=1&rows=1";
+			    + "&position=8&page=1&rows=1";
 		    String res = "";
 		    JSONObject js = null;
 		    int total = 0;

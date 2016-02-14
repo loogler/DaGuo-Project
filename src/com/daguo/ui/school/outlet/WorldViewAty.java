@@ -166,7 +166,7 @@ public class WorldViewAty extends Activity {
 		finish();
 	    }
 	});
-	title_tv.setText("校园新鲜事");
+	title_tv.setText("看天下");
 	function_tv.setVisibility(View.GONE);
 	remind_iv.setVisibility(View.GONE);
 

@@ -24,6 +24,7 @@ import com.daguo.modem.writeshuoshuo.util.Bimp;
 import com.daguo.modem.writeshuoshuo.util.ImageItem;
 import com.daguo.modem.writeshuoshuo.util.PublicWay;
 import com.daguo.modem.writeshuoshuo.util.Res;
+import com.daguo.ui.before.MyAppliation;
 
 /**
  * 
@@ -55,6 +56,7 @@ public class ShowAllPhoto extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(Res.getLayoutID("plugin_camera_show_all_photo"));
 	PublicWay.activityList.add(this);
+	MyAppliation.getInstance().addActivity(this);
 	mContext = this;
 	back = (Button) findViewById(Res.getWidgetID("showallphoto_back"));
 	cancel = (Button) findViewById(Res.getWidgetID("showallphoto_cancel"));

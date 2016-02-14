@@ -29,6 +29,7 @@ import com.daguo.modem.writeshuoshuo.util.ImageBucket;
 import com.daguo.modem.writeshuoshuo.util.ImageItem;
 import com.daguo.modem.writeshuoshuo.util.PublicWay;
 import com.daguo.modem.writeshuoshuo.util.Res;
+import com.daguo.ui.before.MyAppliation;
 
 /**
  * 
@@ -62,7 +63,7 @@ public class AlbumActivity extends Activity {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-	    // mContext.unregisterReceiver(this);
+	     mContext.unregisterReceiver(this);
 	    gridImageAdapter.notifyDataSetChanged();
 	}
     };
@@ -71,6 +72,7 @@ public class AlbumActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(Res.getLayoutID("plugin_camera_album"));
 	PublicWay.activityList.add(this);
+	MyAppliation.getInstance().addActivity(this);
 	mContext = this;
 	// 注册一个广播，这个广播主要是用于在GalleryActivity进行预览时，防止当所有图片都删除完后，再回到该页面时被取消选中的图片仍处于选中状态
 	IntentFilter filter = new IntentFilter("data.broadcast.action");

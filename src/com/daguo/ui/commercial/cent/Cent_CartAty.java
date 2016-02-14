@@ -36,7 +36,7 @@ import com.daguo.utils.PublicTools;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2016-1-4 上午11:25:36
- * @function ：
+ * @function ：积分兑换主界面
  */
 public class Cent_CartAty extends Activity {
 

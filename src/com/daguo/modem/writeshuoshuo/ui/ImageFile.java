@@ -15,6 +15,7 @@ import com.daguo.modem.writeshuoshuo.adapter.FolderAdapter;
 import com.daguo.modem.writeshuoshuo.util.Bimp;
 import com.daguo.modem.writeshuoshuo.util.PublicWay;
 import com.daguo.modem.writeshuoshuo.util.Res;
+import com.daguo.ui.before.MyAppliation;
 
 /**
  * 
@@ -33,6 +34,7 @@ public class ImageFile extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(Res.getLayoutID("plugin_camera_image_file"));
 	PublicWay.activityList.add(this);
+	MyAppliation.getInstance().addActivity(this);
 	mContext = this;
 	bt_cancel = (Button) findViewById(Res.getWidgetID("cancel"));
 	bt_cancel.setOnClickListener(new CancelListener());
