@@ -28,14 +28,14 @@ public class CustomProgressDialog extends Dialog {
  * @param message
  * @return
  */
-	public CustomProgressDialog creatDia(Context context, String message) {
-		customProgressDialog = new CustomProgressDialog(context, R.style.CustomProgressDialog);
-		customProgressDialog.setContentView(R.layout.dialog_customprogress);
-		customProgressDialog.getWindow().getAttributes().gravity = Gravity.CENTER;
-		customProgressDialog.setMessage("" + message);
-		return customProgressDialog;
-
-	}
+//	public CustomProgressDialog creatDia(Context context, String message) {
+//		customProgressDialog = new CustomProgressDialog(context, R.style.CustomProgressDialog);
+//		customProgressDialog.setContentView(R.layout.dialog_customprogress);
+//		customProgressDialog.getWindow().getAttributes().gravity = Gravity.CENTER;
+//		customProgressDialog.setMessage("" + message);
+//		return customProgressDialog;
+//
+//	}
 
 	public static CustomProgressDialog createDialog(Context context,
 			String message) {

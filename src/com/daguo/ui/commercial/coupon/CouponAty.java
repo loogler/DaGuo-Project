@@ -8,19 +8,30 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
+import com.daguo.libs.staggeredgridview.StaggeredGridView;
 import com.daguo.util.adapter.CouponAdapter;
 import com.daguo.util.beans.CouponEntity;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 /**
  * @E-mail 作者 E-mail:395360255@qq.com
@@ -29,7 +40,7 @@ import com.daguo.utils.HttpUtil;
  * @function 功能:优惠卷主界面，此处领取优惠卷
  */
 @SuppressLint("HandlerLeak")
-public class CouponAty extends Activity {
+public class CouponAty extends Activity implements OnItemClickListener {
 
 	private final int MSG_COUPONLIST = 10001;
 
@@ -75,6 +86,7 @@ public class CouponAty extends Activity {
 		p_id = getSharedPreferences("userinfo", Activity.MODE_PRIVATE)
 				.getString("id", "");
 		initViews();
+		initTitleView();
 		loadCouponListInfo();
 	}
 
@@ -87,6 +99,30 @@ public class CouponAty extends Activity {
 
 		pullToRefreshLayout.setOnRefreshListener(new OnrefreshListener());
 
+		gridView.setOnItemClickListener(this);
+
+	}
+
+	/**
+	 * 初始化通用标题栏
+	 */
+	private void initTitleView() {
+		TextView title_tv = (TextView) findViewById(R.id.title_tv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+
+		title_tv.setText("优惠劵");
+		back_fram.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				System.gc();
+				finish();
+			}
+		});
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/*-------------获取数据线程--------------------------*/
@@ -196,6 +232,14 @@ public class CouponAty extends Activity {
 			}.sendEmptyMessageDelayed(0, 1500);
 
 		}
+
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int p, long arg3) {
+		Intent intent = new Intent(CouponAty.this, CouponDetailAty.class);
+		intent.putExtra("id", PublicTools.doWithNullData(lists.get(p).getId()));
+		startActivity(intent);
 
 	}
 

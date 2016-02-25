@@ -88,7 +88,7 @@ public class Oper_BroadbandAdapter extends BaseAdapter {
 	if (lists != null) {
 
 	    holder.name_tv.setText("宽带名称：" + lists.get(p).getDetailName());
-	    holder.price_tv.setText("宽带价格： " + lists.get(p).getPrice());
+	    holder.price_tv.setText("宽带价格： " + lists.get(p).getPrice()+" 元");
 	    holder.school_tv.setText("所属学校： " + lists.get(p).getsName());
 	    holder.time_tv.setText("服务时间： " + lists.get(p).getMonth()+" 月");
 

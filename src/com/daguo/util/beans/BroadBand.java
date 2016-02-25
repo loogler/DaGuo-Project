@@ -7,14 +7,14 @@ package com.daguo.util.beans;
  */
 public class BroadBand {
 
-	private String busiName;
-	private String costInfo;
-	private String month;
-	private String detailName;
-	private String price;
-	private String school_id;
-	private String sName;
-	private String orderId;
+	private String busiName;// 运营商
+	private String costInfo;// 套餐详情
+	private String month;// 服务时间
+	private String detailName;//
+	private String price;// 套餐价格
+	private String school_id;// 学校id
+	private String sName;// 学校名字
+	private String orderId;// 款单id
 
 	public String getBusiName() {
 		return busiName;

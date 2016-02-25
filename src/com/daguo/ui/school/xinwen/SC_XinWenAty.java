@@ -178,10 +178,10 @@ public class SC_XinWenAty extends Activity {
 		mIndicator = (LinearLayout) findViewById(R.id.index_product_images_indicator);
 		topBanner_rl = (RelativeLayout) findViewById(R.id.topBanner_rl);
 
-		// 设置高度 长宽比 1:2
+		// 设置高度 长宽比 2:5
 		LayoutParams params = new LayoutParams(
 				GetScreenRecUtil.getWindowWidth(SC_XinWenAty.this),
-				GetScreenRecUtil.getWindowWidth(SC_XinWenAty.this) / 2);
+				2*GetScreenRecUtil.getWindowWidth(SC_XinWenAty.this) / 5);
 		topBanner_rl.setLayoutParams(params);
 
 		initData();

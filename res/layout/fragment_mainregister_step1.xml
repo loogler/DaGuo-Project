@@ -32,14 +32,14 @@
             android:src="@drawable/icon_location" />
 
         <AutoCompleteTextView
-            android:textSize="12sp"
             android:id="@+id/schoolName_auto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:hint="请输入你所在的学校"
-            android:padding="2dp" />
+            android:padding="2dp"
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="10dp"
@@ -49,14 +49,14 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:textColor="@color/grey_2"
-        android:textSize="12sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:drawableStart="@drawable/icon_attention"
         android:paddingLeft="25dp"
-        android:text="  请慎重选择您的学校，一经选择将无法修改!" />
+        android:text="  请慎重选择您的学校，一经选择将无法修改!"
+        android:textColor="@color/grey_2"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,24 +70,45 @@
         android:padding="10dp" >
 
         <EditText
-            android:textSize="12sp"
             android:id="@+id/department_edt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:hint=" 请输入你所在的专业"
-            android:padding="2dp" />
+            android:padding="2dp"
+            android:textSize="12sp" />
     </LinearLayout>
-    
-    <Button 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:id="@+id/agreement_ckb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="我已同意"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/agreement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《大果校园用户协议》"
+            android:textColor="@color/green_home" />
+    </LinearLayout>
+
+    <Button
         android:id="@+id/submit_btn"
-        android:text="下一步"
-        android:textColor="@color/white"
-        android:layout_margin="25dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_margin="25dp"
         android:background="@drawable/shape_ellipse_green_s"
-        />
+        android:text="下一步"
+        android:textColor="@color/white" />
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.daguo.libs.pulltorefresh;
 
-import android.R.integer;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 

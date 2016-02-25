@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.daguo"
     android:versionCode="1"
-    android:versionName="1.29" >
+    android:versionName="1.30" >
 
     <supports-screens
         android:anyDensity="true"
@@ -185,10 +185,13 @@
         <!-- com.daguo.ui.commercial.coupon.校园优惠劵 -->
         <activity android:name="com.daguo.ui.commercial.coupon.CouponAty" >
         </activity>
+        <activity android:name="com.daguo.ui.commercial.coupon.CouponDetailAty" >
+        </activity>
 
-        
         <!-- com.daguo.ui.commercial.school. 校园商城 -->
         <activity android:name="com.daguo.ui.commercial.school.SchoolShop_MainAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.school.SchoolShop_SearchAty" >
         </activity>
 
         <!-- com.daguo.ui.main.  登录主页部分的界面 -->
@@ -212,19 +215,21 @@
         </activity>
 
         <!-- com.daguo.ui.operators. 运营商部分 -->
-        <activity android:name="com.daguo.ui.operators.Oper_BroadBandAty" >
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBandAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.Oper_MobileAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.OperatorAty" >
         </activity>
-        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_FStepAty" >
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_FStepAty" >
         </activity>
-        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_SStepAty" >
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_SStepAty" >
         </activity>
         <activity android:name="com.daguo.ui.operators.Oper_Mobile_OrderAty" >
         </activity>
-        <activity android:name="com.daguo.ui.operators.Oper_BroadBand_OrderAty" >
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_OrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.OperatorDetailAty" >
         </activity>
 
         <!-- com.daguoschool.ui.school 校园部分 -->

@@ -107,23 +107,23 @@ public class APPDownloadAdapter extends BaseAdapter {
     }
 
     private void bindData(VH vh, final int p) {
-	finalBitmap.display(vh.pic_iv, HttpUtil.IMG_URL
-		+ lists.get(p).getImg_path());
-	vh.name_tv.setText(PublicTools.doWithNullData(lists.get(p).getName()));
-	vh.size_tv.setText(PublicTools.doWithNullData(lists.get(p).getSize())
-		+ " MB");
-	vh.download_iv.setOnClickListener(new View.OnClickListener() {
-
-	    @Override
-	    public void onClick(View arg0) {
-		String url = "http://115.29.224.248:8080/uploadFiles/"
-			+ lists.get(p).getDownload_path();
-
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse(url));
-		activity.startActivity(intent);
-	    }
-	});
+//	finalBitmap.display(vh.pic_iv, HttpUtil.IMG_URL
+//		+ lists.get(p).getImg_path());
+//	vh.name_tv.setText(PublicTools.doWithNullData(lists.get(p).getName()));
+//	vh.size_tv.setText(PublicTools.doWithNullData(lists.get(p).getSize())
+//		+ " MB");
+//	vh.download_iv.setOnClickListener(new View.OnClickListener() {
+//
+//	    @Override
+//	    public void onClick(View arg0) {
+//		String url = "http://115.29.224.248:8080/uploadFiles/"
+//			+ lists.get(p).getDownload_path();
+//
+//		Intent intent = new Intent(Intent.ACTION_VIEW);
+//		intent.setData(Uri.parse(url));
+//		activity.startActivity(intent);
+//	    }
+//	});
 
     }
 

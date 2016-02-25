@@ -7,8 +7,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_tel"
+        android:layout_height="110dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_operator_item"
         android:orientation="vertical"
         android:padding="15dp" >
 
@@ -16,25 +17,25 @@
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="名称：10m移动光宽带" />
+            android:text=" " />
 
         <TextView
             android:id="@+id/school_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学校：经贸旅游学校" />
+            android:text=" " />
 
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="价格：108 " />
+            android:text=" " />
 
         <TextView
             android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="时间：12 月" />
+            android:text=" " />
     </LinearLayout>
 
 </LinearLayout>

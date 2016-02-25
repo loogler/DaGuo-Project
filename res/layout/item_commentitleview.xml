@@ -6,12 +6,18 @@
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/back_tv"
-        android:layout_width="12dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/arrow_left" />
+    <FrameLayout
+        android:id="@+id/back_fram"
+        android:layout_width="40dp"
+        android:layout_height="40dp" >
+
+        <TextView
+            android:id="@+id/back_tv"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/arrow_left" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/title_tv"
@@ -22,20 +28,28 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/function_tv"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/icon_message"
-        android:orientation="vertical"
-        android:padding="10dp" />
+    <LinearLayout
+        android:id="@+id/message_ll"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/remind_iv"
-        android:layout_width="10dp"
-        android:layout_height="20dp"
-        android:layout_gravity="end"
-        android:scaleType="fitCenter"
-        android:src="@drawable/tabhome_xx" />
+        <TextView
+            android:id="@+id/function_tv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_message"
+            android:orientation="vertical"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/remind_iv"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end"
+            android:scaleType="fitCenter"
+            android:src="@drawable/tabhome_xx" />
+    </LinearLayout>
 
 </LinearLayout>

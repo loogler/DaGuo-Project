@@ -31,6 +31,7 @@ public class MyAppliation extends Application {
 
 	/**
 	 * 单例模式中获取唯一的MyApplication实例
+	 * 
 	 * @return instance
 	 */
 	public static MyAppliation getInstance() {
@@ -42,6 +43,7 @@ public class MyAppliation extends Application {
 
 	/**
 	 * 添加Activity到容器中
+	 * 
 	 * @param activity
 	 */
 	public void addActivity(Activity activity) {
@@ -53,7 +55,7 @@ public class MyAppliation extends Application {
 		for (Activity activity : activityList) {
 			activity.finish();
 		}
-		System.exit(0);
+		// System.exit(0);
 	}
 
 	@Override

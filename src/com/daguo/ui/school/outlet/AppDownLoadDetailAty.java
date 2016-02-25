@@ -126,12 +126,12 @@ public class AppDownLoadDetailAty extends Activity {
 
 	    @Override
 	    public void onClick(View arg0) {
-		String url = "http://115.29.224.248:8080/uploadFiles/"
-			+ list.getDownload_path();
+//		String url = "http://115.29.224.248:8080/uploadFiles/"
+//			+ list.getDownload_path();
 
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse(url));
-		startActivity(intent);
+//		Intent intent = new Intent(Intent.ACTION_VIEW);
+//		intent.setData(Uri.parse(url));
+//		startActivity(intent);
 	    }
 	});
     }
@@ -159,13 +159,13 @@ public class AppDownLoadDetailAty extends Activity {
     }
 
     /**
-     * 根据获取的值 给师徒赋值
+     * 根据获取的值 给视图赋值
      */
     private void setData() {
-	FinalBitmap.create(AppDownLoadDetailAty.this).display(pic_iv,
-		HttpUtil.IMG_URL + list.getImg_path());
-	comp_tv.setText(PublicTools.doWithNullData(list.getDev_company()));
-	name_tv.setText(PublicTools.doWithNullData(list.getName()));
+//	FinalBitmap.create(AppDownLoadDetailAty.this).display(pic_iv,
+//		HttpUtil.IMG_URL + list.getImg_path());
+//	comp_tv.setText(PublicTools.doWithNullData(list.getDev_company()));
+//	name_tv.setText(PublicTools.doWithNullData(list.getName()));
 
 	int size = files.length;
 	int length = PublicTools.getWindowWidth(AppDownLoadDetailAty.this) / 4;
@@ -196,8 +196,8 @@ public class AppDownLoadDetailAty extends Activity {
 	});
 
 	initWebView();
-	mWebView.loadDataWithBaseURL("null", list.getRemark(), "text/html",
-		"UTF-8", "");
+//	mWebView.loadDataWithBaseURL("null", list.getRemark(), "text/html",
+//		"UTF-8", "");
     }
 
     /**
@@ -238,15 +238,15 @@ public class AppDownLoadDetailAty extends Activity {
 			    String type = array.optJSONObject(i).getString(
 				    "type");// 分类
 
-			    list.setCut_path(cut_path);
-			    list.setDev_company(dev_company);
-			    list.setDownload_path(download_path);
-			    list.setId(id);
-			    list.setImg_path(img_path);
-			    list.setName(name);
-			    list.setRemark(remark);
-			    list.setSize(size);
-			    list.setType(type);
+//			    list.setCut_path(cut_path);
+//			    list.setDev_company(dev_company);
+//			    list.setDownload_path(download_path);
+//			    list.setId(id);
+//			    list.setImg_path(img_path);
+//			    list.setName(name);
+//			    list.setRemark(remark);
+//			    list.setSize(size);
+//			    list.setType(type);
 
 			    files = cut_path.split(",");
 

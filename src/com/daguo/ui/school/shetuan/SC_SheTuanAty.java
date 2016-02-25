@@ -92,7 +92,7 @@ public class SC_SheTuanAty extends Activity {
 			HttpUtil.IMG_URL + addLists.get(0).getImg_path());
 		add_iv.setLayoutParams(new LinearLayout.LayoutParams(
 			GetScreenRecUtil.getWindowWidth(SC_SheTuanAty.this),
-			GetScreenRecUtil.getWindowWidth(SC_SheTuanAty.this) / 2));
+			2*GetScreenRecUtil.getWindowWidth(SC_SheTuanAty.this) / 5));
 		add_iv.setOnClickListener(new View.OnClickListener() {
 
 		    @Override

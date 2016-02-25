@@ -67,6 +67,7 @@ import com.daguo.util.beans.AddBanner;
 import com.daguo.util.beans.Shop_GoodsItem;
 import com.daguo.utils.GetScreenRecUtil;
 import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -187,6 +188,9 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 				miaosha_ll.setVisibility(View.VISIBLE);
 				FinalBitmap.create(Main_2Aty1.this).display(miaosha_iv,
 						HttpUtil.IMG_URL + miaoshaGoodsItem.getThumb_path());
+//				miaosha_iv.setLayoutParams(new LinearLayout.LayoutParams(
+//						3*PublicTools.getWindowWidth(Main_2Aty1.this)/5,
+//						9*PublicTools.getWindowWidth(Main_2Aty1.this)/25));
 				miaoshaName_tv.setText(miaoshaGoodsItem.getName());
 				miaoshaPrice_tv.setText("￥" + miaoshaGoodsItem.getPrice());
 				setRemainTime();
@@ -266,10 +270,10 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 				.findViewById(R.id.index_product_images_indicator);
 		topBanner_rl = (RelativeLayout) topView.findViewById(R.id.topBanner_rl);
 
-		// 设置高度 长宽比 1:2
+		// 设置高度 长宽比1:3
 		LayoutParams params = new LayoutParams(
 				GetScreenRecUtil.getWindowWidth(Main_2Aty1.this),
-				GetScreenRecUtil.getWindowWidth(Main_2Aty1.this) / 2);
+				2*GetScreenRecUtil.getWindowWidth(Main_2Aty1.this) /5);
 		topBanner_rl.setLayoutParams(params);
 
 		// /////
@@ -504,14 +508,14 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					String url = HttpUtil.QUERY_GOOD_TYPE + "&page=1&rows=9";
-					;
+					String url = HttpUtil.QUERY_GOOD_TYPE + "&page=1&rows=10";
 					String res = HttpUtil.getRequest(url);
 					JSONObject jsonObject = new JSONObject(res);
-					if (jsonObject.getInt("total") != 10) {
-						// 栏目不等于10个 会出现异常布局
-						Log.e("商品类型", "商品分类查询数量不为10个，导致布局异常");
-					} else if (jsonObject.getInt("total") > 0) {
+					// if (jsonObject.getInt("total") != 10) {
+					// // 栏目不等于10个 会出现异常布局
+					// Log.e("商品类型", "商品分类查询数量不为10个，导致布局异常");
+					// } else
+					if (jsonObject.getInt("total") > 0) {
 						// 栏目有数据
 						GoodTypeItem goodTypeItem;
 						JSONArray array = jsonObject.getJSONArray("rows");
@@ -661,7 +665,10 @@ public class Main_2Aty1 extends Activity implements OnFocusChangeListener,
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int p, long arg3) {
 		Intent intent = new Intent(Main_2Aty1.this, Shop_SearchAty.class);
-		intent.putExtra("type_id", goodTypeLists.get(p).getType_id());
+		if (p != 9) {
+			intent.putExtra("type_id", goodTypeLists.get(p).getType_id());
+		}
+
 		startActivity(intent);
 
 	}

@@ -28,9 +28,9 @@
             android:background="@color/white"
             android:gravity="center"
             android:horizontalSpacing="5dp"
-            android:numColumns="3"
+            android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
+            android:verticalSpacing="5dp" />
 
         <include layout="@layout/load_more" />
     </com.daguo.libs.pulltorefresh.PullToRefreshLayout>

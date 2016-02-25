@@ -246,8 +246,8 @@ public class OutLetAty extends Activity implements RadarUploadInfoCallback,
 	    }
 	});
 	function_tv.setText("全部");
-	title_tv.setText("身边的人");
-	remind_iv.setVisibility(View.GONE);
+	title_tv.setText("发现附近的人");
+	remind_iv.setVisibility(View.INVISIBLE);
     }
 
     private void getShared() {

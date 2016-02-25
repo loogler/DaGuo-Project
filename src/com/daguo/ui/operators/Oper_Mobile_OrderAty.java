@@ -250,6 +250,7 @@ public class Oper_Mobile_OrderAty extends Activity implements OnClickListener {
 	case R.id.agreement_tv:
 	    Intent intent = new Intent(Oper_Mobile_OrderAty.this,
 		    UserAgreementAty.class);
+	    intent.putExtra("type", "tel");
 	    startActivity(intent);
 
 	    break;

@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.daguo.R;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout;
 import com.daguo.libs.pulltorefresh.PullToRefreshLayout.OnRefreshListener;
 import com.daguo.util.adapter.Main_2Adapter;

@@ -69,6 +69,11 @@ public class HttpUtil {
 	public static String PUSH = URL
 			+ "msgPush/queryMsgPushList?android=1&page=1&rows=1";
 	/**
+	 * push 用户点击push信息后 向服务器发送统计数据 &id=193ab84d-19c8-4e61-aa82-d6622ec4af9a
+	 */
+	public static final String PUSH_SUB = URL + "msgPush/addPushNum?android=1";
+
+	/**
 	 * 下载接口
 	 */
 	public static final String DOWNLOAD = "http://115.29.224.248:8080/DGXYDL/download/DaGuo.apk";
@@ -144,6 +149,11 @@ public class HttpUtil {
 	public static final String QUERY_BROADBAND = URL
 			+ "broadband/queryBroadbandList?android=1&rows=999&page=1";
 	/**
+	 * 查询单个宽带详情 &id=00eb4eae-71ce-47c4-8390-b53aff12948c&page=1&rows=1
+	 */
+	public static final String QUERY_BROADBAND_DETAIL = URL
+			+ "broadband/getBroadbandById?android=1";
+	/**
 	 * 电话号码查询 所有地区
 	 */
 	public static final String QUERY_NUMBER = URL
@@ -173,6 +183,17 @@ public class HttpUtil {
 
 	public static final String QUERY_GOODSLIST = URL
 			+ "goods/queryGoodsList?android=1";
+	/**
+	 * 查询该学校下 单个分类所有商品信息 queryGoodsList 参数 type_id school_id
+	 */
+	public static final String QUERY_GOODSLIST_SCHOOL = URL
+			+ "goods/queryBySchoolGoodsList?android=1";
+
+	/**
+	 * 查询商品具体信息 &id=372dce67-6f3f-46de-8108-231442f24de6&page=1&rows=1
+	 */
+	public static final String QUERY_GOODSDETAIL = URL
+			+ "goods/getGoodsDetaileById?android=1";
 
 	/**
 	 * 查询校园商品分类信息
@@ -180,7 +201,7 @@ public class HttpUtil {
 	public static final String QUERY_SCHOOL_GOODSTYPE = URL
 			+ "schoolGoodType/querySchoolGoodTypeList?android=1";
 	/**
-	 * 查询校园商品推荐商品信息
+	 * 查询校园商品推荐商品信息 school_id 参数
 	 */
 	public static final String QUERY_SCHOOL_GOODSITEM = URL
 			+ "schoolGoods/querySchoolGoodsList?android=1";
@@ -211,12 +232,24 @@ public class HttpUtil {
 			+ "scoreChange/saveOrUpdate?android=1";
 
 	/**
-	 * 查询优惠卷列表
-	 * http://192.168.0.40:8080/XYYYT/service/acceptCoupon/queryCouponList
-	 * ?android=1&page=1&rows=13&p_id=d510e0bb-ff40-4def-8919-ee1e1573f0cd
+	 * 查询优惠卷列表 &page=1&rows=13&p_id=d510e0bb-ff40-4def-8919-ee1e1573f0cd
 	 */
 	public static final String QUERY_COUPON_LIST = URL
 			+ "acceptCoupon/queryCouponList?android=1";
+
+	/**
+	 * 提交一个领取优惠卷的请求
+	 * &page=1&rows=13&p_id=d510e0bb-ff40-4def-8919-ee1e1573f0cd&a_id=e1ced02d
+	 * -42ab-4fc2-8856-61a39b0c3599
+	 */
+	public static final String SUBMIT_COUPON_APPLY = URL
+			+ "acceptCoupon/saveOrUpdate?android=1";
+
+	/**
+	 * 查看我的领取过的优惠卷列表 &page=1&rows=13&p_id=d510e0bb-ff40-4def-8919 -ee1e1573f0cd
+	 */
+	public static final String QUERY_COUPON_MYLIST = URL
+			+ "acceptCoupon/queryAcceptCouponList?android=1";
 
 	/****** 领奖 活动************************split line *****************************************************/
 	/**
@@ -333,7 +366,7 @@ public class HttpUtil {
 	public static final String QUERY_ADD_BANNER = URL
 			+ "ad/queryAdList?android=1";
 
-	/** -----------------消息中心--------------------------------- */
+	/* -----------------消息中心--------------------------------- */
 	/**
 	 * 消息==》通知 列表查看
 	 */
@@ -344,6 +377,11 @@ public class HttpUtil {
 	 */
 	public static final String QUERY_MESSAGE_CHAT = URL
 			+ "chatInfo/queryUnReadChatInfoList?android=1";
+	/**
+	 * 查看完消息后修改消息状态 &id=00797e22-f6d8-493f-864e-284c45da42eb (id是本条消息id)
+	 */
+	public static final String SUBMIT_MESSAGE_MOD = URL
+			+ "msgCenter/updateMsgStatus?android=1";
 
 	/*----------------个人中心------------------------------*/
 	/**
@@ -395,13 +433,20 @@ public class HttpUtil {
 	 */
 	public static final String QUERY_MYCENT = URL
 			+ "noviceTask/queryNoviceTaskList?android=1";
+	/**
+	 * 个人中心===》 完成新手任务，提交至服务器加分 &p_id
+	 * =d510e0bb-ff40-4def-8919-ee1e1573f0cd&type_id=
+	 * a3306d73-6087-4c64-acdd-2977f33f3b7d
+	 */
+	public static final String SUBMIT_MYCENT = URL
+			+ "noviceTask/saveOrUpdate?android=1";
 
 	/** -----------------app下载--------------------------------* */
 	/**
 	 * app列表
 	 */
 	public static final String QUERY_APP_DOWNLOAD = URL
-			+ "softInfo/querySoftInfoList?android=1";
+			+ "softInfo/querySoftInfoListByMobile?android=1";
 
 	/*************************** split line *************************************/
 	/**

@@ -84,7 +84,8 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 	private CustomProgressDialog dialog;
 
 	// data
-	String content;// 说说内容
+	public static String content;// 说说内容
+	// String content;
 	EditText content_edt; // 输入框
 
 	String p_id, p_name, p_schoolId;
@@ -139,6 +140,9 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		dialog = CustomProgressDialog.createDialog(this, "加载中。。");
 		getShared();
 		Init();
+		if (null != content) {
+			content_edt.setText(content);
+		}
 	}
 
 	/**
@@ -448,6 +452,9 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		public void loading() {
 			new Thread(new Runnable() {
 				public void run() {
+					if (null == Bimp.tempSelectBitmap) {
+						return;
+					}
 					while (true) {
 						if (Bimp.max == Bimp.tempSelectBitmap.size()) {
 							Message message = new Message();
@@ -514,7 +521,8 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 					PublicWay.activityList.get(i).finish();
 				}
 			}
-			System.exit(0);
+			finish();
+
 		}
 		return true;
 	}
@@ -538,6 +546,19 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 
 	@Override
 	protected void onDestroy() {
+		for (int i = 0; i < PublicWay.activityList.size(); i++) {
+			if (null != PublicWay.activityList.get(i)) {
+				PublicWay.activityList.get(i).finish();
+			}
+		}
+		if (null != content) {
+			content = null; 
+		}
+		if (null != Bimp.tempSelectBitmap) {
+			Bimp.tempSelectBitmap.clear();
+		}
+		finish();
+
 		MyAppliation.getInstance().exit();
 		super.onDestroy();
 	}

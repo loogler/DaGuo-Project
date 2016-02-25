@@ -168,5 +168,7 @@
     <color name="albumback">#E1E0DE</color>
     <color name="style_red">#ff4c41</color>
     <color name="style_divider_color">#C9C7CD</color>
+    
+    <color name="green_pull">#ddf0cb</color>
 
 </resources>

@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ import com.daguo.utils.PublicTools;
  */
 public class School_Main4Aty extends Activity implements OnClickListener {
 	private final int MSG_USERDATA = 10001;
+	private String TAG ="School_Main4Aty";
 
 	private String p_id;
 	/**
@@ -240,7 +242,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 				message.sendToTarget();
 
 			} catch (Exception e) {
-
+				Log.e(TAG, "获取用户动态信息 异常");
 			}
 		}
 
@@ -311,10 +313,12 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.dingdan_ll:
+			//我的订单
 			intent = new Intent(School_Main4Aty.this, UserInfo_MyOrderAty.class);
 			startActivity(intent);
 			break;
 		case R.id.cart_ll:
+			// 我的购物车
 			intent = new Intent(School_Main4Aty.this, Shop_CartAty.class);
 			startActivity(intent);
 			break;

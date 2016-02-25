@@ -31,7 +31,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <ImageView
             android:id="@+id/apps_iv"
@@ -49,5 +50,12 @@
             android:layout_marginRight="20dp"
             android:src="@drawable/icon_outschool_nearby" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv111"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/school_bars1" />
 
 </LinearLayout>

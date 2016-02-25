@@ -273,11 +273,14 @@ public class Shop_GoodsDetailAty extends Activity implements OnClickListener,
 
     /************** thread ********************************************/
 
+    /**
+     * 查看 单个商品部详细信息 
+     */
     private void loadGoodsData() {
 	new Thread(new Runnable() {
 	    public void run() {
 		try {
-		    String url = HttpUtil.QUERY_GOODSLIST
+		    String url = HttpUtil.QUERY_GOODSDETAIL
 			    + "&rows=1&page=1&id=" + id;
 		    String res = HttpUtil.getRequest(url);
 		    JSONObject jsonObject = new JSONObject(res);

@@ -8,7 +8,7 @@
         android:dashGap="0dp"
         android:dashWidth="0.2dp"
         android:width="0.5dp"
-        android:color="#ddd" />
+        android:color="#eee" />
 
     <solid android:color="#ffffffff" />
 

@@ -24,7 +24,6 @@
             android:padding="5dp"
             android:textSize="13sp" />
     </LinearLayout>
-    
 
     <com.daguo.libs.staggeredgridview.StaggeredGridView
         android:id="@+id/staggeredGridView"

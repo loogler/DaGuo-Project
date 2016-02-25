@@ -89,7 +89,7 @@ public class SC_HuoDongAty1 extends Activity {
 			HttpUtil.IMG_URL + addLists.get(0).getImg_path());
 		add_iv.setLayoutParams(new LinearLayout.LayoutParams(
 			GetScreenRecUtil.getWindowWidth(SC_HuoDongAty1.this),
-			GetScreenRecUtil.getWindowWidth(SC_HuoDongAty1.this) / 2));
+			2*GetScreenRecUtil.getWindowWidth(SC_HuoDongAty1.this) / 5));
 		add_iv.setOnClickListener(new AddBannerOnclickListener(
 			SC_HuoDongAty1.this, addLists, 0));
 

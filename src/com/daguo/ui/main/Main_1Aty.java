@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -34,7 +35,7 @@ import android.widget.TextView;
 
 import com.daguo.R;
 import com.daguo.modem.schedule.Main_Aty;
-import com.daguo.ui.commercial.Shop_SearchAty;
+import com.daguo.ui.commercial.coupon.CouponAty;
 import com.daguo.ui.commercial.school.SchoolShop_MainAty;
 import com.daguo.ui.message.MessageAty;
 import com.daguo.ui.operators.OperatorAty;
@@ -56,6 +57,7 @@ import com.daguo.util.beans.SC_SheTuan;
 import com.daguo.utils.GetScreenRecUtil;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
+import com.daguo.view.dialog.CustomAlertDialog;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -238,9 +240,12 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		setTopBanner();
 		loadFunctionIconData();
 		loadInfomation();
+		 
 
 	}
 
+	
+	
 	/**
 	 * 实例化界面
 	 */
@@ -288,7 +293,10 @@ public class Main_1Aty extends Activity implements OnClickListener {
 
 				} else if ("d3490024-4e1c-4b99-8eb0-ac643f09eae8"
 						.equals(gridLists.get(p).getMenu_id())) {// 聚会达人
-					intent = new Intent(Main_1Aty.this, Shop_SearchAty.class);
+					// intent = new Intent(Main_1Aty.this,
+					// Shop_SearchAty.class);
+					intent = new Intent(Main_1Aty.this, CouponAty.class);
+					// TODO 临时跳转 修改
 					startActivity(intent);
 
 				} else if ("dc0d893b-69a1-4d0f-9179-6f374757773c"
@@ -360,10 +368,10 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		mIndicator = (LinearLayout) findViewById(R.id.index_product_images_indicator);
 		topBanner_rl = (RelativeLayout) findViewById(R.id.topBanner_rl);
 
-		// 设置高度 长宽比 1:2
+		// 设置高度 长宽比 1:3
 		LayoutParams params = new LayoutParams(
 				GetScreenRecUtil.getWindowWidth(Main_1Aty.this),
-				GetScreenRecUtil.getWindowWidth(Main_1Aty.this) / 2);
+				2*GetScreenRecUtil.getWindowWidth(Main_1Aty.this) / 5);
 		topBanner_rl.setLayoutParams(params);
 
 		initData();
