@@ -173,12 +173,18 @@ public class UserInfo_MyCouponAty extends Activity {
 					JSONObject js = new JSONObject(res);
 					int aaa = js.getInt("total");
 					if (aaa != 0) {
+
+						if (js.getInt("totalPageNum") < pageIndex) {
+							return;
+
+						}
 						JSONArray array = js.getJSONArray("rows");
 						List<CouponEntity> abc = new ArrayList<CouponEntity>();
 						for (int i = 0; i < array.length(); i++) {
 
 							list = new CouponEntity();
-							String id = array.optJSONObject(i).getString("id");
+							String id = array.optJSONObject(i)
+									.getString("a_id");
 							String content = array.optJSONObject(i).getString(
 									"content");
 							String img_path = array.optJSONObject(i).getString(

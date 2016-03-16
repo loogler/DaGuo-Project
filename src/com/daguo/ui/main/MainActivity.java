@@ -29,6 +29,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,9 +37,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.provider.MediaStore.Audio;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,9 +52,16 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.CustomPushNotificationBuilder;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.daguo.R;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
+import com.daguo.utils.Utils;
+import com.daguo.view.dialog.CustomAlertDialog;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.service.XGPushService;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("HandlerLeak")
@@ -70,6 +80,10 @@ public class MainActivity extends Activity {
 	private LocalActivityManager manager = null;
 	private MyPagerAdapter mpAdapter = null;
 	boolean isNew, isUp;
+	private final int MSG_CENT_SUC = 10001;
+	private final int MSG_CENT_FAIL = 10002;
+
+	private String p_id;
 
 	// 版本说明
 	private String remark;
@@ -220,6 +234,27 @@ public class MainActivity extends Activity {
 								}).show();
 
 				break;
+
+			case MSG_CENT_SUC:
+
+				CustomAlertDialog.createPositiveDialog(MainActivity.this,
+						"每日登录 积分 +2").show();
+				Time t = new Time();
+				t.setToNow();
+				int lastmonth = t.month + 1;
+				final String str = t.year + "年" + lastmonth + "月" + t.monthDay
+						+ "日";
+				Editor edt = getSharedPreferences("dailytask", MODE_PRIVATE)
+						.edit();
+				edt.putString("qiandao", str);
+				edt.commit();
+
+				break;
+
+			case MSG_CENT_FAIL:
+
+				break;
+
 			default:
 				break;
 			}
@@ -232,19 +267,39 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		MobclickAgent.setSessionContinueMillis(30000);
+		
+		
+		// 开启logcat输出，方便debug，发布时请关闭
+		// XGPushConfig.enableDebug(this, true);
+		// 如果需要知道注册是否成功，请使用registerPush(getApplicationContext(), XGIOperateCallback)带callback版本
+		// 如果需要绑定账号，请使用registerPush(getApplicationContext(),account)版本
+		// 具体可参考详细的开发指南
+		// 传递的参数为ApplicationContext
+		Context context = getApplicationContext();
+		XGPushManager.registerPush(context);    
+		 
+		// 2.36（不包括）之前的版本需要调用以下2行代码
+		Intent service = new Intent(context, XGPushService.class);
+		context.startService(service);
+		 
+		 
+		// 其它常用的API：
+		// 绑定账号（别名）注册：registerPush(context,account)或registerPush(context,account, XGIOperateCallback)，其中account为APP账号，可以为任意字符串（qq、openid或任意第三方），业务方一定要注意终端与后台保持一致。
+		// 取消绑定账号（别名）：registerPush(context,"*")，即account="*"为取消绑定，解绑后，该针对该账号的推送将失效
+		// 反注册（不再接收消息）：unregisterPush(context)
+		// 设置标签：setTag(context, tagName)
+		// 删除标签：deleteTag(context, tagName)
+		
 
-		// PushAgent mPushAgent = PushAgent.getInstance(MainActivity.this);
-		// mPushAgent.enable();
-		// String device_token =
-		// UmengRegistrar.getRegistrationId(MainActivity.this);
-		// Log.i("device_token", device_token);
-
+		p_id = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+				.getString("id", "");
 		radioGroup = (RadioGroup) findViewById(R.id.rdg);
 		viewPage = (ViewPager) findViewById(R.id.vPager);
 		manager = new LocalActivityManager(this, true);
 		manager.dispatchCreate(savedInstanceState);
 		init();
 		initViewPager();
+		dailyTaskSgin();
 		viewPage.setCurrentItem(0);
 		viewPage.setOnPageChangeListener(new MyOnPageChangeListener());
 		radioGroup
@@ -339,7 +394,6 @@ public class MainActivity extends Activity {
 		nn = new Notification();// 创建一个通知对象
 
 		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// 这是百度应用商店上的一个叫魔幻古筝的APK安装包，有其他需要可以自己找，是个安装包的路径就行
 		apkDownloadPath = HttpUtil.DOWNLOAD;
 		// 存放位置为手机默认目录下的NotificationDemo文件夹（如果没有会默认生成一个这样的文件夹，详见下载块）
 		savePath = Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -522,6 +576,7 @@ public class MainActivity extends Activity {
 	 * 菜单按钮中用到的isUpdate方法
 	 * */
 
+	@SuppressLint("SimpleDateFormat")
 	public void isUpdate() throws NameNotFoundException {
 
 		String res = null;
@@ -765,4 +820,49 @@ public class MainActivity extends Activity {
 		return pendingIntent;
 	}
 
+	/**
+	 * 每日签到的方法
+	 */
+	private void dailyTaskSgin() {
+		Time t = new Time();
+		t.setToNow();
+		int lastmonth = t.month + 1;
+		final String str = t.year + "年" + lastmonth + "月" + t.monthDay + "日";
+		SharedPreferences sp = getSharedPreferences("dailytask", MODE_PRIVATE);
+		String qiandao = sp.getString("qiandao", "");
+
+		if (!str.equals(qiandao)) {
+			// 未签到 防止多次签到
+			// 执行签到 每日签到积分为 2 分
+
+			new Thread(new Runnable() {
+				public void run() {
+					try {
+						String url = HttpUtil.SUBMIT_USERINFO_CENT + "&p_id="
+								+ p_id + "&score=2";
+						String res = HttpUtil.getRequest(url);
+						JSONObject js = new JSONObject(res);
+
+						if ("1".equals(js.getString("result"))) {
+							// 成功
+							mHandler.sendEmptyMessage(MSG_CENT_SUC);
+						} else if ("0".equals(js.getString("result"))) {
+							// 积分处理异常
+							mHandler.sendEmptyMessage(MSG_CENT_FAIL);
+
+						} else {
+							// 其他
+							mHandler.sendEmptyMessage(MSG_CENT_FAIL);
+						}
+					} catch (Exception e) {
+					}
+				}
+			}).start();
+
+		} else {
+			// 已签到 不用提示
+
+		}
+
+	}
 }

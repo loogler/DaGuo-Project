@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/item_commentitleview" />
+
+    <GridView
+        android:id="@+id/goodstype_grid"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:horizontalSpacing="3dp"
+        android:numColumns="5"
+        android:verticalSpacing="3dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingBottom="4dp"
+        android:paddingTop="2dp"
+        android:text=" 优惠零食推荐"
+        android:textColor="@color/green_home"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <com.daguo.libs.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+        <!-- 支持所有实现Pullable接口的View -->
+
+        <com.daguo.libs.pulltorefresh.PullableGridView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+
+        <include layout="@layout/load_more" />
+    </com.daguo.libs.pulltorefresh.PullToRefreshLayout>
+
+</LinearLayout>

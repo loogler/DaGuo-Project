@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/remind_background" >
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="fill_parent"
+        android:layout_height="250dip"
+        android:layout_marginTop="10dip"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:cacheColorHint="#00000000"
+            android:columnWidth="60dp"
+            android:divider="#00FFCC00"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:layoutAnimation="@anim/layout_grid_fade"
+            android:listSelector="@drawable/selector_btn_icon"
+            android:numColumns="3"
+            android:verticalSpacing="10dp" >
+        </GridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#f5d541"
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/app_schedule_bt1"
+            style="@style/btn_style_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:background="@drawable/a9"
+        android:orientation="vertical"
+        android:padding="15dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/schedule_tv1"
+            style="@style/R_datebox_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="18周"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/schedule_tv2"
+            style="@style/R_datebox_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="星期三"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</RelativeLayout>

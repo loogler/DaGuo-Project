@@ -51,11 +51,16 @@
             android:src="@drawable/icon_outschool_nearby" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv111"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:src="@drawable/school_bars1" />
+        android:layout_height="10dp"
+        android:gravity="center|bottom" >
+
+        <TextView
+            android:id="@+id/iv111"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/school_bars1" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -272,8 +272,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:background="@drawable/bg_rec"
+                        android:hint="XYZ9909"
                         android:padding="5dp"
-                        android:text="XYZ9909"
                         android:textSize="12sp" />
                 </LinearLayout>
 

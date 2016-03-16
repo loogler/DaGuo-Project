@@ -31,15 +31,14 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#00ffffff"
         android:drawableTop="@drawable/school_main_centertab"
         android:gravity="center_horizontal"
         android:onClick="openCameraActivity"
-        android:scaleType="fitCenter"
         android:text="大果"
         android:textColor="@color/deep_s_gray"
         android:textSize="12sp" />

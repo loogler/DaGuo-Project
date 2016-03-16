@@ -15,19 +15,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daguo.R;
-import com.daguo.ui.before.MainLoginAty1;
+import com.daguo.ui.before.MainBeforeLoginActivity;
 import com.daguo.ui.before.UserAgreementAty;
 import com.daguo.ui.message.MessageAty;
 import com.daguo.ui.settings.Setting_AboutAty;
 import com.daguo.ui.settings.Setting_App_IntroduceAty;
-import com.daguo.ui.settings.Setting_App_UserAgreementAty;
 import com.daguo.ui.settings.Setting_App_UserOpinion;
 import com.daguo.ui.user.UserInfo_ModifyAty1;
-import com.daguo.util.test.Test_Bitmap;
-import com.daguo.utils.HttpUtil;
 import com.daguo.view.dialog.CustomProgressDialog;
 
 /**
@@ -215,7 +211,7 @@ public class Main_4Aty extends Activity implements OnClickListener {
 									editor.commit();
 									// System.exit(0);
 									Intent intent = new Intent(Main_4Aty.this,
-											MainLoginAty1.class);
+											MainBeforeLoginActivity.class);
 									startActivity(intent);
 									finish();
 								}

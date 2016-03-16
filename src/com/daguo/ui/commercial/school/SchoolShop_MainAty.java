@@ -20,8 +20,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,7 +117,7 @@ public class SchoolShop_MainAty extends Activity {
 		if ("".equals(PublicTools.doWithNullData(p_school_id))) {
 			Toast.makeText(this, "学校信息异常，请及时联系管员", Toast.LENGTH_LONG).show();
 		}
-		initHeadView();
+		initTitleView();
 		initViews();
 
 		loadTypeInfo();
@@ -205,27 +206,26 @@ public class SchoolShop_MainAty extends Activity {
 	}
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView() {
-		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	private void initTitleView() {
 		TextView title_tv = (TextView) findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("校园超市");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				finish();
 			}
 		});
-		title_tv.setText("校园超市");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
-
+		message_ll.setVisibility(View.INVISIBLE);
 	}
-
 	/*-*---------加载数据-------------*/
 
 	/**

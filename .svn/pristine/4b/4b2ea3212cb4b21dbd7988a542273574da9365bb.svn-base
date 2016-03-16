@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:minHeight="100dp"
+        android:id="@+id/goodsPic_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/goodsName_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="10元话费" />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/grey"
+        />
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/goodsCent_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="1500积分"
+            android:textColor="@color/orange" />
+
+        <TextView
+            android:id="@+id/exchange_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/rightarrow"
+            android:gravity="end"
+            android:text="兑换"
+            android:textColor="@color/green_home" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@color/green_home" >
+
+        <ImageButton
+            android:id="@+id/friend_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/bt_back" />
+
+        <TextView
+            android:id="@+id/friend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于大果校园"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:src="@drawable/erweima" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="扫描二维码，与同学一起分享快乐时光"
+        android:textStyle="italic" />
+
+    <!-- null -->
+
+    <RelativeLayout
+        android:id="@+id/rl_gengxin"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/tabmyself_top"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/nickname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:gravity="center"
+            android:paddingLeft="20dip"
+            android:text="版本更新" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:layout_alignBaseline="@+id/nickname_tv"
+            android:layout_alignBottom="@+id/nickname_tv"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="Version:"
+            android:textColor="@color/red" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_jianjie"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/tabmyself_middle"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:paddingLeft="20dip"
+            android:text="大果校园简介" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/rightarrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_kaifa"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/tabmyself_bottom"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dip"
+            android:paddingLeft="20dip"
+            android:text="开发团队" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/rightarrow" />
+    </RelativeLayout>
+
+</LinearLayout>

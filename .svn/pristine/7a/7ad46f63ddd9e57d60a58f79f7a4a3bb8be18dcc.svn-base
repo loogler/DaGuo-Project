@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/about_background" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/remind_insert_tv2"
+            style="@style/R_datebox_tv"
+            android:visibility="gone" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/remind_insert_et1"
+            style="@style/R_edittext_et"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/remind_insert_tv1"
+            style="@style/R_tittle_tv"
+            android:layout_alignParentLeft="true"
+            android:text="添加备忘"
+            android:visibility="gone" >
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <!--
+               <ImageButton
+              android:id="@+id/remind_insert_bt1"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:src="@drawable/selector_btn_sumit"
+              android:background="@android:color/transparent"
+              android:layout_marginBottom="10dp"
+              >
+              </ImageButton>
+            -->
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/icon_btn_ellipse"
+                android:gravity="center" >
+
+                <ImageButton
+                    android:id="@+id/remind_insert_bt2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/selector_btn_sumit" >
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

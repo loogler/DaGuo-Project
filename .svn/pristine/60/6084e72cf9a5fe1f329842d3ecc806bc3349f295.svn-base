@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.daguo"
+    android:versionCode="1"
+    android:versionName="1.30" >
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 可选 -->
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 百度地圖 -->
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
+    <!-- 允许应用读取低级别的系统日志文件 -->
+    <uses-permission android:name="android.permission.READ_LOGS" >
+    </uses-permission>
+
+    <application
+        android:name="com.daguo.ui.before.MyAppliation"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="大果校园"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="com.daguo.ui.before.MainLoadingAty"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- com.daguo.modem.photo 图片处理模块 -->
+        <activity android:name="com.daguo.modem.photo.ImagePagerActivity" >
+        </activity>
+        <!-- com.daguo.modem.schedule.学生课表模块 -->
+        <activity android:name="com.daguo.modem.schedule.Main_Aty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.RemindEditAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.RemindInsertAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.ScheduleInsertAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.ScheduleShowAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateRemindAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateScheduleAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.schedule.TodayDateSettingAty" >
+        </activity>
+        <!-- com.daguo.modem.writeshuoshuo.ui大果校園 模塊部分    發說說 -->
+        <activity android:name="com.daguo.modem.writeshuoshuo.ui.SC_ShuoShuo_WriteAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.writeshuoshuo.ui.GalleryActivity" >
+        </activity>
+        <activity android:name="com.daguo.modem.writeshuoshuo.ui.ImageFile" >
+        </activity>
+        <activity android:name="com.daguo.modem.writeshuoshuo.ui.AlbumActivity" >
+        </activity>
+        <activity android:name="com.daguo.modem.writeshuoshuo.ui.ShowAllPhoto" >
+        </activity>
+
+        <!-- com.daguo.modem.adress  抽奖 -->
+
+        <activity android:name="com.daguo.modem.choujiang.ChouJiangAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.choujiang.ChouJiangConsoleAty" >
+        </activity>
+        <activity android:name="com.daguo.modem.choujiang.LotteryAty" >
+        </activity>
+
+        <!-- com.daguo.ui.before. 登录前相关的准备事项 -->
+
+        <activity android:name="com.daguo.ui.before.MainLoginAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainBeforeLoginActivity" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.UserAgreementAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainWelcomeAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.GuideViewDoor" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.MainRegisterAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.before.zzz" >
+        </activity>
+        <!-- com.daguo.ui.commercial.   商城部分界面 -->
+        <activity android:name="com.daguo.ui.commercial.Shop_GoodsDetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_OrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_SearchAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_Order_AddressAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.Shop_CartAty" >
+        </activity>
+        <!-- com.daguo.ui.commercial.cent. 积分商城界面 -->
+        <activity android:name="com.daguo.ui.commercial.cent.CentAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.cent.Cent_DetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.cent.Cent_CartAty" >
+        </activity>
+        <!-- com.daguo.ui.commercial.coupon.校园优惠劵 -->
+        <activity android:name="com.daguo.ui.commercial.coupon.CouponAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.coupon.CouponDetailAty" >
+        </activity>
+
+        <!-- com.daguo.ui.commercial.school. 校园商城 -->
+        <activity android:name="com.daguo.ui.commercial.school.SchoolShop_MainAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.commercial.school.SchoolShop_SearchAty" >
+        </activity>
+
+        <!-- com.daguo.ui.main.  登录主页部分的界面 -->
+        <activity android:name="com.daguo.ui.main.MainActivity" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_1Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_2Aty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_3Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.Main_4Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.main.WebView_CommenAty" >
+        </activity>
+
+        <!-- com.daguo.ui.message. 消息通知类界面 -->
+        <activity android:name="com.daguo.ui.message.MessageAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.message.Chat_Aty" >
+        </activity>
+
+        <!-- com.daguo.ui.operators. 运营商部分 -->
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBandAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_MobileAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.OperatorAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_FStepAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_SStepAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.Oper_Mobile_OrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.broadband.Oper_BroadBand_OrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.operators.OperatorDetailAty" >
+        </activity>
+
+        <!-- com.daguoschool.ui.school 校园部分 -->
+        <activity android:name="com.daguo.ui.school.School_MainAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main1Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main2Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main3Aty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.School_Main4Aty" >
+        </activity>
+        <!-- com.daguo.ui.school.huodong 校园活动 部分功能 -->
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDongAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.huodong.SC_HuoDong_DetailAty1" >
+        </activity>
+
+        <!-- com.daguo.ui.school.map. 校园 地图 部分功能 -->
+        <activity android:name="com.daguo.ui.school.map.SchoolMapAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.map.SchoolMapDetailAty" >
+        </activity>
+
+        <!-- com.daguo.ui.school.outlet. 校外部分 -->
+        <activity android:name="com.daguo.ui.school.outlet.OutLetAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.outlet.AppDownLoadAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.outlet.AppDownLoadDetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.outlet.WorldViewAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.outlet.WorldViewDetailAty" >
+        </activity>
+
+        <!-- com.daguo.ui.school.shetuan  校园社团部分 -->
+        <activity android:name="com.daguo.ui.school.shetuan.SC_SheTuanAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shetuan.SC_SheTuanDetailAty" >
+        </activity>
+
+        <!-- com.daguoschool.ui.school.shuoshuo  校园的分支1  说说功能 -->
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_EvaluationAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.shuoshuo.SC_ShuoShuo_NewStudentAty" >
+        </activity>
+        <!-- com.daguo.ui.school.xinwen. 学校活动的部分包括新闻之类的所有 -->
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWenAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.xinwen.SC_XinWen_DetailAty" >
+        </activity>
+
+        <!-- com.daguo.ui.school.xinxianshi. 校园新鲜事部分 -->
+
+        <activity android:name="com.daguo.ui.school.xinxianshi.SC_XinXianShiDetailAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.xinxianshi.SC_XinXianShiAty" >
+        </activity>
+
+        <!-- com.daguo.ui.school.zhuanti.   校园专题部分 这部分也可能包含其他的活动 但是统一采用活动框架 -->
+        <activity android:name="com.daguo.ui.school.zhuanti.SC_ZhuanTiAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.school.zhuanti.SC_ZhuanTiDetailAty" >
+        </activity>
+
+        <!-- com.daguo.ui.settings -->
+        <activity android:name="com.daguo.ui.settings.Setting_AboutAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_IntroduceAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_UserAgreementAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.settings.Setting_App_UserOpinion" >
+        </activity>
+        <!-- com.daguo.ui.user.  个人中心部分 -->
+        <activity android:name="com.daguo.ui.user.UserInfo_ModifyAty1" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyAttentionAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyShuoShuoAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyHuoDongAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyHuoDong_EvaAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfoAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyOrderAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyBaoMingAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyDianZan" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyCentAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyAttention_MyAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyAttention_YourAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyOrder_AllAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyOrder_UnPayAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyOrder_PayAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyOrder_FinishAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyCouponAty" >
+        </activity>
+        <activity android:name="com.daguo.ui.user.UserInfo_MyCouponDetailAty" >
+        </activity>
+        <activity android:name="com.daguo.util.test.Test_Bitmap" >
+        </activity>
+
+        <!-- alipay 支付宝 -->
+
+        <activity android:name="com.daguo.util.alipay.PayDemoActivity" >
+        </activity>
+        <activity android:name="com.daguo.util.alipay.Pay_GoodsAty" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+【应用包名】字符串需要替换成本应用的应用包名
+
+        <!-- 百度地圖定位 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="twMQZgc2Po1jbckKl9GzrkiN" />
+
+        <!--
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:permission="android.permission.BAIDU_LOCATION_SERVICE"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.6" >
+                </action>
+            </intent-filter>
+        </service>
+        -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
+        <!-- push结束 -->
+
+        <service
+            android:name="com.daguo.service.PushService"
+            android:enabled="true" >
+        </service>
+    </application>
+
+</manifest>

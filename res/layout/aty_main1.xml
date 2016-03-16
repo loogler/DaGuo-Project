@@ -137,8 +137,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:background="@color/white"
                 android:orientation="horizontal" >
 
@@ -221,7 +219,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-   
 
 </LinearLayout>

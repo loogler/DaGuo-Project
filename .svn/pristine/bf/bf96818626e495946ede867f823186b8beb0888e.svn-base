@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0" />
+
+        <RelativeLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/bg_schedule_title"
+            android:gravity="bottom" >
+
+            <LinearLayout
+                android:background="#ea4626"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true" >
+
+                <Button
+                    android:layout_margin="5dp"
+                    android:id="@+id/bt2"
+                    style="@style/tab_item_text_style"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/remind_title_f_s2_p" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#38bcf5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true">
+
+                <Button
+                    android:layout_margin="5dp"
+                    android:id="@+id/bt1"
+                    style="@style/tab_item_text_style"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/remind_title_f_s1_p" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/cursor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"
+            android:src="@drawable/a" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vPager"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="#000000"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <!--  -->
+    
+    
+</TabHost>

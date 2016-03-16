@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_azure" >
+
+    <include layout="@layout/item_commentitleview" />
+
+    <com.daguo.modem.choujiang.LuckyPanView
+        android:id="@+id/id_luckypan"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:padding="30dp" />
+
+    <ImageView
+        android:id="@+id/id_start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/start" />
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_fillet_transgreen"
+        android:text="确定"
+        android:textColor="@color/green_home" />
+
+    <TextView
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submit_btn"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="60积分" />
+
+</RelativeLayout>

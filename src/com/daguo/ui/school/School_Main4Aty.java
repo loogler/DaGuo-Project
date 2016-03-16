@@ -15,6 +15,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ import com.daguo.utils.PublicTools;
  */
 public class School_Main4Aty extends Activity implements OnClickListener {
 	private final int MSG_USERDATA = 10001;
-	private String TAG ="School_Main4Aty";
+	private String TAG = "School_Main4Aty";
 
 	private String p_id;
 	/**
@@ -52,7 +53,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	private TextView nicknameTextView, infoTextView, feedbackTextView,
 			shuoshuoTextView, huodong_0TextView, guanzhuTextView,
 			jifenTextView, huodongTextView, dianzanTextView;
-	private ImageView photosView, registView, sexView, backview;
+	private ImageView photosView, registView, sexView;
 
 	private LinearLayout shuoshuoLayout, huodong_0Layout, guanzhuLayout,
 			jifenLayout, duihuanLayout, huodongLayout, dianzanLayout,
@@ -82,7 +83,6 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 		getSharedP();
 		initViews();
 		new Thread(new GetUserInfo()).start();
-
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -101,9 +101,8 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	};
 
 	private void getSharedP() {
-		@SuppressWarnings("deprecation")
 		SharedPreferences sp = getSharedPreferences("userinfo",
-				Context.MODE_WORLD_READABLE);
+				Context.MODE_PRIVATE);
 		id = sp.getString("id", "");
 		headImg = sp.getString("head_info", "");
 		nickName = sp.getString("name", "");
@@ -129,6 +128,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 	}
 
 	private void initViews() {
+		initTitleView();
 		nicknameTextView = (TextView) findViewById(R.id.nickname_tv);
 		infoTextView = (TextView) findViewById(R.id.year_dep_sch_tv);
 		feedbackTextView = (TextView) findViewById(R.id.feedback_tv);
@@ -142,7 +142,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 		photosView = (ImageView) findViewById(R.id.photos);
 		registView = (ImageView) findViewById(R.id.regist_iv);
 		sexView = (ImageView) findViewById(R.id.sex_iv);
-		backview = (ImageView) findViewById(R.id.back);
+
 		photosView.setOnClickListener(this);
 		registView.setOnClickListener(this);
 
@@ -200,6 +200,28 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 			sexView.setVisibility(View.GONE);
 		}
 
+	}
+
+	/**
+	 * 初始化通用标题栏
+	 */
+	private void initTitleView() {
+		TextView title_tv = (TextView) findViewById(R.id.title_tv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+
+		title_tv.setText("个人资料修改");
+		back_fram.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				System.gc();
+				finish();
+			}
+		});
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/**
@@ -313,7 +335,7 @@ public class School_Main4Aty extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.dingdan_ll:
-			//我的订单
+			// 我的订单
 			intent = new Intent(School_Main4Aty.this, UserInfo_MyOrderAty.class);
 			startActivity(intent);
 			break;

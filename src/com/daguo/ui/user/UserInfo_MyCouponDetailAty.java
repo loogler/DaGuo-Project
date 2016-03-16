@@ -8,6 +8,7 @@ import net.tsz.afinal.FinalBitmap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -70,6 +71,7 @@ public class UserInfo_MyCouponDetailAty extends Activity {
 	 */
 	private CustomProgressDialog dialog;
 
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -82,6 +84,8 @@ public class UserInfo_MyCouponDetailAty extends Activity {
 				dialog.dismiss();
 				Toast.makeText(UserInfo_MyCouponDetailAty.this, "使用完成！",
 						Toast.LENGTH_LONG).show();
+				status_btn.setEnabled(false);
+				status_btn.setText("已使用");
 				break;
 			case MSG_COUPON_APPLY_F:
 				// 提交失败
@@ -218,7 +222,7 @@ public class UserInfo_MyCouponDetailAty extends Activity {
 							String title = array.optJSONObject(i).getString(
 									"title");
 							String status = array.optJSONObject(i).getString(
-									"status");
+									"used_flag");
 							String content = array.optJSONObject(i).getString(
 									"content");
 							String img_src = array.optJSONObject(i).getString(
@@ -266,7 +270,7 @@ public class UserInfo_MyCouponDetailAty extends Activity {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					String url = HttpUtil.SUBMIT_COUPON_APPLY + "&p_id=" + p_id
+					String url = HttpUtil.SUBMIT_COUPON_USE + "&p_id=" + p_id
 							+ "&a_id=" + a_id;
 					String res = HttpUtil.getRequest(url);
 

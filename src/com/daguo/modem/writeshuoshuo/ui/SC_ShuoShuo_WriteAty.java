@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -57,6 +59,7 @@ import com.daguo.ui.before.MyAppliation;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
 import com.daguo.utils.UploadUtil;
+import com.daguo.view.dialog.CustomAlertDialog;
 import com.daguo.view.dialog.CustomProgressDialog;
 
 /**
@@ -72,6 +75,8 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 	private final int MSG_UPLOAD_FINISH = 102;
 	private final int TAKE_PICTURE = 0x000001;
 	private final int CHOOSE_PHOTO = 0x000002;
+	private final int MSG_CENT_SUC = 10001;
+	private final int MSG_CENT_FAIL = 10002;
 
 	private TextView activity_selectimg_send;
 	private GridView noScrollgridview;
@@ -120,6 +125,23 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 				submitContent(content, HttpUtil.SUBMIT_SHUOSHUO);
 				break;
 
+			case MSG_CENT_SUC:
+				CustomAlertDialog.createPositiveDialog(
+						SC_ShuoShuo_WriteAty.this, "每日发说说 积分 +2").show();
+				Time t = new Time();
+				t.setToNow();
+				int lastmonth = t.month + 1;
+				final String str = t.year + "年" + lastmonth + "月" + t.monthDay
+						+ "日";
+				Editor edt = getSharedPreferences("dailytask", MODE_PRIVATE)
+						.edit();
+				edt.putString("shuoshuo", str);
+				edt.commit();
+				break;
+
+			case MSG_CENT_FAIL:
+
+				break;
 			default:
 				break;
 			}
@@ -245,6 +267,7 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				dialog.show();
+				dailyTaskShuoShuo();
 
 				String con = content_edt.getText().toString().trim();
 				content = PublicTools.doWithNullData(con);
@@ -261,6 +284,52 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 				finish();
 			}
 		});
+
+	}
+
+	/**
+	 * 每日发说说送积分的方法
+	 */
+	private void dailyTaskShuoShuo() {
+		Time t = new Time();
+		t.setToNow();
+		int lastmonth = t.month + 1;
+		final String str = t.year + "年" + lastmonth + "月" + t.monthDay + "日";
+		SharedPreferences sp = getSharedPreferences("dailytask", MODE_PRIVATE);
+		String qiandao = sp.getString("shuoshuo", "");
+
+		if (!str.equals(qiandao)) {
+			// 未发过 防止多次签到
+			// 执行加分 积分为 5 分
+
+			new Thread(new Runnable() {
+				public void run() {
+					try {
+						String url = HttpUtil.SUBMIT_USERINFO_CENT + "&p_id="
+								+ p_id + "&score=5";
+						String res = HttpUtil.getRequest(url);
+						JSONObject js = new JSONObject(res);
+
+						if ("1".equals(js.getString("result"))) {
+							// 成功
+							handler.sendEmptyMessage(MSG_CENT_SUC);
+						} else if ("0".equals(js.getString("result"))) {
+							// 积分处理异常
+							handler.sendEmptyMessage(MSG_CENT_FAIL);
+
+						} else {
+							// 其他
+							handler.sendEmptyMessage(MSG_CENT_FAIL);
+						}
+					} catch (Exception e) {
+					}
+				}
+			}).start();
+
+		} else {
+			// 已签到 不用提示
+
+		}
 
 	}
 
@@ -552,7 +621,7 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 			}
 		}
 		if (null != content) {
-			content = null; 
+			content = null;
 		}
 		if (null != Bimp.tempSelectBitmap) {
 			Bimp.tempSelectBitmap.clear();
@@ -562,4 +631,5 @@ public class SC_ShuoShuo_WriteAty extends Activity {
 		MyAppliation.getInstance().exit();
 		super.onDestroy();
 	}
+
 }

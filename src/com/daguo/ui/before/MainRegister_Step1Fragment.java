@@ -8,21 +8,13 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.daguo.R;
-import com.daguo.utils.HttpUtil;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +24,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.daguo.R;
+import com.daguo.utils.HttpUtil;
 
 /**
  * @author : BugsRabbit
@@ -95,7 +91,7 @@ public class MainRegister_Step1Fragment extends Fragment {
 
 		View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fragment_mainregister_step1, null);
-		initHeadView(view);
+		initTitleView(view);
 		initViews(view);
 		return view;
 
@@ -125,25 +121,26 @@ public class MainRegister_Step1Fragment extends Fragment {
 	};
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView(View view) {
-		TextView back_tView = (TextView) view.findViewById(R.id.back_tv);
+	private void initTitleView(View view) {
 		TextView title_tv = (TextView) view.findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) view.findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) view.findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) view.findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) view
+				.findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("注册");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				getActivity().finish();
 			}
 		});
-		title_tv.setText("注册");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
-
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/**
@@ -199,12 +196,19 @@ public class MainRegister_Step1Fragment extends Fragment {
 
 				// infoCheck success
 				//
+
 				schoolId = maps.get(schoolName);
 				activity = (MainRegisterAty1) getActivity();
-				FragmentTransaction ft = activity.getSupportFragmentManager()
-						.beginTransaction();
-				ft.replace(R.id.framelayout, activity.step2Fragment);
-				ft.commit();
+				if (schoolId != null && !schoolId.isEmpty()) {
+
+					FragmentTransaction ft = activity
+							.getSupportFragmentManager().beginTransaction();
+					ft.replace(R.id.framelayout, activity.step2Fragment);
+					ft.commit();
+				} else {
+					Toast.makeText(activity, "学校信息未找到，请确认学校！",
+							Toast.LENGTH_LONG).show();
+				}
 
 			} else {
 

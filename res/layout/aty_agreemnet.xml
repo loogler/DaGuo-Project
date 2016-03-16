@@ -4,15 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/nickname_tv"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/green_home"
-        android:gravity="center"
-        android:text="用户协议"
-        android:textColor="@color/white"
-        android:textSize="22sp" />
+    <include layout="@layout/item_commentitleview" />
 
     <Button
         android:id="@+id/button1"
@@ -23,7 +15,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_yuanjiao"
         android:gravity="center"
-        android:text="返回"
+        android:text="确定"
         android:textColor="@color/green_home" />
 
     <ScrollView

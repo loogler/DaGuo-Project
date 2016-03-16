@@ -2,17 +2,26 @@ package com.daguo.util.adapter;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import net.tsz.afinal.FinalBitmap;
 
 import com.daguo.R;
+import com.daguo.ui.user.UserInfo_MyCouponAty;
+import com.daguo.ui.user.UserInfo_MyCouponDetailAty;
 import com.daguo.util.beans.CouponEntity;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -89,7 +98,7 @@ public class MyCouponAdapter extends BaseAdapter {
 
 	}
 
-	private void bindData(VH vh, int p) {
+	private void bindData(VH vh, final int p) {
 		vh.title1_tv.setText(lists.get(p).getTitle());
 		vh.title2_tv.setText(lists.get(p).getTitle2());
 		finalBitmap.display(
@@ -100,10 +109,43 @@ public class MyCouponAdapter extends BaseAdapter {
 		String sta = PublicTools.doWithNullData(lists.get(p).getStatus());
 		if ("0".equals(sta)) {
 			// 未使用
-			vh.status_btn.setText("使用");
+			vh.status_btn.setText("未使用");
+			vh.status_btn.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					new AlertDialog.Builder(activity)
+							.setMessage("确定使用吗 ？")
+							.setPositiveButton("确定",
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface arg0, int arg1) {
+											Intent intent = new Intent(
+													activity,
+													UserInfo_MyCouponDetailAty.class);
+											intent.putExtra("id", lists.get(p)
+													.getId());
+											activity.startActivity(intent);
+										}
+									}).setNegativeButton("取消", null).create()
+							.show();
+				}
+			});
+
 		} else if ("1".equals(sta)) {
 			// 已使用
 			vh.status_btn.setText("已使用");
+			vh.status_btn.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					new AlertDialog.Builder(activity).setMessage("该优惠劵已被使用")
+							.setPositiveButton("确定", null).create().show();
+
+				}
+			});
 
 		} else if ("2".equals(sta)) {
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fx_head1"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/download_layout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clickable="true"
+        android:background="@drawable/mian_textview_select" >
+
+            <TextView
+                android:id="@+id/onback_backbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/fx_insearch_return" />
+
+        </LinearLayout>
+        
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bian" />
+
+        <TextView
+            android:id="@+id/txt_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:text="后退头部"
+            android:textColor="#f0f0f0" />
+        
+
+    </LinearLayout>
+</LinearLayout>

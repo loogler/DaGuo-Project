@@ -20,14 +20,13 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.daguo.R;
 import com.daguo.ui.before.MyAppliation;
-import com.daguo.ui.operators.OperatorDetailAty;
+import com.daguo.ui.operators.Oper_BroadBandDetailAty;
 import com.daguo.util.adapter.Oper_BroadbandAdapter;
 import com.daguo.util.beans.BroadBand;
 import com.daguo.utils.HttpUtil;
@@ -37,7 +36,7 @@ import com.daguo.view.dialog.CustomAlertDialog;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2015-12-29 下午3:44:13
- * @function ：宽带选择页 第二页
+ * @function ：宽带选择页 第三页
  */
 public class Oper_BroadBand_SStepAty extends Activity {
 	private final int MSG_BRO_SUC = 10001;
@@ -110,7 +109,7 @@ public class Oper_BroadBand_SStepAty extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View v, int p,
 					long arg3) {
 				Intent intent = new Intent(Oper_BroadBand_SStepAty.this,
-						OperatorDetailAty.class);
+						Oper_BroadBandDetailAty.class);
 				// intent.putExtra("cost_name", lists.get(p).getDetailName());
 				intent.putExtra("id", lists.get(p).getOrderId());
 				// intent.putExtra("price", lists.get(p).getPrice());

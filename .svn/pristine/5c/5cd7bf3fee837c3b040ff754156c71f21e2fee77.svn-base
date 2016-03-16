@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/item_commentitleview" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <com.daguo.util.base.ViewPager_Hacky
+            android:id="@+id/photo_vp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#00000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10元话费"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/cent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1600积分"
+                    android:textColor="@color/orange" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/submit_tv"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_fillet_orange"
+                android:gravity="center"
+                android:text="兑换"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detail_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="此卷用于交换大果商城的话费，不能用于其他作用"
+            android:textColor="@color/grey"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

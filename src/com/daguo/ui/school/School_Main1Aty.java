@@ -4,14 +4,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daguo.R;
@@ -72,7 +73,7 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 
 	// ------------------------------------------------------------------
 	private void init() {
-		initHeadView();
+		initTitleView();
 		// iv_back = (ImageView) findViewById(R.id.iv_back);
 		// schoolname = (TextView) findViewById(R.id.schoolname);
 		// iv_mail = (ImageView) findViewById(R.id.iv_mail);
@@ -97,23 +98,25 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView() {
-		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	private void initTitleView() {
 		TextView title_tv = (TextView) findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) findViewById(R.id.function_tv);
-		remind_iv = (ImageView) findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText(p_school);
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				finish();
 			}
 		});
-		title_tv.setText(p_school);
-		function_tv.setOnClickListener(new OnClickListener() {
+		message_ll.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -122,11 +125,38 @@ public class School_Main1Aty extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 		});
-
-		function_tv.setVisibility(View.VISIBLE);
-		remind_iv.setVisibility(View.INVISIBLE);
-
 	}
+//	/**
+//	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+//	 */
+//	private void initHeadView() {
+//		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+//		TextView title_tv = (TextView) findViewById(R.id.title_tv);
+//		TextView function_tv = (TextView) findViewById(R.id.function_tv);
+//		remind_iv = (ImageView) findViewById(R.id.remind_iv);
+//
+//		back_tView.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				finish();
+//			}
+//		});
+//		title_tv.setText(p_school);
+//		function_tv.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				Intent intent = new Intent(School_Main1Aty.this,
+//						MessageAty.class);
+//				startActivity(intent);
+//			}
+//		});
+//
+//		function_tv.setVisibility(View.VISIBLE);
+//		remind_iv.setVisibility(View.INVISIBLE);
+//
+//	}
 
 	// -----------------------------------------------------------------------
 

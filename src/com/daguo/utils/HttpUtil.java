@@ -103,6 +103,11 @@ public class HttpUtil {
 	 */
 	public static final String QUERY_USERINFO = URL
 			+ "personInfo/queryPersonInfoList?android=1";
+	/**
+	 * 个人积分修改接口 ==》 id score 参数 （最终计算积分不能小于0 ，如果小于，则返回错误）
+	 */
+	public static final String SUBMIT_USERINFO_CENT = URL
+			+ "personInfo/updateMyScore?android=1";
 
 	/**
 	 * 查询身边的人（通过批量查询id获取身边的人信息）
@@ -244,6 +249,11 @@ public class HttpUtil {
 	 */
 	public static final String SUBMIT_COUPON_APPLY = URL
 			+ "acceptCoupon/saveOrUpdate?android=1";
+	/**
+	 * 提交一个使用优惠卷的请求 参数类似上个接口 SUBMIT_COUPON_APPLY
+	 */
+	public static final String SUBMIT_COUPON_USE = URL
+			+ "acceptCoupon/update?android=1";
 
 	/**
 	 * 查看我的领取过的优惠卷列表 &page=1&rows=13&p_id=d510e0bb-ff40-4def-8919 -ee1e1573f0cd

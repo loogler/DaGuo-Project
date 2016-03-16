@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +20,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,13 @@ import com.daguo.util.alipay.PayDemoActivity;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
 
+/**
+ * 
+ * @E-mail 作者 E-mail:395360255@qq.com
+ * @author BugsRabbit
+ * @version 创建时间：2016-3-9 下午5:01:18
+ * @function 功能:商品订单界面
+ */
 public class Shop_OrderAty extends Activity implements OnClickListener {
 
 	private final int REQ_ADDRESS = 10001;
@@ -72,7 +83,7 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 				intent.putExtra("price_total", goodsPrice_total);
 				intent.putExtra("price", goodsPrice);
 				intent.putExtra("count", String.valueOf(goodsCount));
-
+				setShared();
 				startActivity(intent);
 
 				break;
@@ -110,6 +121,7 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 		if ("".equals(p_id)) {
 			return;
 		}
+		getAddressShared();
 		getDataFromActivity();
 		initViews();
 
@@ -125,6 +137,30 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 		goodsPrice = intent.getStringExtra("price");
 		goodsPic = intent.getStringExtra("pic");
 		goodsPrice_total = goodsPrice;// 这步为了防止editext没有变动，出现总价为0的尴尬现象。
+
+	}
+
+	/**
+	 * 获取保存的历史地址信息
+	 */
+	private void getAddressShared() {
+		SharedPreferences sp = getSharedPreferences("orderadress",
+				Activity.MODE_PRIVATE);
+		guidNo = sp.getString("guidNo", "");
+		consigneeAddress = sp.getString("consigneeAddress", "");
+		consigneeName = sp.getString("consigneeName", "");
+		consigneeTel = sp.getString("consigneeTel", "");
+	}
+
+	private void setShared() {
+		SharedPreferences sp = getSharedPreferences("orderadress",
+				Activity.MODE_PRIVATE);
+		Editor editor = sp.edit();
+		editor.putString("guidNo", guidNo);
+		editor.putString("consigneeAddress", consigneeAddress);
+		editor.putString("consigneeName", consigneeName);
+		editor.putString("consigneeTel", consigneeTel);
+		editor.commit();
 
 	}
 
@@ -156,7 +192,8 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 		consgineeChange_tv.setOnClickListener(this);
 		submit_tv.setOnClickListener(this);
 
-		initHeadView();
+		initTitleView();
+		setText();
 
 		setData();
 
@@ -234,23 +271,36 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 
 	}
 
-	private void initHeadView() {
-		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	/**
+	 * 初始化通用标题栏
+	 */
+	private void initTitleView() {
 		TextView title_tv = (TextView) findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("确定订单");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				finish();
 			}
 		});
-		title_tv.setText("确定订单");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
+		message_ll.setVisibility(View.INVISIBLE);
+	}
 
+	/**
+	 * 设置文字内容
+	 */
+	private void setText() {
+		guidNo_edt.setText(PublicTools.doWithNullData(guidNo));
+		address_tv.setText(PublicTools.doWithNullData(consigneeAddress));
+		tel_tv.setText(PublicTools.doWithNullData(consigneeTel));
+		name_tv.setText(PublicTools.doWithNullData(consigneeName));
 	}
 
 	/*
@@ -273,12 +323,7 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 						.getStringExtra("name"));
 				consigneeTel = PublicTools.doWithNullData(data
 						.getStringExtra("tel"));
-
-				guidNo_edt.setText(PublicTools.doWithNullData(guidNo));
-				address_tv
-						.setText(PublicTools.doWithNullData(consigneeAddress));
-				tel_tv.setText(PublicTools.doWithNullData(consigneeTel));
-				name_tv.setText(PublicTools.doWithNullData(consigneeName));
+				setText();
 			}
 			break;
 
@@ -391,6 +436,8 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 					.trim());
 			getOrderCHart();
 
+			submit_tv.setEnabled(false);
+
 			break;
 		case R.id.consgineeChange_tv:
 			Intent intent = new Intent(Shop_OrderAty.this,
@@ -399,7 +446,14 @@ public class Shop_OrderAty extends Activity implements OnClickListener {
 
 			break;
 		case R.id.goodsCountAdd_tv:
-			goodsCount--;
+			if (goodsCount < 2) {
+				goodsCount = 1;
+
+			} else {
+
+				goodsCount--;
+
+			}
 			goodsCount_tv.setText(String.valueOf(goodsCount));
 			goodsPrice_total = String.valueOf(goodsCount
 					* Double.parseDouble(goodsPrice));

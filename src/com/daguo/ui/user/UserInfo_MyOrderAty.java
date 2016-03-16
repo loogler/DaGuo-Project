@@ -21,7 +21,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -67,7 +69,7 @@ public class UserInfo_MyOrderAty extends TabActivity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.aty_myorder);
 	init(savedInstanceState);
-	initHeadView();
+	initTitleView();
 	InitImageView();
 	InitTextView();
 	InitViewPager();
@@ -80,28 +82,27 @@ public class UserInfo_MyOrderAty extends TabActivity {
 	manager.dispatchCreate(savedInstanceState);
 
     }
-
     /**
-     * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
-     */
-    private void initHeadView() {
-	TextView back_tView = (TextView) findViewById(R.id.back_tv);
-	TextView title_tv = (TextView) findViewById(R.id.title_tv);
-	TextView function_tv = (TextView) findViewById(R.id.function_tv);
-	ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+	 * 初始化通用标题栏
+	 */
+	private void initTitleView() {
+		TextView title_tv = (TextView) findViewById(R.id.title_tv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-	back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("我的订单");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
-	    @Override
-	    public void onClick(View arg0) {
-		finish();
-	    }
-	});
-	title_tv.setText("我的订单");
-	function_tv.setVisibility(View.GONE);
-	remind_iv.setVisibility(View.GONE);
-
-    }
+			@Override
+			public void onClick(View arg0) {
+				System.gc();
+				finish();
+			}
+		});
+		message_ll.setVisibility(View.INVISIBLE);
+	}
 
     /**
      * 初始化动画

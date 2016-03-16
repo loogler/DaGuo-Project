@@ -108,7 +108,8 @@ public class Message_Tab2Fragment extends Fragment {
 			public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
-
+						lists.clear();
+						adapter.notifyDataSetChanged();
 						pageIndex = 1;
 						loadMessageData();
 						pullToRefreshLayout
@@ -171,13 +172,18 @@ public class Message_Tab2Fragment extends Fragment {
 				try {
 					String url = HttpUtil.QUERY_MESSAGE_CHAT + "&r_p_id="
 							+ p_id + "&rows=15&page=" + pageIndex;
-					
+
 					String res = HttpUtil.getRequest(url);
 
 					JSONObject jsonObject = new JSONObject(res);
 					if (null != jsonObject) {
 						List<Message_Inform> informs = new ArrayList<Message_Inform>();
 						if (jsonObject.getInt("total") > 0) {
+
+							if (jsonObject.getInt("totalPageNum") < pageIndex) {
+								// 加载完，没有更多数据
+								return;
+							}
 							JSONArray array = jsonObject.getJSONArray("rows");
 
 							for (int i = 0; i < array.length(); i++) {

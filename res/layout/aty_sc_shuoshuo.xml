@@ -49,16 +49,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="1dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/sc_shuoshuo_banner2" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="1dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/sc_shuoshuo_banner1" />
+            android:scaleType="fitXY" />
     </LinearLayout>
 
     <com.daguo.util.base.AutoListView

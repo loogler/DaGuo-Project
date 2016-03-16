@@ -113,7 +113,8 @@ public class Message_Tab1Fragment extends Fragment {
 			public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
-
+						lists.clear();
+						adapter.notifyDataSetChanged();
 						pageIndex = 1;
 						loadMessageData();
 						pullToRefreshLayout
@@ -146,7 +147,7 @@ public class Message_Tab1Fragment extends Fragment {
 					long arg3) {
 				Intent intent = new Intent(getActivity(),
 						SC_ShuoShuo_EvaluationAty1.class);
-				
+
 				intent.putExtra("id", lists.get(p).getSource_id());
 				startActivity(intent);
 
@@ -170,6 +171,12 @@ public class Message_Tab1Fragment extends Fragment {
 					JSONObject jsonObject = new JSONObject(res);
 
 					if (jsonObject.getInt("total") > 0) {
+
+						if (jsonObject.getInt("totalPageNum") < pageIndex) {
+							// 加载完，没有更多数据
+							return;
+						}
+
 						JSONArray array = jsonObject.getJSONArray("rows");
 						List<Message_Inform> abc = new ArrayList<Message_Inform>();
 

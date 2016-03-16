@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="INIT" >
+
+    <Preference
+        android:defaultValue="存在"
+        android:key="SET"
+        android:summary="请选择第一周第一日的日期(不一定是周一,哪一天都行),修改该项可以正确地显示现在的周数"
+        android:title="修改第一周的日期" >
+    </Preference>
+    <Preference
+        android:key="ABOUT"
+        android:summary="查看版本信息"
+        android:title="关于" >
+    </Preference>
+
+</PreferenceScreen>

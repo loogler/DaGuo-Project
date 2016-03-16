@@ -113,7 +113,7 @@ public class CouponAty extends Activity implements OnItemClickListener {
 		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
 		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		title_tv.setText("优惠劵");
+		title_tv.setText("优惠大放送");
 		back_fram.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -146,9 +146,9 @@ public class CouponAty extends Activity implements OnItemClickListener {
 							public void run() {
 								Toast.makeText(CouponAty.this, "加载完成，没有更多数据了",
 										Toast.LENGTH_LONG).show();
-								return;
 							}
 						});
+						return;
 
 					}
 					if (total > 0) {

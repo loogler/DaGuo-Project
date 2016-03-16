@@ -25,15 +25,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daguo.R;
 import com.daguo.ui.operators.broadband.Oper_BroadBandAty;
+import com.daguo.ui.operators.mobile.Oper_MobileAty;
 import com.daguo.util.base.FrameLayout_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner;
 import com.daguo.util.base.ViewPager_3DBanner.TransitionEffect;
@@ -108,7 +110,7 @@ public class OperatorAty extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.aty_operator);
-		initHeadView();
+		initTitleView();
 		initViews();
 		setTopBanner();
 	}
@@ -128,25 +130,25 @@ public class OperatorAty extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView() {
-		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	private void initTitleView() {
 		TextView title_tv = (TextView) findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("移动业务");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				finish();
 			}
 		});
-		title_tv.setText("移动业务办理");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
-
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/**

@@ -7,18 +7,18 @@
 
     <com.daguo.util.base.CircularImage
         android:id="@+id/album_image"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/tv"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:maxLength="4"
         android:maxLines="1"
         android:text="同学昵称"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
 </LinearLayout>

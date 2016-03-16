@@ -38,7 +38,10 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_ellipse_white_n" />
+            android:background="@drawable/shape_ellipse_white_n"
+            android:hint="点此输入内容"
+            android:padding="5dp"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/send_tv"

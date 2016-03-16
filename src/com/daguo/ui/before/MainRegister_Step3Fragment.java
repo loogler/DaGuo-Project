@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,14 +18,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ import com.daguo.view.dialog.CustomProgressDialog;
  * @version 创建时间：2015-11-25 上午9:04:38
  * @function ：
  */
+@SuppressLint("InflateParams")
 public class MainRegister_Step3Fragment extends Fragment {
 
 	/**
@@ -52,7 +54,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 	/**
 	 * data
 	 */
-	private String telNumber, schoolName, schoolId, department;
+	private String telNumber, schoolName, schoolId, department, guidNumber;
 	private int verificationCode;
 
 	/**
@@ -110,6 +112,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 		schoolName = MainRegister_Step1Fragment.schoolName;
 		department = MainRegister_Step1Fragment.department;
 		verificationCode = MainRegister_Step2Fragment.verificationCode;
+		guidNumber = MainRegister_Step2Fragment.guidNumber;
 
 	}
 
@@ -125,7 +128,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fragment_mainregister_step3, null);
-		initHeadView(view);
+		initTitleView(view);
 		initViews(view);
 
 		initData();
@@ -134,25 +137,26 @@ public class MainRegister_Step3Fragment extends Fragment {
 	}
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView(View view) {
-		TextView back_tView = (TextView) view.findViewById(R.id.back_tv);
+	private void initTitleView(View view) {
 		TextView title_tv = (TextView) view.findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) view.findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) view.findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) view.findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) view
+				.findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("注册");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				getActivity().finish();
 			}
 		});
-		title_tv.setText("注册");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
-
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/**
@@ -285,6 +289,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 				map.put("school_id", schoolId);
 				map.put("pro_name", department);
 				map.put("school_name", schoolName);
+				map.put("person_num", guidNumber);
 				map.put("imei_code", MainRegisterAty1.IMEI_CODE);
 
 				try {
@@ -299,13 +304,14 @@ public class MainRegister_Step3Fragment extends Fragment {
 
 						SharedPreferences sharedPreferences = getActivity()
 								.getSharedPreferences("userinfo",
-										Context.MODE_WORLD_READABLE);
+										Context.MODE_PRIVATE);
 						Editor editor = sharedPreferences.edit();
 						editor.putString("tel", telNumber);
 						editor.putString("school_id", schoolId);
 						editor.putString("pro_name", department);
 						editor.putString("school_name", schoolName);
 						editor.putString("id", id);
+						editor.putString("guid_number", guidNumber);
 						editor.commit();
 
 						Intent intent = new Intent(getActivity(),
@@ -401,6 +407,7 @@ public class MainRegister_Step3Fragment extends Fragment {
 		MainRegister_Step1Fragment.schoolName = null;
 		MainRegister_Step2Fragment.telNumber = null;
 		MainRegister_Step2Fragment.verificationCode = 0;
+		MainRegister_Step2Fragment.guidNumber = null;
 		super.onDestroy();
 
 	}

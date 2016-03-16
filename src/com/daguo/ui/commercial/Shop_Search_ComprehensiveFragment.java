@@ -35,7 +35,7 @@ import com.daguo.utils.PublicTools;
  * @author : BugsRabbit
  * @email 395360255@qq.com
  * @version 创建时间：2015-12-17 下午2:46:14
- * @function ： 搜索的默认综合排序 （时间为默认）
+ * @function ： 搜索的默认综合排序 （时间为默认） 废弃类
  */
 @SuppressLint("InflateParams")
 public class Shop_Search_ComprehensiveFragment extends Fragment implements

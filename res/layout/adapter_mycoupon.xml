@@ -49,16 +49,17 @@
             android:textSize="14sp" />
 
         <Button
-            android:layout_marginBottom="10dp"
             android:id="@+id/status_btn"
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/shape_fillet_orange"
+            android:focusable="false"
             android:text="使用"
             android:textColor="@color/white" />
-
     </RelativeLayout>
 
 </LinearLayout>

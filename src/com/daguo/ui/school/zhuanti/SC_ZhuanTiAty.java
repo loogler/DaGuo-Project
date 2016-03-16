@@ -3,6 +3,8 @@
  */
 package com.daguo.ui.school.zhuanti;
 
+import com.daguo.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -21,6 +23,7 @@ public class SC_ZhuanTiAty extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	setContentView(R.layout.aty_sc_zhuanti);
     }
 
 }

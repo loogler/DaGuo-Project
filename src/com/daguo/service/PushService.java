@@ -346,8 +346,7 @@ public class PushService extends Service {
 			Timer timer = new Timer();
 			// Date date = new Date();
 			// date.setMinutes(16);
-			timer.schedule(new TK(), 10000, 10 * 1000);
-			// TODO 时间修改 60*
+			timer.schedule(new TK(), 10000, 60 * 10 * 1000);
 
 		}
 

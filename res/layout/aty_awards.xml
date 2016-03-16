@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sc_award_bg"
+    android:background="@drawable/bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -38,7 +38,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title"
         android:scaleType="fitStart"
-        android:src="@drawable/sc_awarad_text" />
+        android:src="@drawable/bg" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -47,18 +47,18 @@
         android:layout_below="@+id/back"
         android:layout_centerHorizontal="true"
         android:scaleType="fitStart"
-        android:src="@drawable/sc_award_icon" />
+        android:src="@drawable/bg" />
 
     <Button
-        android:clickable="false"
         android:id="@+id/getiv"
-        android:padding="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:background="@drawable/btn_yuanjiao"
+        android:clickable="false"
+        android:padding="12dp"
         android:text="立即领取"
         android:textColor="@color/red"
         android:textSize="22sp"

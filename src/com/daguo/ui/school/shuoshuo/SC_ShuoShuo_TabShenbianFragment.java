@@ -57,7 +57,6 @@ import com.daguo.util.adapter.OutLetAdapter;
 import com.daguo.util.beans.OutLet;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
-import com.daguo.view.dialog.CustomProgressDialog;
 
 public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 		RadarUploadInfoCallback, RadarSearchListener, BDLocationListener {
@@ -107,11 +106,12 @@ public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 	/**
 	 * tools
 	 */
-	CustomProgressDialog progressDialog;
+	// CustomProgressDialog progressDialog;
 
 	Message msg;
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
-		@SuppressLint("HandlerLeak")
+
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG_USERINFO_DOWITH:
@@ -135,7 +135,7 @@ public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 				}
 				choiceLists.addAll(lists);
 				adapter.notifyDataSetChanged();
-				progressDialog.dismiss();
+				// progressDialog.dismiss();
 				break;
 			case MSG_LOAD:
 				loadUserData();
@@ -153,7 +153,7 @@ public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 
 				break;
 			case MSG_FAIL:
-				progressDialog.dismiss();
+				// progressDialog.dismiss();
 				// 加载到的附近的人为空或者异常
 				// TODO ！处理界面显示
 				listView.setVisibility(View.GONE);
@@ -177,8 +177,9 @@ public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 
 		getShared();
-		progressDialog = CustomProgressDialog.createDialog(getActivity(),
-				"加载中，请稍候");
+		// progressDialog = CustomProgressDialog.createDialog(getActivity()
+		// .getApplicationContext(), "加载中，请稍候");
+		// progressDialog.show();
 		// 初始化UI和地图
 
 		SDKInitializer.initialize(getActivity().getApplicationContext());
@@ -196,7 +197,6 @@ public class SC_ShuoShuo_TabShenbianFragment extends Fragment implements
 		option.setScanSpan(1000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
-		progressDialog.show();
 
 	}
 

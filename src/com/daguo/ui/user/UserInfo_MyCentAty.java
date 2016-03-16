@@ -12,16 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.daguo.R;
-import com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1;
-import com.daguo.ui.school.xinwen.SC_XinWenAty;
-import com.daguo.util.adapter.UserInfo_MyCent_DailyTaskAdapter;
-import com.daguo.util.adapter.UserInfo_MyCent_NewTaskAdapter;
-import com.daguo.util.beans.AddBanner;
-import com.daguo.util.beans.NewTask;
-import com.daguo.utils.HttpUtil;
-import com.daguo.utils.PublicTools;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,10 +22,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.daguo.R;
+import com.daguo.modem.writeshuoshuo.ui.SC_ShuoShuo_WriteAty;
+import com.daguo.ui.commercial.cent.CentAty;
+import com.daguo.ui.school.shuoshuo.SC_ShuoShuoAty1;
+import com.daguo.ui.school.xinwen.SC_XinWenAty;
+import com.daguo.util.adapter.UserInfo_MyCent_DailyTaskAdapter;
+import com.daguo.util.adapter.UserInfo_MyCent_NewTaskAdapter;
+import com.daguo.util.beans.AddBanner;
+import com.daguo.util.beans.NewTask;
+import com.daguo.utils.HttpUtil;
+import com.daguo.utils.PublicTools;
 
 /**
  * @author : BugsRabbit
@@ -50,6 +54,7 @@ public class UserInfo_MyCentAty extends Activity {
 	private final int MSG_CENT = 10002;
 	private final int MSG_BANNERLISTSCENT = 10003;
 	private final int REQ_SHARE = 10004;
+	private final int MSG_SUB = 10005;
 
 	/**
 	 * initViews
@@ -90,6 +95,10 @@ public class UserInfo_MyCentAty extends Activity {
 			case MSG_BANNERLISTSCENT:
 				FinalBitmap.create(UserInfo_MyCentAty.this).display(add_iv,
 						HttpUtil.IMG_URL + addLists.get(0).getImg_path());
+				break;
+
+			case MSG_SUB:
+
 				break;
 
 			default:
@@ -143,12 +152,22 @@ public class UserInfo_MyCentAty extends Activity {
 	 * 初始化界面
 	 */
 	private void initViews() {
-		initHeadView();
+		initTitleView();
 		cent_tv = (TextView) findViewById(R.id.cent_tv);
 		exchange_tv = (TextView) findViewById(R.id.exchange_tv);
 		add_iv = (ImageView) findViewById(R.id.add_iv);
 		newTask_list = (ListView) findViewById(R.id.newTask_list);
 		dailyTask_list = (ListView) findViewById(R.id.dailyTask_list);
+
+		exchange_tv.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(UserInfo_MyCentAty.this,
+						CentAty.class);
+				startActivity(intent);
+			}
+		});
 
 		newTaskAdapte = new UserInfo_MyCent_NewTaskAdapter(this, newTasks);
 		newTask_list.setAdapter(newTaskAdapte);
@@ -156,10 +175,11 @@ public class UserInfo_MyCentAty extends Activity {
 		newTask_list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int p,
+			public void onItemClick(AdapterView<?> arg0, View v, int p,
 					long arg3) {
 				if ("0".equals(newTasks.get(p).getState())) {
-
+					Intent intent = new Intent();
+					setIntent(intent, p);
 				} else if ("1".equals(newTasks.get(p).getState())) {
 					Toast.makeText(UserInfo_MyCentAty.this, "已完成",
 							Toast.LENGTH_SHORT).show();
@@ -168,6 +188,7 @@ public class UserInfo_MyCentAty extends Activity {
 					Toast.makeText(UserInfo_MyCentAty.this, "信息错误",
 							Toast.LENGTH_SHORT).show();
 				}
+
 			}
 		});
 
@@ -192,8 +213,9 @@ public class UserInfo_MyCentAty extends Activity {
 		String idString = newTasks.get(p).getId();
 		if ("071f777d-85cb-43e7-a276-da136057d12f".equals(idString)) {
 			// 关注某同学===》跳转同学说列表
-			intent.setClass(UserInfo_MyCentAty.this, SC_ShuoShuoAty1.class);
 			submitMyCent(idString);
+			intent.setClass(UserInfo_MyCentAty.this, SC_ShuoShuoAty1.class);
+			startActivity(intent);
 
 		} else if ("0906df1c-613e-4cae-8b3a-136f8e86fce5".equals(idString)) {
 			// 推荐app给好友===》分享链接
@@ -210,48 +232,49 @@ public class UserInfo_MyCentAty extends Activity {
 		} else if ("19416592-1497-4211-a20b-a4e518cb51e6".equals(idString)) {
 			// 分享告示
 			// TODO 分享告示 ===》跳转新闻列表，分享一个信息
+			submitMyCent(idString);
 			intent.setClass(UserInfo_MyCentAty.this, SC_XinWenAty.class);
 			startActivity(intent);
-
-			submitMyCent(idString);
 		} else if ("2a35d32a-e3f7-4427-8ac1-2e6907d79128".equals(idString)) {
 			// 第一次发表评论
+			submitMyCent(idString);
 			intent.setClass(UserInfo_MyCentAty.this, SC_ShuoShuoAty1.class);
 			startActivity(intent);
-			submitMyCent(idString);
+
 		} else if ("a3306d73-6087-4c64-acdd-2977f33f3b7d".equals(idString)) {
 			// 分身份认证
+			submitMyCent(idString);
 			intent.setClass(UserInfo_MyCentAty.this, UserInfo_ModifyAty1.class);
 			startActivity(intent);
-			submitMyCent(idString);
 		} else if ("a38e0962-7382-45c8-b113-e0dce7d24035".equals(idString)) {
 			// 第一次发帖
-			
 			submitMyCent(idString);
+			intent.setClass(UserInfo_MyCentAty.this, SC_ShuoShuo_WriteAty.class);
+			startActivity(intent);
 		}
 
 	}
 
 	/**
-	 * 通用的headview 不同位置会出现不同的页面要求，根据情况设置
+	 * 初始化通用标题栏
 	 */
-	private void initHeadView() {
-		TextView back_tView = (TextView) findViewById(R.id.back_tv);
+	private void initTitleView() {
 		TextView title_tv = (TextView) findViewById(R.id.title_tv);
-		TextView function_tv = (TextView) findViewById(R.id.function_tv);
-		ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-		back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("我的积分");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				System.gc();
 				finish();
 			}
 		});
-		title_tv.setText("我的积分");
-		function_tv.setVisibility(View.GONE);
-		remind_iv.setVisibility(View.GONE);
-
+		message_ll.setVisibility(View.INVISIBLE);
 	}
 
 	/*-------------- 异步获取数据------- ----------------------------*/
@@ -313,6 +336,7 @@ public class UserInfo_MyCentAty extends Activity {
 					JSONObject jsonObject = new JSONObject(res);
 					if ("1".equals(jsonObject.getString("result"))) {
 						// suc
+						handler.sendEmptyMessage(MSG_SUB);
 					} else {
 						// fail
 					}

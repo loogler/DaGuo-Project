@@ -16,7 +16,6 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -34,7 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daguo.R;
-import com.daguo.modem.schedule.Main_Aty;
 import com.daguo.ui.commercial.coupon.CouponAty;
 import com.daguo.ui.commercial.school.SchoolShop_MainAty;
 import com.daguo.ui.message.MessageAty;
@@ -42,6 +40,7 @@ import com.daguo.ui.operators.OperatorAty;
 import com.daguo.ui.school.School_Main3Aty;
 import com.daguo.ui.school.School_Main4Aty;
 import com.daguo.ui.school.School_MainAty;
+import com.daguo.ui.school.outlet.AppDownLoadAty;
 import com.daguo.ui.school.shetuan.SC_SheTuanAty;
 import com.daguo.ui.school.xinwen.SC_XinWenAty;
 import com.daguo.ui.school.xinwen.SC_XinWen_AwardsAty;
@@ -57,7 +56,6 @@ import com.daguo.util.beans.SC_SheTuan;
 import com.daguo.utils.GetScreenRecUtil;
 import com.daguo.utils.HttpUtil;
 import com.daguo.utils.PublicTools;
-import com.daguo.view.dialog.CustomAlertDialog;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -282,8 +280,8 @@ public class Main_1Aty extends Activity implements OnClickListener {
 					intent = new Intent(Main_1Aty.this, OperatorAty.class);
 					startActivity(intent);
 				} else if ("d5f503a1-ddea-47ab-822b-6471ff25f1b9"
-						.equals(gridLists.get(p).getMenu_id())) {// 课表服务
-					intent = new Intent(Main_1Aty.this, Main_Aty.class);
+						.equals(gridLists.get(p).getMenu_id())) {// 课表服务--修改为软件下载
+					intent = new Intent(Main_1Aty.this, AppDownLoadAty.class);
 					startActivity(intent);
 				} else if ("c88e7c70-a9ef-4524-9fcd-92580480c6e9"
 						.equals(gridLists.get(p).getMenu_id())) {// 校园超市
@@ -518,7 +516,7 @@ public class Main_1Aty extends Activity implements OnClickListener {
 		new Thread(new Runnable() {
 			public void run() {
 				// 最多不要超过15张广告 顶部广告栏
-
+				//TODO 处理广告信息 跳转专题的json解析
 				try {
 					String url = HttpUtil.QUERY_ADD_BANNER
 							+ "&position=1&page=1&rows=15";

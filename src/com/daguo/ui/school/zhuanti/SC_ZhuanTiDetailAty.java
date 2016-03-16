@@ -21,6 +21,7 @@ public class SC_ZhuanTiDetailAty extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	
     }
 
 }

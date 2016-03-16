@@ -3,15 +3,12 @@
  */
 package com.daguo.ui.school.outlet;
 
-import net.tsz.afinal.FinalBitmap;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -111,7 +108,7 @@ public class AppDownLoadDetailAty extends Activity {
     }
 
     private void initViews() {
-	initHeadView();
+	initTitleView();
 	grid = (NoScrollGridView) findViewById(R.id.grid);
 	pic_iv = (ImageView) findViewById(R.id.pic_iv);
 	comp_tv = (TextView) findViewById(R.id.comp_tv);
@@ -137,26 +134,26 @@ public class AppDownLoadDetailAty extends Activity {
     }
 
     /**
-     * 通用的 headview 不同位置会出现不同的页面要求，根据情况设置
-     */
-    private void initHeadView() {
-	TextView back_tView = (TextView) findViewById(R.id.back_tv);
-	TextView title_tv = (TextView) findViewById(R.id.title_tv);
-	TextView function_tv = (TextView) findViewById(R.id.function_tv);
-	ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
+	 * 初始化通用标题栏
+	 */
+	private void initTitleView() {
+		TextView title_tv = (TextView) findViewById(R.id.title_tv);
+		FrameLayout back_fram = (FrameLayout) findViewById(R.id.back_fram);
+		LinearLayout message_ll = (LinearLayout) findViewById(R.id.message_ll);
+		// TextView function_tv = (TextView) findViewById(R.id.function_tv);
+		// ImageView remind_iv = (ImageView) findViewById(R.id.remind_iv);
 
-	back_tView.setOnClickListener(new View.OnClickListener() {
+		title_tv.setText("软件详情");
+		back_fram.setOnClickListener(new View.OnClickListener() {
 
-	    @Override
-	    public void onClick(View arg0) {
-		finish();
-	    }
-	});
-	title_tv.setText("软件详情");
-	function_tv.setVisibility(View.GONE);
-	remind_iv.setVisibility(View.GONE);
-
-    }
+			@Override
+			public void onClick(View arg0) {
+				System.gc();
+				finish();
+			}
+		});
+		message_ll.setVisibility(View.INVISIBLE);
+	}
 
     /**
      * 根据获取的值 给视图赋值

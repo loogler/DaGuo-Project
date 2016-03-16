@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical" >
+
+   
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+        <TextView
+            android:paddingTop="20dp"
+            android:id="@+id/nickname_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="抽奖结果:"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/jieguo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="68dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="恭喜发财"
+            android:textColor="@color/red"
+            android:textSize="20sp" />
+        
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btn_yuanjiao"
+            android:padding="13dp"
+            android:text="确定"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>
